@@ -15,14 +15,13 @@
         <!-- Titre centré -->
         <TextBlock Grid.Row="0" Text="Plan My Night"
                    FontSize="24"
-                   FontWeight="Bold"
                    HorizontalAlignment="Center"
                    Margin="0,0,0,20" />
 
         <!-- Contenu principal -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="7*" />
                 <ColumnDefinition Width="8" />
                 <ColumnDefinition Width="1.2*" />
             </Grid.ColumnDefinitions>
@@ -31,13 +30,13 @@
             <StackPanel Grid.Column="0" Orientation="Vertical" Margin="10">
                 <!-- Start / End Time -->
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Text="Start Time:" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />
+                    <TextBlock Text="Start Time:" FontSize="16" VerticalAlignment="Center" Margin="0,0,5,0" />
                     <TextBox Width="30" Text="{Binding StartHour}" />
                     <TextBlock Text=" h" Margin="3,0" VerticalAlignment="Center" />
                     <TextBox Width="30" Text="{Binding StartMinute}" Margin="5,0" />
                     <TextBlock Text=" min" Margin="3,0,10,0" VerticalAlignment="Center" />
 
-                    <TextBlock Text="End Time:" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,5,0" />
+                    <TextBlock Text="End Time:" FontSize="16" VerticalAlignment="Center" Margin="10,0,5,0" />
                     <TextBox Width="30" Text="{Binding EndHour}" />
                     <TextBlock Text=" h" Margin="3,0" VerticalAlignment="Center" />
                     <TextBox Width="30" Text="{Binding EndMinute}" Margin="5,0" />
@@ -45,9 +44,9 @@
                 </StackPanel>
 
                 <!-- Tableau des filtres -->
-                <Grid>
+                <Grid Height="200">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="40" />
                         <ColumnDefinition Width="60" />
                         <ColumnDefinition Width="30" />
@@ -69,13 +68,13 @@
 
                     <!-- En-tête -->
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="Filter" FontWeight="Bold" />
-                    <TextBlock Grid.Column="2" Grid.Row="0" Text="Exp (s)" FontWeight="Bold" />
+                    <TextBlock Grid.Column="2" Grid.Row="0" Text="Exp (s)" FontWeight="Bold" TextAlignment="Center" />
                     <TextBlock Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="4" Text="Already done" FontWeight="Bold" HorizontalAlignment="Center" />
 
                     <!-- Filtres -->
                     <!-- L -->
                     <CheckBox Grid.Column="0" Grid.Row="1" IsChecked="{Binding IncludeL}" />
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="L" />
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="L" TextAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="1" Width="50" />
                     <TextBox Grid.Column="4" Grid.Row="1" Width="30" />
                     <TextBlock Grid.Column="5" Grid.Row="1" Text=" h" Margin="5,0,5,0" />
@@ -84,7 +83,7 @@
 
                     <!-- R -->
                     <CheckBox Grid.Column="0" Grid.Row="2" IsChecked="{Binding IncludeR}" />
-                    <TextBlock Grid.Column="1" Grid.Row="2" Text="R" />
+                    <TextBlock Grid.Column="1" Grid.Row="2" Text="R" TextAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="2" Width="50" />
                     <TextBox Grid.Column="4" Grid.Row="2" Width="30" />
                     <TextBlock Grid.Column="5" Grid.Row="2" Text=" h" Margin="5,0,5,0" />
@@ -93,7 +92,7 @@
 
                     <!-- G -->
                     <CheckBox Grid.Column="0" Grid.Row="3" IsChecked="{Binding IncludeG}" />
-                    <TextBlock Grid.Column="1" Grid.Row="3" Text="G" />
+                    <TextBlock Grid.Column="1" Grid.Row="3" Text="G" TextAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="3" Width="50" />
                     <TextBox Grid.Column="4" Grid.Row="3" Width="30" />
                     <TextBlock Grid.Column="5" Grid.Row="3" Text=" h" Margin="5,0,5,0" />
@@ -102,7 +101,7 @@
 
                     <!-- B -->
                     <CheckBox Grid.Column="0" Grid.Row="4" IsChecked="{Binding IncludeB}" />
-                    <TextBlock Grid.Column="1" Grid.Row="4" Text="B" />
+                    <TextBlock Grid.Column="1" Grid.Row="4" Text="B" TextAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="4" Width="50" />
                     <TextBox Grid.Column="4" Grid.Row="4" Width="30" />
                     <TextBlock Grid.Column="5" Grid.Row="4" Text=" h" Margin="5,0,5,0" />
@@ -111,7 +110,7 @@
 
                     <!-- Ha -->
                     <CheckBox Grid.Column="0" Grid.Row="5" IsChecked="{Binding IncludeHa}" />
-                    <TextBlock Grid.Column="1" Grid.Row="5" Text="Ha" />
+                    <TextBlock Grid.Column="1" Grid.Row="5" Text="Ha" TextAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="5" Width="50" />
                     <TextBox Grid.Column="4" Grid.Row="5" Width="30" />
                     <TextBlock Grid.Column="5" Grid.Row="5" Text=" h" Margin="5,0,5,0" />
@@ -120,7 +119,7 @@
 
                     <!-- SII -->
                     <CheckBox Grid.Column="0" Grid.Row="6" IsChecked="{Binding IncludeS}" />
-                    <TextBlock Grid.Column="1" Grid.Row="6" Text="SII" />
+                    <TextBlock Grid.Column="1" Grid.Row="6" Text="SII" TextAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="6" Width="50" />
                     <TextBox Grid.Column="4" Grid.Row="6" Width="30" />
                     <TextBlock Grid.Column="5" Grid.Row="6" Text=" h" Margin="5,0,5,0" />
@@ -129,7 +128,7 @@
 
                     <!-- OIII -->
                     <CheckBox Grid.Column="0" Grid.Row="7" IsChecked="{Binding IncludeO}" />
-                    <TextBlock Grid.Column="1" Grid.Row="7" Text="OIII" />
+                    <TextBlock Grid.Column="1" Grid.Row="7" Text="OIII" TextAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="7" Width="50" />
                     <TextBox Grid.Column="4" Grid.Row="7" Width="30" />
                     <TextBlock Grid.Column="5" Grid.Row="7" Text=" h" Margin="5,0,5,0" />
@@ -140,6 +139,10 @@
                 <!-- Slider -->
                 <TextBlock Text="Filter Time Distribution:" Margin="0,10,0,5" FontWeight="Bold" />
                 <Grid Height="30" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*" />
                         <!-- L -->
@@ -157,13 +160,13 @@
                         <!-- OIII -->
                     </Grid.ColumnDefinitions>
 
-                    <Rectangle Grid.Column="0" Fill="LightGray" />
-                    <Rectangle Grid.Column="1" Fill="Red" />
-                    <Rectangle Grid.Column="2" Fill="Green" />
-                    <Rectangle Grid.Column="3" Fill="Blue" />
-                    <Rectangle Grid.Column="4" Fill="Magenta" />
-                    <Rectangle Grid.Column="5" Fill="Yellow" />
-                    <Rectangle Grid.Column="6" Fill="Cyan" />
+                    <Rectangle Grid.Column="0" Fill="LightGray" Grid.RowSpan="2" />
+                    <Rectangle Fill="Red" Grid.ColumnSpan="3" Margin="202,0,67,0" Grid.RowSpan="2" />
+                    <Rectangle Grid.Column="2" Fill="Green" Grid.RowSpan="2" />
+                    <Rectangle Grid.Column="2" Fill="Blue" Grid.ColumnSpan="3" Margin="67,0,134,0" Grid.RowSpan="2" />
+                    <Rectangle Grid.Column="4" Fill="Magenta" Grid.RowSpan="2" />
+                    <Rectangle Grid.Column="4" Fill="Yellow" Grid.ColumnSpan="3" Margin="134,0,67,0" Grid.RowSpan="2" />
+                    <Rectangle Grid.Column="6" Fill="Cyan" Grid.RowSpan="2" />
                 </Grid>
 
 

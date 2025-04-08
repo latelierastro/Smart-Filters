@@ -5,5 +5,13 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
         public PlanMyNightDockableView() {
             InitializeComponent();
         }
+
+        private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e) {
+
+        }
+
+        private void CheckBox_Checked_1(object sender, System.Windows.RoutedEventArgs e) {
+
+        }
     }
 }
