@@ -23,7 +23,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*" />
                 <ColumnDefinition Width="8" />
-                <ColumnDefinition Width="1.2*" />
+                <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
 
             <!-- Partie gauche -->
@@ -224,31 +224,33 @@
                 <TextBlock Text="Settings:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
 
                 <TextBlock Text="Tolerance:" FontWeight="Bold" />
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
                     <TextBox Width="40" Text="{Binding TolerancePercent}" />
                     <TextBlock Text="%" Margin="5,0,0,0" />
                 </StackPanel>
 
-                <CheckBox Content="AF Duration L/RGB" />
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBox Width="50" Text="{Binding AutofocusDurationRGB}" />
-                    <TextBlock Text="s" Margin="5,0" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <CheckBox Checked="CheckBox_Checked_2" Width="65" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBlock Text="AF Duration L/RGB" Margin="5,0" Width="120" VerticalAlignment="Center" />
+                    <TextBox Width="30" VerticalAlignment="Center" Margin="0,0,5,0" Text="{Binding AutofocusDurationRGB}" />
+                    <TextBlock Text="s" Width="10" VerticalAlignment="Center" />
                 </StackPanel>
-
-                <CheckBox Content="AF Duration SHO" />
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBox Width="50" Text="{Binding AutofocusDurationSHO}" />
-                    <TextBlock Text="s" Margin="5,0" />
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Checked="CheckBox_Checked_2" Width="65" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBlock Margin="5,0" Width="120" VerticalAlignment="Center" ><Run Text="AF Duration "/><Run Language="fr-fr" Text="SHO"/></TextBlock>
+                    <TextBox Width="30" VerticalAlignment="Center" Margin="0,0,5,0" Text="{Binding AutofocusDurationSHO}" />
+                    <TextBlock Text="s" Width="10" VerticalAlignment="Center" />
                 </StackPanel>
-
-                <CheckBox Content="Meridian Flip Time" />
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBox Width="50" Text="{Binding MeridianFlipDuration}" />
-                    <TextBlock Text="s" Margin="5,0" />
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Checked="CheckBox_Checked_2" Width="65" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBlock Margin="5,0" Width="120" VerticalAlignment="Center" ><Run Language="fr-fr" Text="Meridian Flip Duration"/></TextBlock>
+                    <TextBox Width="30" VerticalAlignment="Center" Margin="0,0,5,0" Text="{Binding MeridianFlipDuration}" />
+                    <TextBlock Text="s" Width="10" VerticalAlignment="Center" />
                 </StackPanel>
 
                 <CheckBox Content="Dithering" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    
                     <TextBlock Text="Every" Margin="0,0,5,0" />
                     <TextBox Width="30" Text="{Binding DitherEvery}" />
                     <TextBlock Text="frames" Margin="5,0" />
