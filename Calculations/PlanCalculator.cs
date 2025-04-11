@@ -49,40 +49,44 @@ namespace PlanMyNight.Calculations {
                 double weight = request.TargetProportion.GetValueOrDefault(filter, 0);
                 double timeForFilter = timeAvailableAfterLoss * (weight / totalWeight);
 
+                // Subtract already acquired time
+                double alreadyAcquired = request.AlreadyAcquiredPerFilter.GetValueOrDefault(filter, 0);
+                double timeRemaining = Math.Max(0, timeForFilter - alreadyAcquired);
+
                 double exposureSec = request.ExposurePerFilter.GetValueOrDefault(filter, 1);
                 double pauseSec = request.PauseBetweenExposures;
                 double timePerFrameMin = (exposureSec + pauseSec) / 60.0;
 
                 if (timePerFrameMin <= 0) {
                     result.FramesToAcquire[filter] = 0;
-                    result.TimePlannedPerFilter[filter] = 0;
+                    result.TimePlannedPerFilter[filter] = alreadyAcquired; // <- NE PAS OUBLIER ce temps déjà acquis
                     continue;
                 }
 
-                // Estimate how many frames we could fit, ignoring dithering
-                int estimatedFrames = (int)Math.Floor(timeForFilter / timePerFrameMin);
+                int estimatedFrames = (int)Math.Floor(timeRemaining / timePerFrameMin);
 
-                // Estimate dithering loss BEFORE computing final frames
                 double ditherLoss = 0;
                 int finalFrames = estimatedFrames;
                 if (request.EnableDithering && request.DitheringFrequency > 0 && request.DitheringDuration > 0) {
                     int numDithers = estimatedFrames / (int)request.DitheringFrequency;
-                    ditherLoss = numDithers * (request.DitheringDuration / 60.0); // seconds to minutes
-
-                    // Recalculate number of frames based on remaining time
-                    double timeLeft = timeForFilter - ditherLoss;
+                    ditherLoss = numDithers * (request.DitheringDuration / 60.0);
+                    double timeLeft = timeRemaining - ditherLoss;
                     finalFrames = (int)Math.Floor(timeLeft / timePerFrameMin);
                 }
 
-                double totalPlanned = finalFrames * timePerFrameMin + ditherLoss;
+                // TOTAL pour CE FILTRE = temps déjà acquis + nouveaux frames + pertes par dithering
+                double totalPlanned = alreadyAcquired + finalFrames * timePerFrameMin + ditherLoss;
 
                 result.FramesToAcquire[filter] = finalFrames;
                 result.TimePlannedPerFilter[filter] = totalPlanned;
             }
 
+
+
             // Final result summary
-            result.TotalUsedMinutes = result.TimePlannedPerFilter.Values.Sum();
-            result.UnusedMinutes = timeAvailableAfterLoss - result.TotalUsedMinutes;
+            double totalAlreadyAcquired = selectedFilters.Sum(f => request.AlreadyAcquiredPerFilter.GetValueOrDefault(f, 0));
+            result.TotalUsedMinutes = result.TimePlannedPerFilter.Values.Sum() + totalAlreadyAcquired;
+            result.UnusedMinutes = timeAvailableAfterLoss - result.TotalUsedMinutes + totalAlreadyAcquired;
             result.Comment = $"Time usage: {Math.Round(result.TotalUsedMinutes, 1)} / {Math.Round(request.TotalAvailableMinutes, 1)} min";
 
             return result;

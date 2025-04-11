@@ -291,7 +291,7 @@
                     <CheckBox IsChecked="{Binding EnableMeridianFlip}" Width="65" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <TextBlock Margin="5,0" Width="120" VerticalAlignment="Center" Text="Meridian Flip Duration" IsEnabled="{Binding EnableMeridianFlip}"/>
                     <TextBox Width="30" VerticalAlignment="Center" Margin="0,0,5,0" Text="{Binding MeridianFlipDuration}" IsEnabled="{Binding EnableMeridianFlip}"/>
-                    <TextBlock Text="" Width="10" VerticalAlignment="Center" IsEnabled="{Binding EnableMeridianFlip}" />
+                    <TextBlock Text="m" Width="10" VerticalAlignment="Center" IsEnabled="{Binding EnableMeridianFlip}" />
                 </StackPanel>
 
                 <!-- Dithering Every x frames and duration -->
