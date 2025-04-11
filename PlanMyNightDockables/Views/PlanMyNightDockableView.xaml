@@ -10,6 +10,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+
+
         </Grid.RowDefinitions>
 
         <!-- Centered Title -->
@@ -70,7 +72,7 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
-                        
+
                     </Grid.RowDefinitions>
 
                     <!-- Header -->
@@ -83,10 +85,10 @@
                     <!-- L -->
                     <CheckBox Grid.Column="0" Grid.Row="1" IsChecked="{Binding IncludeL}" />
                     <TextBlock Grid.Column="1" Grid.Row="1" Text="L" TextAlignment="Center" VerticalAlignment="Center" Height="16" IsEnabled="{Binding IncludeL}" />
-                    <TextBox Grid.Column="2" Grid.Row="1" Margin="5,2,5,0" Height="26" VerticalAlignment="Top" Text="{Binding ExposureL}" IsEnabled="{Binding IncludeL}"/>
-                    <TextBox Grid.Column="4" Grid.Row="1" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredHoursL}" IsEnabled="{Binding IncludeL}"/>
+                    <TextBox Grid.Column="2" Grid.Row="1" Margin="5,2,5,0" Height="26" VerticalAlignment="Top" Text="{Binding ExposureTimeL}" IsEnabled="{Binding IncludeL}"/>
+                    <TextBox Grid.Column="4" Grid.Row="1" Margin="0,2,0,2" Text="{Binding HoursDoneL}" IsEnabled="{Binding IncludeL}"/>
                     <TextBlock Grid.Column="5" Grid.Row="1" Text=" h" Margin="5,0,5,0" VerticalAlignment="Center" Height="16" IsEnabled="{Binding IncludeL}"/>
-                    <TextBox Grid.Column="6" Grid.Row="1" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredMinutesL}" IsEnabled="{Binding IncludeL}"/>
+                    <TextBox Grid.Column="6" Grid.Row="1" Margin="0,2,0,2" Text="{Binding MinutesDoneL}" IsEnabled="{Binding IncludeL}"/>
                     <TextBlock Grid.Column="7" Grid.Row="1" Text=" m" Margin="5,0,0,0" VerticalAlignment="Center" Height="16" IsEnabled="{Binding IncludeL}"/>
                     <TextBox Grid.Column="9" Grid.Row="1" Margin="1,2,1,2" Text="{Binding PercentL}" IsEnabled="{Binding IncludeL}"/>
                     <TextBlock Grid.Column="10" Grid.Row="1" Text="%" HorizontalAlignment="Center" VerticalAlignment="Center" Height="16" Width="9" IsEnabled="{Binding IncludeL}"/>
@@ -95,10 +97,10 @@
                     <!-- R -->
                     <CheckBox Grid.Column="0" Grid.Row="2" IsChecked="{Binding IncludeR}" />
                     <TextBlock Grid.Column="1" Grid.Row="2" Text="R" TextAlignment="Center" VerticalAlignment="Center" Height="16" IsEnabled="{Binding IncludeR}" />
-                    <TextBox Grid.Column="2" Grid.Row="2" Margin="5,2,5,2" Text="{Binding ExposureR}" IsEnabled="{Binding IncludeR}" />
-                    <TextBox Grid.Column="4" Grid.Row="2" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredHoursR}" IsEnabled="{Binding IncludeR}" />
+                    <TextBox Grid.Column="2" Grid.Row="2" Margin="5,2,5,2" Text="{Binding ExposureTimeR}" IsEnabled="{Binding IncludeR}" />
+                    <TextBox Grid.Column="4" Grid.Row="2" Margin="0,2,0,2" Text="{Binding HoursDoneR}" IsEnabled="{Binding IncludeR}" />
                     <TextBlock Grid.Column="5" Grid.Row="2" Text=" h" Margin="5,0,5,0" VerticalAlignment="Center" Height="16" IsEnabled="{Binding IncludeR}"  />
-                    <TextBox Grid.Column="6" Grid.Row="2" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredMinutesR}" IsEnabled="{Binding IncludeR}" />
+                    <TextBox Grid.Column="6" Grid.Row="2" Margin="0,2,0,2" Text="{Binding MinutesDoneR}" IsEnabled="{Binding IncludeR}" />
                     <TextBlock Grid.Column="7" Grid.Row="2" Text=" m" Margin="5,0,0,0" VerticalAlignment="Center" Height="16"  IsEnabled="{Binding IncludeR}" />
                     <TextBox Grid.Column="9" Grid.Row="2" Margin="1,2,1,2" Text="{Binding PercentR}" IsEnabled="{Binding IncludeR}" />
                     <TextBlock Grid.Column="10" Grid.Row="2" Text="%" HorizontalAlignment="Center" VerticalAlignment="Center" Height="16" Width="9"  IsEnabled="{Binding IncludeR}" />
@@ -106,10 +108,10 @@
                     <!-- G -->
                     <CheckBox Grid.Column="0" Grid.Row="3" IsChecked="{Binding IncludeG}" />
                     <TextBlock Grid.Column="1" Grid.Row="3" Text="G" TextAlignment="Center" VerticalAlignment="Center" Height="16" IsEnabled="{Binding IncludeG}" />
-                    <TextBox Grid.Column="2" Grid.Row="3" Margin="5,2,5,2" Text="{Binding ExposureG}"  IsEnabled="{Binding IncludeG}" />
-                    <TextBox Grid.Column="4" Grid.Row="3" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredHoursG}" IsEnabled="{Binding IncludeG}" />
+                    <TextBox Grid.Column="2" Grid.Row="3" Margin="5,2,5,2" Text="{Binding ExposureTimeG}"  IsEnabled="{Binding IncludeG}" />
+                    <TextBox Grid.Column="4" Grid.Row="3" Margin="0,2,0,2" Text="{Binding HoursDoneG}" IsEnabled="{Binding IncludeG}" />
                     <TextBlock Grid.Column="5" Grid.Row="3" Text=" h" Margin="5,0,5,0" VerticalAlignment="Center" Height="16"  IsEnabled="{Binding IncludeG}" />
-                    <TextBox Grid.Column="6" Grid.Row="3" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredMinutesG}" IsEnabled="{Binding IncludeG}" />
+                    <TextBox Grid.Column="6" Grid.Row="3" Margin="0,2,0,2" Text="{Binding MinutesDoneG}" IsEnabled="{Binding IncludeG}" />
                     <TextBlock Grid.Column="7" Grid.Row="3" Text=" m" Margin="5,0,0,0" VerticalAlignment="Center" Height="16" IsEnabled="{Binding IncludeG}"  />
                     <TextBox Grid.Column="9" Grid.Row="3" Margin="1,2,1,2"  Text="{Binding PercentG}"/>
                     <TextBlock Grid.Column="10" Grid.Row="3" Text="%" HorizontalAlignment="Center" VerticalAlignment="Center" Height="16" Width="9" IsEnabled="{Binding IncludeG}"  />
@@ -117,10 +119,10 @@
                     <!-- B -->
                     <CheckBox Grid.Column="0" Grid.Row="4" IsChecked="{Binding IncludeB}" />
                     <TextBlock Grid.Column="1" Grid.Row="4" Text="B" TextAlignment="Center" VerticalAlignment="Center" Height="16" IsEnabled="{Binding IncludeB}" />
-                    <TextBox Grid.Column="2" Grid.Row="4" Margin="5,2,5,2" Text="{Binding ExposureB}" IsEnabled="{Binding IncludeB}" />
-                    <TextBox Grid.Column="4" Grid.Row="4" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredHoursB}" IsEnabled="{Binding IncludeB}" />
+                    <TextBox Grid.Column="2" Grid.Row="4" Margin="5,2,5,2" Text="{Binding ExposureTimeB}" IsEnabled="{Binding IncludeB}" />
+                    <TextBox Grid.Column="4" Grid.Row="4" Margin="0,2,0,2" Text="{Binding HoursDoneB}" IsEnabled="{Binding IncludeB}" />
                     <TextBlock Grid.Column="5" Grid.Row="4" Text=" h" Margin="5,0,5,0" VerticalAlignment="Center" Height="16"  IsEnabled="{Binding IncludeB}" />
-                    <TextBox Grid.Column="6" Grid.Row="4" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredMinutesB}" IsEnabled="{Binding IncludeB}" />
+                    <TextBox Grid.Column="6" Grid.Row="4" Margin="0,2,0,2" Text="{Binding MinutesDoneB}" IsEnabled="{Binding IncludeB}" />
                     <TextBlock Grid.Column="7" Grid.Row="4" Text=" m" Margin="5,0,0,0" VerticalAlignment="Center" Height="16" IsEnabled="{Binding IncludeB}"  />
                     <TextBox Grid.Column="9" Grid.Row="4" Margin="1,2,1,2" Text="{Binding PercentB}" IsEnabled="{Binding IncludeB}" />
                     <TextBlock Grid.Column="10" Grid.Row="4" Text="%" HorizontalAlignment="Center" VerticalAlignment="Center" Height="16" Width="9" IsEnabled="{Binding IncludeB}"  />
@@ -128,10 +130,10 @@
                     <!-- SII -->
                     <CheckBox Grid.Column="0" Grid.Row="5" IsChecked="{Binding IncludeS}" />
                     <TextBlock Grid.Column="1" Grid.Row="5" Text="SII" TextAlignment="Center" VerticalAlignment="Center" Height="16" IsEnabled="{Binding IncludeS}" />
-                    <TextBox Grid.Column="2" Grid.Row="5" Margin="5,2,5,2" Text="{Binding ExposureS}" IsEnabled="{Binding IncludeS}"/>
-                    <TextBox Grid.Column="4" Grid.Row="5" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredHoursS}" IsEnabled="{Binding IncludeS}"/>
+                    <TextBox Grid.Column="2" Grid.Row="5" Margin="5,2,5,2" Text="{Binding ExposureTimeS}" IsEnabled="{Binding IncludeS}"/>
+                    <TextBox Grid.Column="4" Grid.Row="5" Margin="0,2,0,2" Text="{Binding HoursDoneS}" IsEnabled="{Binding IncludeS}"/>
                     <TextBlock Grid.Column="5" Grid.Row="5" Text=" h" Margin="5,0,5,0" VerticalAlignment="Center" Height="16"  IsEnabled="{Binding IncludeS}"/>
-                    <TextBox Grid.Column="6" Grid.Row="5" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredMinutesS}" IsEnabled="{Binding IncludeS}"/>
+                    <TextBox Grid.Column="6" Grid.Row="5" Margin="0,2,0,2" Text="{Binding MinutesDoneS}" IsEnabled="{Binding IncludeS}"/>
                     <TextBlock Grid.Column="7" Grid.Row="5" Text=" m" Margin="5,0,0,0" VerticalAlignment="Center" Height="16"  IsEnabled="{Binding IncludeS}"/>
                     <TextBox Grid.Column="9" Grid.Row="5" Margin="1,2,1,2" Text="{Binding PercentS}" IsEnabled="{Binding IncludeS}"/>
                     <TextBlock Grid.Column="10" Grid.Row="5" Text="%" HorizontalAlignment="Center" VerticalAlignment="Center" Height="16" Width="9" IsEnabled="{Binding IncludeS}" />
@@ -139,10 +141,10 @@
                     <!-- Ha -->
                     <CheckBox Grid.Column="0" Grid.Row="6" IsChecked="{Binding IncludeHa}" />
                     <TextBlock Grid.Column="1" Grid.Row="6" Text="Hα" TextAlignment="Center" VerticalAlignment="Center" Height="16"  IsEnabled="{Binding IncludeHa}" />
-                    <TextBox Grid.Column="2" Grid.Row="6" Margin="5,2,5,2" Text="{Binding ExposureHa}"  IsEnabled="{Binding IncludeHa}" />
-                    <TextBox Grid.Column="4" Grid.Row="6" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredHoursHa}"  IsEnabled="{Binding IncludeHa}" />
+                    <TextBox Grid.Column="2" Grid.Row="6" Margin="5,2,5,2" Text="{Binding ExposureTimeHa}"  IsEnabled="{Binding IncludeHa}" />
+                    <TextBox Grid.Column="4" Grid.Row="6" Margin="0,2,0,2" Text="{Binding HoursDoneHa}"  IsEnabled="{Binding IncludeHa}" />
                     <TextBlock Grid.Column="5" Grid.Row="6" Text=" h" Margin="5,0,5,0" VerticalAlignment="Center" Height="16"  IsEnabled="{Binding IncludeHa}" />
-                    <TextBox Grid.Column="6" Grid.Row="6" Margin="0,2,0,2" Text="{Binding AlreadyAcquiredMinutesHa}"  IsEnabled="{Binding IncludeHa}" />
+                    <TextBox Grid.Column="6" Grid.Row="6" Margin="0,2,0,2" Text="{Binding MinutesDoneHa}"  IsEnabled="{Binding IncludeHa}" />
                     <TextBlock Grid.Column="7" Grid.Row="6" Text=" m" Margin="5,0,0,0" VerticalAlignment="Center" Height="16"  IsEnabled="{Binding IncludeHa}"  />
                     <TextBox Grid.Column="9" Grid.Row="6" Margin="1,2,1,2" Text="{Binding PercentHa}"  IsEnabled="{Binding IncludeHa}" />
                     <TextBlock Grid.Column="10" Grid.Row="6" Text="%" HorizontalAlignment="Center" VerticalAlignment="Center" Height="16" Width="9"  IsEnabled="{Binding IncludeHa}"  />
@@ -150,10 +152,10 @@
                     <!-- OIII -->
                     <CheckBox Grid.Column="0" Grid.Row="7" IsChecked="{Binding IncludeO}" Grid.RowSpan="2" />
                     <TextBlock Grid.Column="1" Grid.Row="7" Text="OIII" TextAlignment="Center" VerticalAlignment="Top" Margin="0,7,0,0" Grid.RowSpan="2" Height="16" IsEnabled="{Binding IncludeO}" />
-                    <TextBox Grid.Column="2" Grid.Row="7" Margin="5,2,5,2"  Text="{Binding ExposureO}" IsEnabled="{Binding IncludeO}" />
-                    <TextBox Grid.Column="4" Grid.Row="7" Margin="0,2,0,2"  Text="{Binding AlreadyAcquiredHoursO}" IsEnabled="{Binding IncludeO}" />
+                    <TextBox Grid.Column="2" Grid.Row="7" Margin="5,2,5,2"  Text="{Binding ExposureTimeO}" IsEnabled="{Binding IncludeO}" />
+                    <TextBox Grid.Column="4" Grid.Row="7" Margin="0,2,0,2"  Text="{Binding HoursDoneO}" IsEnabled="{Binding IncludeO}" />
                     <TextBlock Grid.Column="5" Grid.Row="7" Text=" h" Margin="5,7,5,0" VerticalAlignment="Top" Grid.RowSpan="2" Height="16"  IsEnabled="{Binding IncludeO}" />
-                    <TextBox Grid.Column="6" Grid.Row="7" Margin="0,2,0,2"  Text="{Binding AlreadyAcquiredMinutesO}" IsEnabled="{Binding IncludeO}" />
+                    <TextBox Grid.Column="6" Grid.Row="7" Margin="0,2,0,2"  Text="{Binding MinutesDoneO}" IsEnabled="{Binding IncludeO}" />
                     <TextBlock Grid.Column="7" Grid.Row="7" Text=" m" Margin="5,7,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Height="16" IsEnabled="{Binding IncludeO}"  />
                     <TextBox Grid.Column="9" Grid.Row="7" Margin="1,2,1,2" Text="{Binding PercentO}" IsEnabled="{Binding IncludeO}" />
                     <TextBlock Grid.Column="10" Grid.Row="7" Text="%" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,7,0,0" Grid.RowSpan="2" Height="16" Width="9" IsEnabled="{Binding IncludeO}"  />
@@ -181,6 +183,7 @@
                         <!-- SII -->
                         <ColumnDefinition Width="1*" />
                         <!-- OIII -->
+
                     </Grid.ColumnDefinitions>
 
                     <Rectangle Grid.Column="0" Fill="LightGray" Grid.RowSpan="2" />
@@ -254,11 +257,19 @@
 
                 <!-- Tolerance -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
-                    <TextBlock Text="Tolerance:" FontWeight="Bold"  Margin="0,0,10,0"/>
+                    <TextBlock Text="TOLERANCE :" FontWeight="Bold"  Margin="0,0,10,0" VerticalAlignment="Center"/>
                     <TextBox Width="40" Text="{Binding TolerancePercent}" />
                     <TextBlock Text="%" Margin="5,0,0,0" />
                 </StackPanel>
-                
+
+                <!--Autofocus Frequency -->
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,10" >
+                    <TextBlock Width="120" Text="AF Frequency : Every "  Margin="0,0,0,0" />
+                    <TextBox Width="30" Text="{Binding AutofocusFrequency}" />
+                    <TextBlock Text="m" Margin="5,0,0,0" />
+                </StackPanel>
+
+
                 <!-- Autofocus RGB -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,10" >
                     <CheckBox IsChecked="{Binding EnableAutofocusRGB}" Width="65" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0"/>
@@ -280,16 +291,16 @@
                     <CheckBox IsChecked="{Binding EnableMeridianFlip}" Width="65" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <TextBlock Margin="5,0" Width="120" VerticalAlignment="Center" Text="Meridian Flip Duration" IsEnabled="{Binding EnableMeridianFlip}"/>
                     <TextBox Width="30" VerticalAlignment="Center" Margin="0,0,5,0" Text="{Binding MeridianFlipDuration}" IsEnabled="{Binding EnableMeridianFlip}"/>
-                    <TextBlock Text="s" Width="10" VerticalAlignment="Center" IsEnabled="{Binding EnableMeridianFlip}" />
+                    <TextBlock Text="" Width="10" VerticalAlignment="Center" IsEnabled="{Binding EnableMeridianFlip}" />
                 </StackPanel>
 
                 <!-- Dithering Every x frames and duration -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,10"  >
                     <CheckBox IsChecked="{Binding EnableDithering}" Width="65" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <TextBlock Text="Dithering every" Margin="0,0,5,0" IsEnabled="{Binding EnableDithering}"/>
-                    <TextBox Width="20" Text="{Binding DitherEvery}" IsEnabled="{Binding EnableDithering}"/>
+                    <TextBox Width="20" Text="{Binding DitheringFrequency}" IsEnabled="{Binding EnableDithering}"/>
                     <TextBlock Text="frames" Margin="5,0" IsEnabled="{Binding EnableDithering}"/>
-                    <TextBox Width="30" Text="{Binding DitherDuration}" Margin="5,0,5,0" IsEnabled="{Binding EnableDithering}"/>
+                    <TextBox Width="30" Text="{Binding DitheringDuration}" Margin="5,0,5,0" IsEnabled="{Binding EnableDithering}"/>
                     <TextBlock Text="s"  IsEnabled="{Binding EnableDithering}"/>
                 </StackPanel>
 

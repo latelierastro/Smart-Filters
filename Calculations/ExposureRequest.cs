@@ -7,6 +7,14 @@ namespace PlanMyNight.Calculations {
     public class ExposureRequest {
         public double TotalAvailableMinutes { get; set; }
 
+        // --- Réglages liés aux pertes de temps ---
+        public bool EnableAutofocusRGB { get; set; }
+        public bool EnableAutofocusSHO { get; set; }
+        public bool EnableDithering { get; set; }
+        public bool EnableMeridianFlip { get; set; }
+        public bool EnablePauseBetweenFrames { get; set; }
+
+
         public double AutofocusDurationRGB { get; set; }
         public double AutofocusDurationSHO { get; set; }
         public double AutofocusFrequency { get; set; }
@@ -18,6 +26,7 @@ namespace PlanMyNight.Calculations {
 
         public double SafetyTolerance { get; set; }
 
+        // --- Données par filtre ---
         public Dictionary<string, bool> FiltersSelected { get; set; } = new();
         public Dictionary<string, double> ExposurePerFilter { get; set; } = new();
         public Dictionary<string, double> AlreadyAcquiredPerFilter { get; set; } = new();
