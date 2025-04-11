@@ -92,5 +92,6 @@ namespace PlanMyNight.PlanMyNightDockables {
                 RaisePropertyChanged(nameof(TelescopeInfo));
             }
         }
+
     }
 }
