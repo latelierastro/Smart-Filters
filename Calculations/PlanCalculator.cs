@@ -16,23 +16,42 @@ namespace PlanMyNight.Calculations {
                 .Select(kvp => kvp.Key)
                 .ToList();
 
+            // Total already acquired for selected filters
+            double totalAlreadyAcquired = selectedFilters
+                .Sum(f => request.AlreadyAcquiredPerFilter.GetValueOrDefault(f, 0));
+
             // Loss due to meridian flip (already in minutes)
             double flipLoss = request.EnableMeridianFlip ? request.FlipDuration : 0;
 
             // Compute autofocus loss
             double autofocusLossRGB = 0;
             double autofocusLossSHO = 0;
+
             if (request.AutofocusFrequency > 0) {
                 double numAutofocus = request.TotalAvailableMinutes / request.AutofocusFrequency;
 
+                // Définir les groupes de filtres
+                var rgbFilters = new[] { "L", "R", "G", "B" };
+                var shoFilters = new[] { "Ha", "S", "O" };
+
+                // Sommes des poids pour RGB et SHO
+                double weightRGB = rgbFilters.Where(f => selectedFilters.Contains(f)).Sum(f => request.TargetProportion.GetValueOrDefault(f, 0));
+                double weightSHO = shoFilters.Where(f => selectedFilters.Contains(f)).Sum(f => request.TargetProportion.GetValueOrDefault(f, 0));
+                double totalWeightAF = weightRGB + weightSHO;
+                if (totalWeightAF == 0) totalWeightAF = 1;
+
+                // Répartition du nombre d’autofocus
                 if (request.EnableAutofocusRGB) {
-                    autofocusLossRGB = numAutofocus * (request.AutofocusDurationRGB / 60.0); // sec to min
+                    double afRGB = numAutofocus * (weightRGB / totalWeightAF);
+                    autofocusLossRGB = afRGB * (request.AutofocusDurationRGB / 60.0);
                 }
 
-                if (request.EnableAutofocusSHO && selectedFilters.Any(f => f is "Ha" or "S" or "O")) {
-                    autofocusLossSHO = numAutofocus * (request.AutofocusDurationSHO / 60.0); // sec to min
+                if (request.EnableAutofocusSHO) {
+                    double afSHO = numAutofocus * (weightSHO / totalWeightAF);
+                    autofocusLossSHO = afSHO * (request.AutofocusDurationSHO / 60.0);
                 }
             }
+
 
             // Total fixed losses
             double totalLoss = flipLoss + autofocusLossRGB + autofocusLossSHO;
@@ -41,18 +60,26 @@ namespace PlanMyNight.Calculations {
             double safeTime = request.TotalAvailableMinutes * (1 - request.SafetyTolerance / 100.0);
             double timeAvailableAfterLoss = safeTime - totalLoss;
 
-            // Compute total weight for distribution
+            // Total time that we want to reach overall (acquired + tonight)
+            double finalTargetTotal = totalAlreadyAcquired + timeAvailableAfterLoss;
+
+            // Total weight for distribution (only on selected filters)
             double totalWeight = selectedFilters.Sum(f => request.TargetProportion.GetValueOrDefault(f, 0));
             if (totalWeight <= 0) totalWeight = 1;
 
+            // Target total per filter = proportion * finalTargetTotal
+            var targetTotalPerFilter = new Dictionary<string, double>();
             foreach (var filter in selectedFilters) {
                 double weight = request.TargetProportion.GetValueOrDefault(filter, 0);
-                double timeForFilter = timeAvailableAfterLoss * (weight / totalWeight);
+                double target = finalTargetTotal * (weight / totalWeight);
+                targetTotalPerFilter[filter] = target;
+            }
 
-                // Subtract already acquired time
+
+            foreach (var filter in selectedFilters) {
                 double alreadyAcquired = request.AlreadyAcquiredPerFilter.GetValueOrDefault(filter, 0);
-                double timeRemaining = Math.Max(0, timeForFilter - alreadyAcquired);
-
+                double targetTotal = targetTotalPerFilter[filter];
+                double timeRemaining = Math.Max(0, targetTotal - alreadyAcquired);
                 double exposureSec = request.ExposurePerFilter.GetValueOrDefault(filter, 1);
                 double pauseSec = request.PauseBetweenExposures;
                 double timePerFrameMin = (exposureSec + pauseSec) / 60.0;
@@ -75,8 +102,7 @@ namespace PlanMyNight.Calculations {
                 }
 
                 // TOTAL pour CE FILTRE = temps déjà acquis + nouveaux frames + pertes par dithering
-                double totalPlanned = alreadyAcquired + finalFrames * timePerFrameMin + ditherLoss;
-
+                double totalPlanned = finalFrames * timePerFrameMin + ditherLoss;
                 result.FramesToAcquire[filter] = finalFrames;
                 result.TimePlannedPerFilter[filter] = totalPlanned;
             }
@@ -84,9 +110,8 @@ namespace PlanMyNight.Calculations {
 
 
             // Final result summary
-            double totalAlreadyAcquired = selectedFilters.Sum(f => request.AlreadyAcquiredPerFilter.GetValueOrDefault(f, 0));
-            result.TotalUsedMinutes = result.TimePlannedPerFilter.Values.Sum() + totalAlreadyAcquired;
-            result.UnusedMinutes = timeAvailableAfterLoss - result.TotalUsedMinutes + totalAlreadyAcquired;
+            result.TotalUsedMinutes = result.TimePlannedPerFilter.Values.Sum();
+            result.UnusedMinutes = timeAvailableAfterLoss - result.TotalUsedMinutes;
             result.Comment = $"Time usage: {Math.Round(result.TotalUsedMinutes, 1)} / {Math.Round(request.TotalAvailableMinutes, 1)} min";
 
             return result;
