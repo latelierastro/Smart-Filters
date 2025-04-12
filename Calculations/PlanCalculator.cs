@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Accord.Imaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,6 +10,9 @@ namespace PlanMyNight.Calculations {
     public static class PlanCalculator {
         public static ExposureResult Calculate(ExposureRequest request) {
             var result = new ExposureResult();
+            int totalDithers = 0;
+            double afRGB = 0;
+            double afSHO = 0;
 
             // Get selected filters
             var selectedFilters = request.FiltersSelected
@@ -42,12 +46,12 @@ namespace PlanMyNight.Calculations {
 
                 // Répartition du nombre d’autofocus
                 if (request.EnableAutofocusRGB) {
-                    double afRGB = numAutofocus * (weightRGB / totalWeightAF);
+                    afRGB = numAutofocus * (weightRGB / totalWeightAF);
                     autofocusLossRGB = afRGB * (request.AutofocusDurationRGB / 60.0);
                 }
 
                 if (request.EnableAutofocusSHO) {
-                    double afSHO = numAutofocus * (weightSHO / totalWeightAF);
+                    afSHO = numAutofocus * (weightSHO / totalWeightAF);
                     autofocusLossSHO = afSHO * (request.AutofocusDurationSHO / 60.0);
                 }
             }
@@ -96,6 +100,7 @@ namespace PlanMyNight.Calculations {
                 int finalFrames = estimatedFrames;
                 if (request.EnableDithering && request.DitheringFrequency > 0 && request.DitheringDuration > 0) {
                     int numDithers = estimatedFrames / (int)request.DitheringFrequency;
+                    totalDithers += numDithers;
                     ditherLoss = numDithers * (request.DitheringDuration / 60.0);
                     double timeLeft = timeRemaining - ditherLoss;
                     finalFrames = (int)Math.Floor(timeLeft / timePerFrameMin);
@@ -113,7 +118,15 @@ namespace PlanMyNight.Calculations {
             result.TotalUsedMinutes = result.TimePlannedPerFilter.Values.Sum();
             result.UnusedMinutes = timeAvailableAfterLoss - result.TotalUsedMinutes;
             result.Comment = $"Time usage: {Math.Round(result.TotalUsedMinutes, 1)} / {Math.Round(request.TotalAvailableMinutes, 1)} min";
+            
+            //Display losses
+            result.TotalDithers = totalDithers;
+            result.TotalAutofocusRGB = afRGB;
+            result.TotalAutofocusSHO = afSHO;
+            result.TotalLostMinutes = request.TotalAvailableMinutes * (1 - request.SafetyTolerance / 100.0)
+                                      - result.TotalUsedMinutes;
 
+            
             return result;
         }
     }
