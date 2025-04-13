@@ -3,8 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:PlanMyNight.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <converters:ListCountToVisibilityConverter x:Key="ListCountToVisibilityConverter"/>
+        <converters:WarningLevelToBrushConverter x:Key="WarningLevelToBrushConverter"/>
+    </UserControl.Resources>
+
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -248,7 +255,7 @@
 
                              
                 <!-- Loss Results Display -->
-                <Grid Grid.Row="5" Height="100" >
+                <!-- <Grid Grid.Row="5" Height="100" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1*" />
@@ -273,10 +280,28 @@
                     <TextBlock Grid.Column="1" Grid.Row="4"  Text="Pauses Loss" />
                                         
 
-                </Grid>
-                
-                
-                
+                </Grid> -->
+
+                <!-- WARNINGS Panel -->
+                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="6" Padding="8" Margin="10"
+                Visibility="{Binding Warnings, Converter={StaticResource ListCountToVisibilityConverter}}">
+                    <StackPanel>
+                        <TextBlock Text="⚠️ Warnings" FontWeight="Bold" Foreground="Orange" Margin="0,0,0,5"/>
+                        <ItemsControl ItemsSource="{Binding Warnings}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Message, FallbackValue='[Warning message missing]'}"
+                                     TextWrapping="Wrap"
+                                     Foreground="{Binding Level, Converter={StaticResource WarningLevelToBrushConverter}}"
+                                     Margin="0,2,0,2"/>
+                                </DataTemplate>
+
+
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
 
             </StackPanel>
 

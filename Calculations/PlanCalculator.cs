@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PlanMyNight.Models;
+
 
 namespace PlanMyNight.Calculations {
     /// <summary>
@@ -106,8 +108,36 @@ namespace PlanMyNight.Calculations {
                     finalFrames = (int)Math.Floor(timeLeft / timePerFrameMin);
                 }
 
+                // Determine if this filter is RGB or SHO
+                bool isRGB = new[] { "L", "R", "G", "B" }.Contains(filter);
+                bool isSHO = new[] { "Ha", "S", "O" }.Contains(filter);
+
+                double autofocusLossPerFilter = 0;
+
+                // Add autofocus at the beginning (systematic)
+                if ((isRGB && request.EnableAutofocusRGB) || (isSHO && request.EnableAutofocusSHO)) {
+                    double autofocusDuration = isRGB ? request.AutofocusDurationRGB : request.AutofocusDurationSHO;
+                    autofocusLossPerFilter += autofocusDuration / 60.0; // convert to minutes
+
+                    // Add periodic autofocus if frequency is set
+                    if (request.AutofocusFrequency > 0) {
+                        double timeLeftAfterFirstAF = timeRemaining - autofocusLossPerFilter;
+                        int additionalAF = (int)(timeLeftAfterFirstAF / request.AutofocusFrequency);
+                        autofocusLossPerFilter += additionalAF * (autofocusDuration / 60.0);
+
+                        // Update autofocus count summary
+                        if (isRGB) afRGB += additionalAF + 1;
+                        if (isSHO) afSHO += additionalAF + 1;
+                    } else {
+                        // Just the first autofocus
+                        if (isRGB) afRGB += 1;
+                        if (isSHO) afSHO += 1;
+                    }
+                }
+
+
                 // TOTAL pour CE FILTRE = temps déjà acquis + nouveaux frames + pertes par dithering
-                double totalPlanned = finalFrames * timePerFrameMin + ditherLoss;
+                double totalPlanned = finalFrames * timePerFrameMin + ditherLoss + autofocusLossPerFilter;
                 result.FramesToAcquire[filter] = finalFrames;
                 result.TimePlannedPerFilter[filter] = totalPlanned;
             }
@@ -126,7 +156,51 @@ namespace PlanMyNight.Calculations {
             result.TotalLostMinutes = request.TotalAvailableMinutes * (1 - request.SafetyTolerance / 100.0)
                                       - result.TotalUsedMinutes;
 
-            
+            // ---------- WARNINGS ----------
+
+            // 1. Sum of selected filter percentages ≠ 100%
+            double sumPercent = request.TargetProportion
+                .Where(kvp => request.FiltersSelected.GetValueOrDefault(kvp.Key, false))
+                .Sum(kvp => kvp.Value);
+
+            if (sumPercent < 99.0 || sumPercent > 101.0) {
+                result.Warnings.Add(new WarningMessage(
+                    $"The total percentage of selected filters is {Math.Round(sumPercent, 1)}%. It should be 100%.",
+                    "Orange"
+                ));
+            }
+
+            // 2. Unused minutes at the end of the session
+            if (result.UnusedMinutes > 10.0) {
+                result.Warnings.Add(new WarningMessage(
+                    $"There are {Math.Round(result.UnusedMinutes, 1)} unused minutes at the end of the session. Consider optimizing your plan.",
+                    "Yellow"
+                ));
+            }
+
+            // 3. Selected filter with no exposure time planned
+            foreach (var filter in request.FiltersSelected.Where(f => f.Value).Select(f => f.Key)) {
+                double timePlanned = result.TimePlannedPerFilter.GetValueOrDefault(filter, 0);
+                if (result.FramesToAcquire.GetValueOrDefault(filter, 0) == 0) {
+                    double alreadyAcquired = request.AlreadyAcquiredPerFilter.GetValueOrDefault(filter, 0);
+                    double target = targetTotalPerFilter.GetValueOrDefault(filter, 0);
+
+                    if (alreadyAcquired >= target - 0.5) {
+                        result.Warnings.Add(new WarningMessage(
+                            $"Filter {filter} is selected but no additional exposure time is needed to reach your target.",
+                            "Yellow"
+                        ));
+                    } else {
+                        result.Warnings.Add(new WarningMessage(
+                            $"Filter {filter} is selected but no exposure time can be allocated within the available session time.",
+                            "Red"
+                        ));
+                    }
+                }
+            }
+
+
+
             return result;
         }
     }

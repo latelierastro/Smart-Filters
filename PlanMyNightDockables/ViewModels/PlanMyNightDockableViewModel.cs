@@ -5,6 +5,7 @@ using System.Diagnostics;
 using PlanMyNight.Calculations;
 using System.Linq;
 using System.Collections.Generic;
+using PlanMyNight.Models;
 
 namespace PlanMyNight.PlanMyNightDockables.ViewModels {
     public class PlanMyNightDockableViewModel : INotifyPropertyChanged {
@@ -199,6 +200,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
 
             // 7. Perform the calculation
             var result = PlanCalculator.Calculate(request);
+            Warnings = result.Warnings;
+
 
             // 8. Update results
             ResultL = result.FramesToAcquire.GetValueOrDefault("L", 0);
@@ -210,6 +213,12 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             ResultO = result.FramesToAcquire.GetValueOrDefault("O", 0);
 
             Debug.WriteLine(result.Comment);
+        }
+
+        // -- WARNINGS --
+        private List<WarningMessage> _warnings = new();
+        public List<WarningMessage> Warnings {get => _warnings;set { _warnings = value; OnPropertyChanged(nameof(Warnings));
+            }
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PlanMyNight.Models;
+using System.Collections.Generic;
 
 namespace PlanMyNight.Calculations {
     /// <summary>
@@ -18,6 +19,10 @@ namespace PlanMyNight.Calculations {
         public double TotalAutofocusRGB { get; set; }
         public double TotalAutofocusSHO { get; set; }
         public double TotalLostMinutes { get; set; }
+
+        //Display Warnings :
+        public List<WarningMessage> Warnings { get; set; } = new();
+
 
     }
 }
