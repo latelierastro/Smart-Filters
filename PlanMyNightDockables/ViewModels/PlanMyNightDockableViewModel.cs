@@ -215,8 +215,10 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             // 8. Fill session summary
             TimePerFilter = result.Summary.TimePerFilter;
             TotalDithers = result.Summary.TotalDithers;
-            TotalAutofocus = result.Summary.TotalAutofocus;
+            TotalAutofocus = result.Summary.TotalAutofocusRGB + result.Summary.TotalAutofocusSHO;
             UnusedTime = result.Summary.UnusedTime;
+            ToleranceLostMinutes = result.Summary.ToleranceLostMinutes;
+
 
 
             // 9. Update results
@@ -251,16 +253,24 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             set { _totalDithers = value; OnPropertyChanged(); }
         }
 
+
         private double _totalAutofocus;
         public double TotalAutofocus {
             get => _totalAutofocus;
             set { _totalAutofocus = value; OnPropertyChanged(); }
         }
 
+
         private double _unusedTime;
         public double UnusedTime {
             get => _unusedTime;
             set { _unusedTime = value; OnPropertyChanged(); }
+        }
+
+        private double _toleranceLostMinutes;
+        public double ToleranceLostMinutes {
+            get => _toleranceLostMinutes;
+            set { _toleranceLostMinutes = value; OnPropertyChanged(); }
         }
 
 

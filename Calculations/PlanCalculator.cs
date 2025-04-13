@@ -199,13 +199,87 @@ namespace PlanMyNight.Calculations {
                 }
             }
 
-            // 4. Session Summary 
+            // 4. No filter selected
+            if (!request.FiltersSelected.Any(kvp => kvp.Value)) {
+                result.Warnings.Add(new WarningMessage(
+                    "No filter is selected. Please select at least one filter to plan exposures.",
+                    "Red"
+                ));
+            }
+
+            // 5. All exposure durations are 0
+            if (request.FiltersSelected.Any(kvp => kvp.Value)) {
+                bool allZeroExp = request.FiltersSelected
+                    .Where(kvp => kvp.Value)
+                    .All(kvp => request.ExposurePerFilter.GetValueOrDefault(kvp.Key, 0) <= 0);
+
+                if (allZeroExp) {
+                    result.Warnings.Add(new WarningMessage(
+                        "All exposure durations are set to 0. Please define at least one valid exposure time.",
+                        "Red"
+                    ));
+                }
+            }
+
+            // 6. Filter selected with exposure = 0
+            foreach (var filter in selectedFilters) {
+                double exp = request.ExposurePerFilter.GetValueOrDefault(filter, 0);
+                if (exp <= 0) {
+                    result.Warnings.Add(new WarningMessage(
+                        $"Filter {filter} is selected but its exposure time is set to 0 s.",
+                        "Red"
+                    ));
+                }
+            }
+
+            // 7. Pause > exposure
+            foreach (var filter in selectedFilters) {
+                double exp = request.ExposurePerFilter.GetValueOrDefault(filter, 0);
+                if (exp > 0 && request.PauseBetweenExposures > exp) {
+                    result.Warnings.Add(new WarningMessage(
+                        $"Pause between frames is longer than the exposure time for filter {filter}.",
+                        "Red"
+                    ));
+                }
+            }
+
+            // 8. Time too short
+            if (timeAvailableAfterLoss < 1) {
+                result.Warnings.Add(new WarningMessage(
+                    "The available session time is too short to plan any exposures.",
+                    "Red"
+                ));
+            }
+
+            // 9. Selected filters with 0% proportion
+            bool hasSelectedFiltersWithZeroPercent = request.FiltersSelected
+                .Where(kvp => kvp.Value)
+                .Any(kvp => request.TargetProportion.GetValueOrDefault(kvp.Key, 0) == 0);
+
+            if (hasSelectedFiltersWithZeroPercent) {
+                result.Warnings.Add(new WarningMessage(
+                    "Selected filters have no percentage assigned. Please adjust the distribution.",
+                    "Red"
+                ));
+            }
+            // Dithering enabled but no frequency
+            if (request.EnableDithering && request.DitheringFrequency <= 0) {
+                result.Warnings.Add(new WarningMessage(
+                    "Dithering is enabled but no frequency is defined.",
+                    "Yellow"
+                ));
+            }
+
+            double toleranceLostMinutes = request.TotalAvailableMinutes * (request.SafetyTolerance / 100.0);
+
+            // 10. Session Summary 
             result.Summary = new SessionSummary {
                 TimePerFilter = result.TimePlannedPerFilter.ToDictionary(entry => entry.Key, entry => entry.Value),
                 TotalDithers = totalDithers,
                 TotalAutofocusRGB = afRGB,
                 TotalAutofocusSHO = afSHO,
-                UnusedTime = result.UnusedMinutes
+                UnusedTime = result.UnusedMinutes,
+                ToleranceLostMinutes = toleranceLostMinutes
             };
 
             return result;
