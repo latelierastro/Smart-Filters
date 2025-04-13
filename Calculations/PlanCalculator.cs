@@ -85,68 +85,92 @@ namespace PlanMyNight.Calculations {
             foreach (var filter in selectedFilters) {
                 double alreadyAcquired = request.AlreadyAcquiredPerFilter.GetValueOrDefault(filter, 0);
                 double targetTotal = targetTotalPerFilter[filter];
-                double timeRemaining = Math.Max(0, targetTotal - alreadyAcquired);
+                double timeRemaining = Math.Max(0, targetTotal - alreadyAcquired); // en minutes
                 double exposureSec = request.ExposurePerFilter.GetValueOrDefault(filter, 1);
                 double pauseSec = request.PauseBetweenExposures;
                 double timePerFrameMin = (exposureSec + pauseSec) / 60.0;
 
                 if (timePerFrameMin <= 0) {
                     result.FramesToAcquire[filter] = 0;
-                    result.TimePlannedPerFilter[filter] = alreadyAcquired; // <- NE PAS OUBLIER ce temps déjà acquis
+                    result.TimePlannedPerFilter[filter] = alreadyAcquired;
                     continue;
                 }
 
-                int estimatedFrames = (int)Math.Floor(timeRemaining / timePerFrameMin);
-
-                double ditherLoss = 0;
-                int finalFrames = estimatedFrames;
-                if (request.EnableDithering && request.DitheringFrequency > 0 && request.DitheringDuration > 0) {
-                    int numDithers = estimatedFrames / (int)request.DitheringFrequency;
-                    totalDithers += numDithers;
-                    ditherLoss = numDithers * (request.DitheringDuration / 60.0);
-                    double timeLeft = timeRemaining - ditherLoss;
-                    finalFrames = (int)Math.Floor(timeLeft / timePerFrameMin);
-                }
-
-                // Determine if this filter is RGB or SHO
+                // Déterminer les pertes autofocus pour ce filtre
                 bool isRGB = new[] { "L", "R", "G", "B" }.Contains(filter);
                 bool isSHO = new[] { "Ha", "S", "O" }.Contains(filter);
-
                 double autofocusLossPerFilter = 0;
+                double autofocusDurationMin = 0;
 
-                // Add autofocus at the beginning (systematic)
                 if ((isRGB && request.EnableAutofocusRGB) || (isSHO && request.EnableAutofocusSHO)) {
-                    double autofocusDuration = isRGB ? request.AutofocusDurationRGB : request.AutofocusDurationSHO;
-                    autofocusLossPerFilter += autofocusDuration / 60.0; // convert to minutes
+                    autofocusDurationMin = (isRGB ? request.AutofocusDurationRGB : request.AutofocusDurationSHO) / 60.0;
+                    autofocusLossPerFilter += autofocusDurationMin;
 
-                    // Add periodic autofocus if frequency is set
                     if (request.AutofocusFrequency > 0) {
-                        double timeLeftAfterFirstAF = timeRemaining - autofocusLossPerFilter;
-                        int additionalAF = (int)(timeLeftAfterFirstAF / request.AutofocusFrequency);
-                        autofocusLossPerFilter += additionalAF * (autofocusDuration / 60.0);
+                        double remainingAfterFirstAF = timeRemaining - autofocusLossPerFilter;
+                        int additionalAFs = (int)(remainingAfterFirstAF / request.AutofocusFrequency);
+                        autofocusLossPerFilter += additionalAFs * autofocusDurationMin;
 
-                        // Update autofocus count summary
-                        if (isRGB) afRGB += additionalAF + 1;
-                        if (isSHO) afSHO += additionalAF + 1;
+                        if (isRGB) afRGB += additionalAFs + 1;
+                        if (isSHO) afSHO += additionalAFs + 1;
                     } else {
-                        // Just the first autofocus
                         if (isRGB) afRGB += 1;
                         if (isSHO) afSHO += 1;
                     }
                 }
 
+                // Temps disponible pour les frames après autofocus
+                double availableTime = timeRemaining - autofocusLossPerFilter;
+                if (availableTime <= 0) {
+                    result.FramesToAcquire[filter] = 0;
+                    result.TimePlannedPerFilter[filter] = alreadyAcquired;
+                    continue;
+                }
 
-                // TOTAL pour CE FILTRE = temps déjà acquis + nouveaux frames + pertes par dithering
+                // Estimation brute
+                int estimatedFrames = (int)Math.Floor(availableTime / timePerFrameMin);
+                int finalFrames = estimatedFrames;
+                double ditherLoss = 0;
+
+                // Réduction itérative si pertes totales dépassent le temps dispo
+                while (finalFrames > 0) {
+                    ditherLoss = 0;
+                    if (request.EnableDithering && request.DitheringFrequency > 0 && request.DitheringDuration > 0) {
+                        int numDithers = finalFrames / (int)request.DitheringFrequency;
+                        ditherLoss = numDithers * (request.DitheringDuration / 60.0);
+                    }
+
+                    double totalTime = finalFrames * timePerFrameMin + ditherLoss + autofocusLossPerFilter;
+
+                    if (totalTime <= timeRemaining)
+                        break;
+
+                    finalFrames--; // on réduit jusqu’à être dans les clous
+                }
+
+                // Résultats finaux
                 double totalPlanned = finalFrames * timePerFrameMin + ditherLoss + autofocusLossPerFilter;
+                totalDithers += request.EnableDithering && request.DitheringFrequency > 0 && request.DitheringDuration > 0
+                    ? finalFrames / (int)request.DitheringFrequency
+                    : 0;
+
                 result.FramesToAcquire[filter] = finalFrames;
                 result.TimePlannedPerFilter[filter] = totalPlanned;
             }
 
 
 
+
             // Final result summary
             result.TotalUsedMinutes = result.TimePlannedPerFilter.Values.Sum();
             result.UnusedMinutes = timeAvailableAfterLoss - result.TotalUsedMinutes;
+            if (result.TotalUsedMinutes > timeAvailableAfterLoss + 0.1) {
+                result.Warnings.Add(new WarningMessage(
+                    "The planned exposures exceed the available session time. Please reduce exposure durations or adjust your plan.",
+                    "Red"
+                ));
+            }
+
             result.Comment = $"Time usage: {Math.Round(result.TotalUsedMinutes, 1)} / {Math.Round(request.TotalAvailableMinutes, 1)} min";
             
             //Display losses
