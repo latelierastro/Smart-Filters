@@ -374,6 +374,18 @@
                     </StackPanel>
                 </StackPanel>
 
+                <Border x:Name="ToastNotification" Background="#CC333333" CornerRadius="8" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,20,0,0"
+                    Visibility="Collapsed"
+                    RenderTransformOrigin="0.5,0.5"
+                    Panel.ZIndex="1000">
+                    <TextBlock x:Name="ToastText"
+               Foreground="White"
+               FontSize="14"
+               Text="Toast Message"
+               TextWrapping="Wrap"/>
+                </Border>
+
+
             </StackPanel>
         </Grid>
     </Grid>

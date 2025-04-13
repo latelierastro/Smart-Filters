@@ -7,6 +7,11 @@ using System.Linq;
 using System.Collections.Generic;
 using PlanMyNight.Models;
 using PlanMyNight.Services;
+using System.Windows;
+using NINA.Core.Utility;
+
+
+
 
 namespace PlanMyNight.PlanMyNightDockables.ViewModels {
     public class PlanMyNightDockableViewModel : INotifyPropertyChanged {
@@ -280,14 +285,29 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
 
         public void OnSaveProfileClicked() {
             if (!string.IsNullOrEmpty(SelectedProfileName)) {
+                bool profileExists = ProfileNames.Contains(SelectedProfileName);
+
+                if (profileExists) {
+                    var result = MessageBox.Show(
+                        $"A profile named '{SelectedProfileName}' already exists. Do you want to overwrite it?",
+                        "Overwrite confirmation",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning
+                    );
+
+                    if (result != MessageBoxResult.Yes) {
+                        return; // Cancel saving
+                    }
+                }
+
                 var profile = CreateCurrentProfile();
                 ProfileStorage.Save(SelectedProfileName, profile);
 
-                if (!ProfileNames.Contains(SelectedProfileName)) {
-                    ProfileNames.Add(SelectedProfileName);
-                }
+                ProfileNames = ProfileStorage.List();
+                SelectedProfileName = SelectedProfileName;
             }
         }
+
 
         private ExposureProfile CreateCurrentProfile() {
             return new ExposureProfile {
@@ -409,6 +429,10 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             PercentHa = profile.TargetProportion.GetValueOrDefault("Ha");
             PercentS = profile.TargetProportion.GetValueOrDefault("S");
             PercentO = profile.TargetProportion.GetValueOrDefault("O");
+        }
+
+        public PlanMyNightDockableViewModel() {
+            ProfileNames = ProfileStorage.List();  // <-- charge tous les noms
         }
 
 

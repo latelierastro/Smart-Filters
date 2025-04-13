@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace PlanMyNight.PlanMyNightDockables.Views {
@@ -34,13 +35,26 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
         private void OnLoadProfileClicked(object sender, RoutedEventArgs e) {
             if (DataContext is PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel vm) {
                 vm.OnLoadProfileClicked();
+                ShowToast($"📂 Profile '{vm.SelectedProfileName}' loaded.");
             }
         }
+
 
         private void OnSaveProfileClicked(object sender, RoutedEventArgs e) {
             if (DataContext is PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel vm) {
                 vm.OnSaveProfileClicked();
+                ShowToast($"✅ Profile '{vm.SelectedProfileName}' saved.");
             }
+        }
+
+
+        private async void ShowToast(string message) {
+            ToastText.Text = message;
+            ToastNotification.Visibility = Visibility.Visible;
+
+            await Task.Delay(2000); // attends 2 secondes
+
+            ToastNotification.Visibility = Visibility.Collapsed;
         }
 
     }
