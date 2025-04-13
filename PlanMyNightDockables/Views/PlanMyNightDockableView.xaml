@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:PlanMyNight.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000">
+             d:DesignHeight="700" d:DesignWidth="1000">
 
     <UserControl.Resources>
         <converters:ListCountToVisibilityConverter x:Key="ListCountToVisibilityConverter"/>
@@ -20,12 +20,6 @@
 
 
         </Grid.RowDefinitions>
-
-        <!-- Centered Title -->
-        <!-- <TextBlock Grid.Row="0" Text="Plan My Night"
-                   FontSize="24"
-                   HorizontalAlignment="Left"
-                   Margin="150,0,0,20" /> -->
 
         <!-- Main Content -->
         <Grid Grid.Row="1" >
@@ -172,10 +166,10 @@
                     <TextBox Grid.Column="9" Grid.Row="7" Margin="1,2,1,2" Text="{Binding PercentO}" IsEnabled="{Binding IncludeO}" />
                     <TextBlock Grid.Column="10" Grid.Row="7" Text="%" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,7,0,0" Grid.RowSpan="2" Height="16" Width="9" IsEnabled="{Binding IncludeO}"  />
 
-                  
+
                 </Grid>
-                
-                
+
+
                 <!-- Slider -->
                 <TextBlock Text="Filter Time Distribution:" Margin="0,20,0,5" FontWeight="Bold" />
                 <Grid Height="10" Margin="0,30,0,0">
@@ -214,73 +208,72 @@
                 <!-- Results -->
                 <TextBlock Text="Results:" FontWeight="Bold" Margin="0,10,0,5" />
                 <Border BorderBrush="Gray" BorderThickness="1" Padding="5" Margin="0,0,0,10">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <!-- Table with frame counts -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <!-- Header -->
-                        <TextBlock Text="Filter" Grid.Row="0" Grid.Column="0" FontWeight="Bold" HorizontalAlignment="Center" />
-                        <TextBlock Text="L" Grid.Row="0" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Center" />
-                        <TextBlock Text="R" Grid.Row="0" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Center" />
-                        <TextBlock Text="G" Grid.Row="0" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Center" />
-                        <TextBlock Text="B" Grid.Row="0" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Center" />
-                        <TextBlock Text="Ha" Grid.Row="0" Grid.Column="5" FontWeight="Bold" HorizontalAlignment="Center" />
-                        <TextBlock Text="SII" Grid.Row="0" Grid.Column="6" FontWeight="Bold" HorizontalAlignment="Center" />
-                        <TextBlock Text="OIII" Grid.Row="0" Grid.Column="7" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <!-- Header -->
+                            <TextBlock Text="Filter" Grid.Row="0" Grid.Column="0" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <TextBlock Text="L" Grid.Row="0" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <TextBlock Text="R" Grid.Row="0" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <TextBlock Text="G" Grid.Row="0" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <TextBlock Text="B" Grid.Row="0" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <TextBlock Text="Ha" Grid.Row="0" Grid.Column="5" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <TextBlock Text="SII" Grid.Row="0" Grid.Column="6" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <TextBlock Text="OIII" Grid.Row="0" Grid.Column="7" FontWeight="Bold" HorizontalAlignment="Center" />
 
-                        <!-- Values -->
-                        <TextBlock Text="# Frames" Grid.Row="1" Grid.Column="0" FontStyle="Italic" HorizontalAlignment="Center" />
-                        <TextBlock Text="{Binding ResultL}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" />
-                        <TextBlock Text="{Binding ResultR}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" />
-                        <TextBlock Text="{Binding ResultG}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" />
-                        <TextBlock Text="{Binding ResultB}" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" />
-                        <TextBlock Text="{Binding ResultHa}" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" />
-                        <TextBlock Text="{Binding ResultS}" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center" />
-                        <TextBlock Text="{Binding ResultO}" Grid.Row="1" Grid.Column="7" HorizontalAlignment="Center" />
-                    </Grid>
+                            <!-- Values -->
+                            <TextBlock Text="# Frames" Grid.Row="1" Grid.Column="0" FontStyle="Italic" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding ResultL}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding ResultR}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding ResultG}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding ResultB}" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding ResultHa}" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding ResultS}" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding ResultO}" Grid.Row="1" Grid.Column="7" HorizontalAlignment="Center" />
+                        </Grid>
+
+                        <!-- Session Summary -->
+                        <StackPanel Margin="0,10,0,0">
+                            <TextBlock Text="📋 Session Summary" FontWeight="Bold" FontSize="14" Margin="0,0,0,8"/>
+                            <ItemsControl ItemsSource="{Binding TimePerFilter}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Margin="10,2,0,2">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0}: {1:N1} min">
+                                                    <Binding Path="Key"/>
+                                                    <Binding Path="Value"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock Text="{Binding TotalDithers, StringFormat=Dithers: {0}}" Margin="0,10,0,0"/>
+                            <TextBlock Text="{Binding TotalAutofocus, StringFormat=Autofocus operations: {0}}" />
+                            <TextBlock Text="{Binding UnusedTime, StringFormat=Unused time: {0:N1} min}" />
+                        </StackPanel>
+                    </StackPanel>
+                 
+                         
                 </Border>
 
-
-                             
-                <!-- Loss Results Display -->
-                <!-- <Grid Grid.Row="5" Height="100" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="3*"/>
-                        
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Column="1" Grid.Row="0"  Text="Tolerance Loss" />
-                    <TextBlock Grid.Column="1" Grid.Row="1"  Text="AF Loss" />
-                    <TextBlock Grid.Column="1" Grid.Row="2"  Text="Flip Loss" />
-                    <TextBlock Grid.Column="1" Grid.Row="3"  Text="Dither. Loss" />
-                    <TextBlock Grid.Column="1" Grid.Row="4"  Text="Pauses Loss" />
-                                        
-
-                </Grid> -->
 
                 <!-- WARNINGS Panel -->
                 <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="6" Padding="8" Margin="10"
@@ -368,6 +361,19 @@
                     <TextBox Width="30" Text="{Binding PauseBetweenFrames}" IsEnabled="{Binding EnablePauseBetweenFrames}"/>
                     <TextBlock Text="s" Margin="5,0"  IsEnabled="{Binding EnablePauseBetweenFrames}"/>
                 </StackPanel>
+
+                <!-- Profile Selection -->
+                <StackPanel Orientation="Vertical" Margin="10,120,0,00">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Profile:" VerticalAlignment="Center" Width="60" Margin="0,0,10,0"/>
+                        <ComboBox Width="140" IsEditable="True" ItemsSource="{Binding ProfileNames}" Text="{Binding SelectedProfileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Load" Width="80" Margin="0,0,10,0" Click="OnLoadProfileClicked"/>
+                        <Button Content="Save" Width="80" Click="OnSaveProfileClicked"/>
+                    </StackPanel>
+                </StackPanel>
+
             </StackPanel>
         </Grid>
     </Grid>

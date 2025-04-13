@@ -199,7 +199,14 @@ namespace PlanMyNight.Calculations {
                 }
             }
 
-
+            // 4. Session Summary 
+            result.Summary = new SessionSummary {
+                TimePerFilter = result.TimePlannedPerFilter.ToDictionary(entry => entry.Key, entry => entry.Value),
+                TotalDithers = totalDithers,
+                TotalAutofocusRGB = afRGB,
+                TotalAutofocusSHO = afSHO,
+                UnusedTime = result.UnusedMinutes
+            };
 
             return result;
         }

@@ -31,6 +31,17 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
                 vm.CalculateResults();
             }
         }
+        private void OnLoadProfileClicked(object sender, RoutedEventArgs e) {
+            if (DataContext is PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel vm) {
+                vm.OnLoadProfileClicked();
+            }
+        }
+
+        private void OnSaveProfileClicked(object sender, RoutedEventArgs e) {
+            if (DataContext is PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel vm) {
+                vm.OnSaveProfileClicked();
+            }
+        }
 
     }
 }

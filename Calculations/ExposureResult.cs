@@ -23,6 +23,10 @@ namespace PlanMyNight.Calculations {
         //Display Warnings :
         public List<WarningMessage> Warnings { get; set; } = new();
 
+        //Display Summary:
+        public SessionSummary Summary { get; set; } = new();
+
+
 
     }
 }
