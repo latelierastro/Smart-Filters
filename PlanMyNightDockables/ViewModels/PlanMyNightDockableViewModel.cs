@@ -265,6 +265,13 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
 
 
         // -- Profile Management --
+        private bool ContainsInvalidChars(string name) {
+            foreach (char c in System.IO.Path.GetInvalidFileNameChars()) {
+                if (name.Contains(c))
+                    return true;
+            }
+            return false;
+        }
 
         private List<string> _profileNames = new();
         public List<string> ProfileNames {
@@ -283,9 +290,11 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
                 var loaded = ProfileStorage.Load(SelectedProfileName);
                 if (loaded != null) {
                     LoadFromProfile(loaded);
+                    ToastRequested?.Invoke($"📂 Profile '{SelectedProfileName}' loaded.");
                 }
             }
         }
+
 
         private static readonly char[] InvalidFileNameChars = Path.GetInvalidFileNameChars();
 
@@ -297,9 +306,9 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             if (string.IsNullOrWhiteSpace(SelectedProfileName))
                 return;
 
-            // Vérifie si le nom contient des caractères invalides
+            // Check if profile name is valid
             if (SelectedProfileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) {
-                MessageBox.Show("The profile name contains invalid characters.", "Invalid Name", MessageBoxButton.OK, MessageBoxImage.Error);
+                ToastRequested?.Invoke("❌ Invalid profile name.");
                 return;
             }
 
@@ -313,20 +322,22 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
                     MessageBoxImage.Warning
                 );
 
-                if (result != MessageBoxResult.Yes) {
-                    return; // Cancel saving
-                }
+                if (result != MessageBoxResult.Yes)
+                    return;
             }
 
             var profile = CreateCurrentProfile();
             ProfileStorage.Save(SelectedProfileName, profile);
 
-            // Rafraîchir la liste
-            ProfileNames = ProfileStorage.List();
+            // 🔁 Rafraîchir la liste des profils
+            var updatedList = ProfileStorage.List();
+            if (!ProfileNames.SequenceEqual(updatedList))
+                ProfileNames = updatedList;
 
-            // ✅ Le toast est déclenché uniquement si la sauvegarde a bien eu lieu
-            ToastRequested?.Invoke($"Profile '{SelectedProfileName}' saved!");
+            ToastRequested?.Invoke($"📂 Profile '{SelectedProfileName}' saved.");
         }
+
+
 
 
 

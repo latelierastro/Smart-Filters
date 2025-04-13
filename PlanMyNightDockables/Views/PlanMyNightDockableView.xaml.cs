@@ -6,11 +6,12 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
     public partial class PlanMyNightDockableView : UserControl {
         public PlanMyNightDockableView() {
             InitializeComponent();
+            var vm = new PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel();
+            this.DataContext = vm;
 
-            // Set the DataContext to your ViewModel
-            this.DataContext = new PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel();
-        }
+            vm.ToastRequested += ShowToast;}
 
+           
         private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e) {
 
         }
@@ -32,10 +33,10 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
                 vm.CalculateResults();
             }
         }
+
         private void OnLoadProfileClicked(object sender, RoutedEventArgs e) {
             if (DataContext is PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel vm) {
                 vm.OnLoadProfileClicked();
-                ShowToast($"📂 Profile '{vm.SelectedProfileName}' loaded.");
             }
         }
 
@@ -45,13 +46,11 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
             }
         }
 
-
         private void OnDeleteProfileClicked(object sender, RoutedEventArgs e) {
             if (DataContext is PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel vm) {
                 vm.OnDeleteProfileClicked();
             }
         }
-
 
         private async void ShowToast(string message) {
             ToastText.Text = message;
