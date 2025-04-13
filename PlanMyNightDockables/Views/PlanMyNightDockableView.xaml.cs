@@ -39,11 +39,16 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
             }
         }
 
-
         private void OnSaveProfileClicked(object sender, RoutedEventArgs e) {
             if (DataContext is PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel vm) {
                 vm.OnSaveProfileClicked();
-                ShowToast($"✅ Profile '{vm.SelectedProfileName}' saved.");
+            }
+        }
+
+
+        private void OnDeleteProfileClicked(object sender, RoutedEventArgs e) {
+            if (DataContext is PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel vm) {
+                vm.OnDeleteProfileClicked();
             }
         }
 

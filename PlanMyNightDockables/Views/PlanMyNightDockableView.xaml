@@ -369,8 +369,12 @@
                         <ComboBox Width="140" IsEditable="True" ItemsSource="{Binding ProfileNames}" Text="{Binding SelectedProfileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Load" Width="80" Margin="0,0,10,0" Click="OnLoadProfileClicked"/>
-                        <Button Content="Save" Width="80" Click="OnSaveProfileClicked"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Load" Width="80" Margin="0,0,10,0" Click="OnLoadProfileClicked"/>
+                            <Button Content="Save" Width="80" Click="OnSaveProfileClicked"/>
+                            <Button Content="Delete" Width="80" Margin="10,0,0,0" Click="OnDeleteProfileClicked"/>
+                        </StackPanel>
+
                     </StackPanel>
                 </StackPanel>
 

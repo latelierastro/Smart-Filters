@@ -9,6 +9,8 @@ using PlanMyNight.Models;
 using PlanMyNight.Services;
 using System.Windows;
 using NINA.Core.Utility;
+using System.IO;
+
 
 
 
@@ -18,6 +20,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        public event Action<string>? ToastRequested;
+
 
         // --- TIME ---
         private int _startHour;
@@ -283,30 +287,73 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             }
         }
 
+        private static readonly char[] InvalidFileNameChars = Path.GetInvalidFileNameChars();
+
+        private bool IsProfileNameValid(string name) {
+            return !string.IsNullOrWhiteSpace(name) && !name.Any(c => InvalidFileNameChars.Contains(c));
+        }
+
         public void OnSaveProfileClicked() {
+            if (string.IsNullOrWhiteSpace(SelectedProfileName))
+                return;
+
+            // Vérifie si le nom contient des caractères invalides
+            if (SelectedProfileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) {
+                MessageBox.Show("The profile name contains invalid characters.", "Invalid Name", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            bool profileExists = ProfileNames.Contains(SelectedProfileName);
+
+            if (profileExists) {
+                var result = MessageBox.Show(
+                    $"A profile named '{SelectedProfileName}' already exists. Do you want to overwrite it?",
+                    "Overwrite confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning
+                );
+
+                if (result != MessageBoxResult.Yes) {
+                    return; // Cancel saving
+                }
+            }
+
+            var profile = CreateCurrentProfile();
+            ProfileStorage.Save(SelectedProfileName, profile);
+
+            // Rafraîchir la liste
+            ProfileNames = ProfileStorage.List();
+
+            // ✅ Le toast est déclenché uniquement si la sauvegarde a bien eu lieu
+            ToastRequested?.Invoke($"Profile '{SelectedProfileName}' saved!");
+        }
+
+
+
+
+        public void OnDeleteProfileClicked() {
             if (!string.IsNullOrEmpty(SelectedProfileName)) {
                 bool profileExists = ProfileNames.Contains(SelectedProfileName);
 
                 if (profileExists) {
                     var result = MessageBox.Show(
-                        $"A profile named '{SelectedProfileName}' already exists. Do you want to overwrite it?",
-                        "Overwrite confirmation",
+                        $"Are you sure you want to delete the profile '{SelectedProfileName}'?",
+                        "Delete Confirmation",
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Warning
                     );
 
-                    if (result != MessageBoxResult.Yes) {
-                        return; // Cancel saving
+                    if (result == MessageBoxResult.Yes) {
+                        ProfileStorage.Delete(SelectedProfileName);
+
+                        // Refresh list
+                        ProfileNames = ProfileStorage.List();
+                        SelectedProfileName = ""; // Clear selection
                     }
                 }
-
-                var profile = CreateCurrentProfile();
-                ProfileStorage.Save(SelectedProfileName, profile);
-
-                ProfileNames = ProfileStorage.List();
-                SelectedProfileName = SelectedProfileName;
             }
         }
+
 
 
         private ExposureProfile CreateCurrentProfile() {
