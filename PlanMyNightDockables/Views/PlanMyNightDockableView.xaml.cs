@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using PlanMyNight.PlanMyNightDockables.ViewModels;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -28,11 +29,14 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
 
         }
 
+
         private void OnCalculateClicked(object sender, RoutedEventArgs e) {
-            if (DataContext is PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel vm) {
-                vm.CalculateResults();
+            if (DataContext is PlanMyNightDockableViewModel vm) {
+                vm.CalculateResults();          // ✅ Appelle la bonne méthode
+                vm.UpdateFilterSegments();      // ✅ Met à jour les segments
             }
         }
+
 
         private void OnLoadProfileClicked(object sender, RoutedEventArgs e) {
             if (DataContext is PlanMyNightDockables.ViewModels.PlanMyNightDockableViewModel vm) {

@@ -10,6 +10,7 @@
     <UserControl.Resources>
         <converters:ListCountToVisibilityConverter x:Key="ListCountToVisibilityConverter"/>
         <converters:WarningLevelToBrushConverter x:Key="WarningLevelToBrushConverter"/>
+        <converters:StarWidthConverter x:Key="StarWidthConverter" />
     </UserControl.Resources>
 
 
@@ -169,40 +170,27 @@
 
                 </Grid>
 
+                <!-- VISUAL FILTER DISTRIBUTION --> 
+                <TextBlock Text="Visual Filter Distribution:" Margin="0,30,0,5" FontWeight="Bold" />
 
-                <!-- Slider -->
-                <TextBlock Text="Filter Time Distribution:" Margin="0,20,0,5" FontWeight="Bold" />
-                <Grid Height="10" Margin="0,30,0,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="3*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*" />
-                        <!-- L -->
-                        <ColumnDefinition Width="1*" />
-                        <!-- R -->
-                        <ColumnDefinition Width="1*" />
-                        <!-- G -->
-                        <ColumnDefinition Width="1*" />
-                        <!-- B -->
-                        <ColumnDefinition Width="2*" />
-                        <!-- Ha -->
-                        <ColumnDefinition Width="1*" />
-                        <!-- SII -->
-                        <ColumnDefinition Width="1*" />
-                        <!-- OIII -->
+                <ItemsControl ItemsSource="{Binding FilterSegments}" Margin="0,0,0,20">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Height="20"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                    </Grid.ColumnDefinitions>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{Binding Color}"
+                    Width="{Binding Proportion, Converter={StaticResource StarWidthConverter}}"
+                    Height="20"
+                    ToolTip="{Binding Label}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-                    <Rectangle Grid.Column="0" Fill="LightGray" Grid.RowSpan="2" />
-                    <Rectangle Fill="Red" Grid.ColumnSpan="3" Margin="202,0,67,0" Grid.RowSpan="2" />
-                    <Rectangle Grid.Column="2" Fill="Green" Grid.RowSpan="2" />
-                    <Rectangle Grid.Column="2" Fill="Blue" Grid.ColumnSpan="3" Margin="67,0,134,0" Grid.RowSpan="2" />
-                    <Rectangle Grid.Column="4" Fill="Magenta" Grid.RowSpan="2" />
-                    <Rectangle Grid.Column="4" Fill="Yellow" Grid.ColumnSpan="3" Margin="134,0,67,0" Grid.RowSpan="2" />
-                    <Rectangle Grid.Column="6" Fill="Cyan" Grid.RowSpan="2" />
-                </Grid>
+               
 
 
                 <!-- Results -->

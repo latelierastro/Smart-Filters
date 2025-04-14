@@ -10,6 +10,11 @@ using PlanMyNight.Services;
 using System.Windows;
 using NINA.Core.Utility;
 using System.IO;
+using System.Collections.ObjectModel;
+using System.Windows.Media;
+using PlanMyNight.Models;
+
+
 
 
 
@@ -141,6 +146,10 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
 
         private int _resultO;
         public int ResultO { get => _resultO; set { _resultO = value; OnPropertyChanged(); } }
+
+        // --- SEGMENT ---
+        public ObservableCollection<FilterSegment> FilterSegments { get; set; }
+
 
 
         public void CalculateResults() {
@@ -527,7 +536,30 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         }
 
         public PlanMyNightDockableViewModel() {
-            ProfileNames = ProfileStorage.List();  // <-- charge tous les noms
+            ProfileNames = ProfileStorage.List();
+
+            FilterSegments = new ObservableCollection<FilterSegment>
+            {
+        new FilterSegment { FilterName = "L", Color = Brushes.White, Proportion = PercentL },
+        new FilterSegment { FilterName = "R", Color = Brushes.Red, Proportion = PercentR },
+        new FilterSegment { FilterName = "G", Color = Brushes.Green, Proportion = PercentG },
+        new FilterSegment { FilterName = "B", Color = Brushes.Blue, Proportion = PercentB },
+        new FilterSegment { FilterName = "Ha", Color = Brushes.Magenta, Proportion = PercentHa },
+        new FilterSegment { FilterName = "S", Color = Brushes.Yellow, Proportion = PercentS },
+        new FilterSegment { FilterName = "O", Color = Brushes.Cyan, Proportion = PercentO }
+    };
+        }
+
+        public void UpdateFilterSegments() {
+            FilterSegments.Clear();
+
+            if (IncludeL) FilterSegments.Add(new FilterSegment { FilterName = "L", Color = Brushes.White, Proportion = PercentL/40, Label = $"L ({PercentL}%)" });
+            if (IncludeR) FilterSegments.Add(new FilterSegment { FilterName = "R", Color = Brushes.Red, Proportion = PercentR/40, Label = $"R ({PercentR}%)" });
+            if (IncludeG) FilterSegments.Add(new FilterSegment { FilterName = "G", Color = Brushes.Green, Proportion = PercentG/40, Label = $"G ({PercentG}%)" });
+            if (IncludeB) FilterSegments.Add(new FilterSegment { FilterName = "B", Color = Brushes.Blue, Proportion = PercentB/40, Label = $"B ({PercentB}%)" });
+            if (IncludeHa) FilterSegments.Add(new FilterSegment { FilterName = "Ha", Color = Brushes.Magenta, Proportion = PercentHa/40, Label = $"Ha ({PercentHa}%)" });
+            if (IncludeS) FilterSegments.Add(new FilterSegment { FilterName = "S", Color = Brushes.Yellow, Proportion = PercentS/40, Label = $"S ({PercentS}%)" });
+            if (IncludeO) FilterSegments.Add(new FilterSegment { FilterName = "O", Color = Brushes.Cyan, Proportion = PercentO/40, Label = $"O ({PercentO}%)" });
         }
 
 

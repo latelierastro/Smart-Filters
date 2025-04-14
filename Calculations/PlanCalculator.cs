@@ -195,12 +195,27 @@ namespace PlanMyNight.Calculations {
             }
 
             // 2. Unused minutes at the end of the session
-            if (result.UnusedMinutes > 10.0) {
-                result.Warnings.Add(new WarningMessage(
-                    $"There are {Math.Round(result.UnusedMinutes, 1)} unused minutes at the end of the session. Consider optimizing your plan.",
-                    "Yellow"
-                ));
+            if (result.UnusedMinutes > 1.0) {
+                // Vérifie si la somme des pourcentages est cohérente
+                double totalPercent = request.TargetProportion
+                    .Where(kvp => request.FiltersSelected.GetValueOrDefault(kvp.Key, false))
+                    .Sum(kvp => kvp.Value);
+
+                bool proportionsMatch = Math.Abs(totalPercent - 100.0) <= request.SafetyTolerance;
+
+                if (proportionsMatch) {
+                    result.Warnings.Add(new WarningMessage(
+                        $"🎯 Objectives reached. You still have {Math.Round(result.UnusedMinutes, 1)} minutes available. You could add extra frames on a selected filter.",
+                        "Green"
+                    ));
+                } else {
+                    result.Warnings.Add(new WarningMessage(
+                        $"There are {Math.Round(result.UnusedMinutes, 1)} unused minutes at the end of the session. Consider optimizing your plan.",
+                        "Yellow"
+                    ));
+                }
             }
+
 
             // 3. Selected filter with no exposure time planned
             foreach (var filter in request.FiltersSelected.Where(f => f.Value).Select(f => f.Key)) {
