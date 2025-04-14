@@ -215,6 +215,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             // 8. Fill session summary
             TimePerFilter = result.Summary.TimePerFilter;
             TotalDithers = result.Summary.TotalDithers;
+            TotalAutofocusRGB = (int)result.Summary.TotalAutofocusRGB;
+            TotalAutofocusSHO = (int)result.Summary.TotalAutofocusSHO;
             TotalAutofocus = result.Summary.TotalAutofocusRGB + result.Summary.TotalAutofocusSHO;
             UnusedTime = result.Summary.UnusedTime;
             ToleranceLostMinutes = result.Summary.ToleranceLostMinutes;
@@ -231,6 +233,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             ResultO = result.FramesToAcquire.GetValueOrDefault("O", 0);
 
             Debug.WriteLine(result.Comment);
+            OnPropertyChanged(nameof(AutofocusSummary));
+
         }
 
         // -- WARNINGS --
@@ -273,6 +277,29 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             set { _toleranceLostMinutes = value; OnPropertyChanged(); }
         }
 
+        private int _totalAutofocusRGB;
+        public int TotalAutofocusRGB {
+            get => _totalAutofocusRGB;
+            set { _totalAutofocusRGB = value; OnPropertyChanged(); }
+        }
+
+        private int _totalAutofocusSHO;
+        public int TotalAutofocusSHO {
+            get => _totalAutofocusSHO;
+            set { _totalAutofocusSHO = value; OnPropertyChanged(); }
+        }
+
+        public string AutofocusSummary {
+            get {
+                // Durée totale : chaque autofocus RGB ou SHO dure un certain temps
+                double totalMinutes =
+                    Math.Round(TotalAutofocusRGB * AutofocusDurationRGB / 60.0 + TotalAutofocusSHO * AutofocusDurationSHO / 60.0);
+
+                int totalCount = (int)(TotalAutofocusRGB + TotalAutofocusSHO);
+
+                return $"Autofocus: {totalCount} operations ({totalMinutes} min)";
+            }
+        }
 
         // -- Profile Management --
         private bool ContainsInvalidChars(string name) {
