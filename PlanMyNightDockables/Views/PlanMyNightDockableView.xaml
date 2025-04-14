@@ -11,6 +11,7 @@
         <converters:ListCountToVisibilityConverter x:Key="ListCountToVisibilityConverter"/>
         <converters:WarningLevelToBrushConverter x:Key="WarningLevelToBrushConverter"/>
         <converters:StarWidthConverter x:Key="StarWidthConverter" />
+        <converters:ProportionalWidthConverter x:Key="ProportionalWidthConverter" />
     </UserControl.Resources>
 
 
@@ -182,10 +183,15 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="{Binding Color}"
-                    Width="{Binding Proportion, Converter={StaticResource StarWidthConverter}}"
-                    Height="20"
-                    ToolTip="{Binding Label}" />
+                            <Border Background="{Binding Color}">
+                                <Border.Width>
+                                    <MultiBinding Converter="{StaticResource ProportionalWidthConverter}">
+                                        <Binding Path="Proportion"/>
+                                        <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="ActualWidth"/>
+                                    </MultiBinding>
+                                </Border.Width>
+                            </Border>
+
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
