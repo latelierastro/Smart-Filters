@@ -530,8 +530,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             PercentR = profile.TargetProportion.GetValueOrDefault("R");
             PercentG = profile.TargetProportion.GetValueOrDefault("G");
             PercentB = profile.TargetProportion.GetValueOrDefault("B");
-            PercentHa = profile.TargetProportion.GetValueOrDefault("Ha");
             PercentS = profile.TargetProportion.GetValueOrDefault("S");
+            PercentHa = profile.TargetProportion.GetValueOrDefault("Ha");
             PercentO = profile.TargetProportion.GetValueOrDefault("O");
         }
 
@@ -544,8 +544,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         new FilterSegment { FilterName = "R", Color = Brushes.Red, Proportion = PercentR },
         new FilterSegment { FilterName = "G", Color = Brushes.Green, Proportion = PercentG },
         new FilterSegment { FilterName = "B", Color = Brushes.Blue, Proportion = PercentB },
-        new FilterSegment { FilterName = "Ha", Color = Brushes.Magenta, Proportion = PercentHa },
         new FilterSegment { FilterName = "S", Color = Brushes.Yellow, Proportion = PercentS },
+        new FilterSegment { FilterName = "Ha", Color = Brushes.Magenta, Proportion = PercentHa },
         new FilterSegment { FilterName = "O", Color = Brushes.Cyan, Proportion = PercentO }
     };
         }
@@ -557,8 +557,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             if (IncludeR) FilterSegments.Add(new FilterSegment { FilterName = "R", Color = Brushes.Red, Proportion = PercentR/100, Label = $"R ({PercentR}%)" });
             if (IncludeG) FilterSegments.Add(new FilterSegment { FilterName = "G", Color = Brushes.Green, Proportion = PercentG/100, Label = $"G ({PercentG}%)" });
             if (IncludeB) FilterSegments.Add(new FilterSegment { FilterName = "B", Color = Brushes.Blue, Proportion = PercentB/100, Label = $"B ({PercentB}%)" });
+            if (IncludeS) FilterSegments.Add(new FilterSegment { FilterName = "S", Color = Brushes.Yellow, Proportion = PercentS / 100, Label = $"S ({PercentS}%)" });
             if (IncludeHa) FilterSegments.Add(new FilterSegment { FilterName = "Ha", Color = Brushes.Magenta, Proportion = PercentHa/100, Label = $"Ha ({PercentHa}%)" });
-            if (IncludeS) FilterSegments.Add(new FilterSegment { FilterName = "S", Color = Brushes.Yellow, Proportion = PercentS/100, Label = $"S ({PercentS}%)" });
             if (IncludeO) FilterSegments.Add(new FilterSegment { FilterName = "O", Color = Brushes.Cyan, Proportion = PercentO/100, Label = $"O ({PercentO}%)" });
         }
 
