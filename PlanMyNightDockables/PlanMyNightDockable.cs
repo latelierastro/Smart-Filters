@@ -32,7 +32,7 @@ namespace PlanMyNight.PlanMyNightDockables {
             // This will reference the resource dictionary to import the SVG graphic and assign it as the icon for the header bar
             var dict = new ResourceDictionary();
             dict.Source = new Uri("PlanMyNight;component/PlanMyNightDockables/PlanMyNightDockableTemplates.xaml", UriKind.RelativeOrAbsolute);
-            ImageGeometry = (System.Windows.Media.GeometryGroup)dict["PlanMyNight_GalaxySVG"];
+            ImageGeometry = (System.Windows.Media.GeometryGroup)dict["PlanMyNight_WheelIconSVG"];
             ImageGeometry.Freeze();
 
             this.nighttimeCalculator = nighttimeCalculator;

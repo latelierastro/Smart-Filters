@@ -8,15 +8,21 @@
              d:DesignHeight="700" d:DesignWidth="1000">
 
     <UserControl.Resources>
-        <converters:ListCountToVisibilityConverter x:Key="ListCountToVisibilityConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PlanMyNight;component/PlanMyNightDockables/PlanMyNightDockableTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:ListCountToVisibilityConverter x:Key="ListCountToVisibilityConverter"/>
         <converters:WarningLevelToBrushConverter x:Key="WarningLevelToBrushConverter"/>
         <converters:StarWidthConverter x:Key="StarWidthConverter" />
         <converters:ProportionalWidthConverter x:Key="ProportionalWidthConverter" />
         <converters:FilterActiveToColorConverter x:Key="FilterActiveToColorConverter"/>
+        <SolidColorBrush x:Key="FilterWheelStrokeBrush" Color="{Binding Foreground.Color, ElementName=ReferenceTextBlock}" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
 
-
+    <!-- GRID PRINCIPALE --> 
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -174,6 +180,7 @@
                     
                     
                     <!-- FILTER WHEEL VISUALISATION -->
+                    
                     <!-- TextBlock caché pour récupérer la couleur dynamique de texte de NINA -->
                     <TextBlock x:Name="ReferenceTextBlock" Text="Sample" Visibility="Collapsed"/>
 
@@ -194,83 +201,74 @@
                             <!-- Cercles extérieurs -->
                             <!-- L -->
                             <!-- 1. L - WHITE -->
-<Ellipse Canvas.Left="181.87" Canvas.Top="119.95" Width="36.26" Height="36.26"
-         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-    <Ellipse.Fill>
-        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-            <Binding Path="IncludeL"/>
-            <Binding Path="FilterSegments[0].Color"/>
-        </MultiBinding>
-    </Ellipse.Fill>
-</Ellipse>
+                            <Ellipse Canvas.Left="181.87" Canvas.Top="119.95" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeL"/>
+                                        <Binding Path="FilterSegments[0].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
 
-<!-- 2. R - RED -->
-<Ellipse Canvas.Left="222.12" Canvas.Top="140.84" Width="36.26" Height="36.26"
-         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-    <Ellipse.Fill>
-        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-            <Binding Path="IncludeR"/>
-            <Binding Path="FilterSegments[1].Color"/>
-        </MultiBinding>
-    </Ellipse.Fill>
-</Ellipse>
+                            <!-- 2. R - RED -->
+                            <Ellipse Canvas.Left="222.12" Canvas.Top="140.84" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeR"/>
+                                        <Binding Path="FilterSegments[1].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
 
-<!-- 3. G - GREEN -->
-<Ellipse Canvas.Left="232.62" Canvas.Top="184.55" Width="36.26" Height="36.26"
-         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-    <Ellipse.Fill>
-        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-            <Binding Path="IncludeG"/>
-            <Binding Path="FilterSegments[2].Color"/>
-        </MultiBinding>
-    </Ellipse.Fill>
-</Ellipse>
+                            <!-- 3. G - GREEN -->
+                            <Ellipse Canvas.Left="232.62" Canvas.Top="184.55" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeG"/>
+                                        <Binding Path="FilterSegments[2].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
 
-<!-- 4. B - BLUE -->
-<Ellipse Canvas.Left="204.12" Canvas.Top="219.98" Width="36.26" Height="36.26"
-         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-    <Ellipse.Fill>
-        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-            <Binding Path="IncludeB"/>
-            <Binding Path="FilterSegments[3].Color"/>
-        </MultiBinding>
-    </Ellipse.Fill>
-</Ellipse>
+                            <!-- 4. B - BLUE -->
+                            <Ellipse Canvas.Left="204.12" Canvas.Top="219.98" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeB"/>
+                                        <Binding Path="FilterSegments[3].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
 
-<!-- 5. S - YELLOW -->
-<Ellipse Canvas.Left="159.62" Canvas.Top="219.98" Width="36.26" Height="36.26"
-         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-    <Ellipse.Fill>
-        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-            <Binding Path="IncludeS"/>
-            <Binding Path="FilterSegments[4].Color"/>
-        </MultiBinding>
-    </Ellipse.Fill>
-</Ellipse>
+                            <!-- 5. S - YELLOW -->
+                            <Ellipse Canvas.Left="159.62" Canvas.Top="219.98" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeS"/>
+                                        <Binding Path="FilterSegments[4].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>  
 
-<!-- 6. Ha - MAGENTA -->
-<Ellipse Canvas.Left="131.12" Canvas.Top="184.55" Width="36.26" Height="36.26"
-         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-    <Ellipse.Fill>
-        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-            <Binding Path="IncludeHa"/>
-            <Binding Path="FilterSegments[5].Color"/>
-        </MultiBinding>
-    </Ellipse.Fill>
-</Ellipse>
+                            <!-- 6. Ha - MAGENTA -->
+                            <Ellipse Canvas.Left="131.12" Canvas.Top="184.55" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeHa"/>
+                                        <Binding Path="FilterSegments[5].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
 
-<!-- 7. O - CYAN -->
-<Ellipse Canvas.Left="141.62" Canvas.Top="140.84" Width="36.26" Height="36.26"
-         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-    <Ellipse.Fill>
-        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-            <Binding Path="IncludeO"/>
-            <Binding Path="FilterSegments[6].Color"/>
-        </MultiBinding>
-    </Ellipse.Fill>
-</Ellipse>
-
-
+                            <!-- 7. O - CYAN -->
+                            <Ellipse Canvas.Left="141.62" Canvas.Top="140.84" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeO"/>
+                                        <Binding Path="FilterSegments[6].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
 
                             <!-- Petits cercles internes -->
                             <Ellipse Canvas.Left="196.59" Canvas.Top="205.10" Width="13.66" Height="13.66" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1"/>
@@ -282,12 +280,10 @@
                             <Ellipse Canvas.Left="215.71" Canvas.Top="180.77" Width="13.66" Height="13.66" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1"/>
 
                             <!-- Contour du boîtier (seul élément en couleur dynamique) -->
-                            <Path Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1" Fill="Transparent"
-Data="M249.26,248.41 L249.26,282.12 A3,3 0 0 1 246.26,285.12 L153.74,285.12 A3,3 0 0 1 150.74,282.12 L150.74,248.38"/>
+                            <Path Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1" Fill="Transparent" 
+                               Data="M249.26,248.41 L249.26,282.12 A3,3 0 0 1 246.26,285.12 L153.74,285.12 A3,3 0 0 1 150.74,282.12 L150.74,248.38"/>
                         </Canvas>
                     </Viewbox>
-
-
 
 
                 </Grid>
@@ -298,27 +294,28 @@ Data="M249.26,248.41 L249.26,282.12 A3,3 0 0 1 246.26,285.12 L153.74,285.12 A3,3
                 <!-- VISUAL FILTER DISTRIBUTION -->
                 <TextBlock Text="Visual Filter Distribution:" Margin="0,30,0,5" FontWeight="Bold" />
 
-                <ItemsControl ItemsSource="{Binding FilterSegments}" Margin="0,0,0,20" Height="10">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" Height="20"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="0" Margin="0,0,0,20">
+                    <ItemsControl ItemsSource="{Binding FilterSegments}" Height="10">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Height="20"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="{Binding Color}">
-                                <Border.Width>
-                                    <MultiBinding Converter="{StaticResource ProportionalWidthConverter}">
-                                        <Binding Path="Proportion"/>
-                                        <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="ActualWidth"/>
-                                    </MultiBinding>
-                                </Border.Width>
-                            </Border>
-
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="{Binding Color}">
+                                    <Border.Width>
+                                        <MultiBinding Converter="{StaticResource ProportionalWidthConverter}">
+                                            <Binding Path="Proportion"/>
+                                            <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="ActualWidth"/>
+                                        </MultiBinding>
+                                    </Border.Width>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
 
 
 
@@ -421,7 +418,7 @@ Data="M249.26,248.41 L249.26,282.12 A3,3 0 0 1 246.26,285.12 L153.74,285.12 A3,3
             <!-- Separator -->
             <Border Grid.Column="1" Margin="0,0" Width="1" Background="LightGray" />
 
-            <!-- Settings -->
+            <!-- FENETRE SETTINGS -->
             <StackPanel Grid.Column="2" Orientation="Vertical" Margin="10,0,0,0">
                 <TextBlock Text="Settings:" FontSize="16" FontWeight="Bold" Margin="0,0,0,20" TextAlignment="Center" />
 
@@ -498,19 +495,34 @@ Data="M249.26,248.41 L249.26,282.12 A3,3 0 0 1 246.26,285.12 L153.74,285.12 A3,3
                     </StackPanel>
                 </StackPanel>
 
-                <Border x:Name="ToastNotification" Background="#CC333333" CornerRadius="8" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,20,0,0"
-                    Visibility="Collapsed"
-                    RenderTransformOrigin="0.5,0.5"
-                    Panel.ZIndex="1000">
-                    <TextBlock x:Name="ToastText"
-               Foreground="White"
-               FontSize="14"
-               Text="Toast Message"
-               TextWrapping="Wrap"/>
-                </Border>
+                <Grid Margin="10,20,0,0" Width="200" Height="80">
+                    <!-- Toast Notification (centré en haut) -->
+                    <Border x:Name="ToastNotification"
+            Background="#CC333333"
+            CornerRadius="8"
+            Padding="10"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Visibility="Collapsed"
+            RenderTransformOrigin="0.5,0.5"
+            Panel.ZIndex="1000">
+                        <TextBlock x:Name="ToastText"
+                   Foreground="White"
+                   FontSize="14"
+                   Text="Toast Message"
+                   TextWrapping="Wrap"/>
+                    </Border>
+
+                    <!-- Galaxy logo (centré en bas) -->
+                    <Path Data="{StaticResource PlanMyNight_GalaxySVG}"
+          Stretch="Uniform" Width="50" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+          Margin="0,0,0,0"
+          Fill="{DynamicResource FilterWheelStrokeBrush}" Opacity="0.5" />
+                </Grid>
 
 
             </StackPanel>
         </Grid>
+        
     </Grid>
 </UserControl>
