@@ -10,10 +10,11 @@ namespace PlanMyNight.Converters {
                 return Brushes.Transparent;
 
             bool isActive = values[0] is bool b && b;
-            string colorCode = values[1]?.ToString() ?? "#00000000";
+            var brush = values[1] as Brush;
 
-            return isActive ? (SolidColorBrush)(new BrushConverter().ConvertFrom(colorCode))! : Brushes.Transparent;
+            return isActive && brush != null ? brush : Brushes.Transparent;
         }
+
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
             throw new NotImplementedException();

@@ -12,7 +12,9 @@
         <converters:WarningLevelToBrushConverter x:Key="WarningLevelToBrushConverter"/>
         <converters:StarWidthConverter x:Key="StarWidthConverter" />
         <converters:ProportionalWidthConverter x:Key="ProportionalWidthConverter" />
+        <converters:FilterActiveToColorConverter x:Key="FilterActiveToColorConverter"/>
     </UserControl.Resources>
+
 
 
     <Grid Margin="10">
@@ -190,13 +192,85 @@
                             <Ellipse Canvas.Left="124.21" Canvas.Top="114.89" Width="151.58" Height="151.58" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1" Fill="Transparent"/>
 
                             <!-- Cercles extérieurs -->
-                            <Ellipse Canvas.Left="181.87" Canvas.Top="119.95" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1" Fill="#0000001A"/>
-                            <Ellipse Canvas.Left="141.62" Canvas.Top="140.84" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1" Fill="#00000066"/>
-                            <Ellipse Canvas.Left="222.12" Canvas.Top="140.84" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1" Fill="#00000033"/>
-                            <Ellipse Canvas.Left="159.62" Canvas.Top="219.98" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1" Fill="#00000080"/>
-                            <Ellipse Canvas.Left="204.12" Canvas.Top="219.98" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1" Fill="#00000066"/>
-                            <Ellipse Canvas.Left="131.12" Canvas.Top="184.55" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1" Fill="#00000099"/>
-                            <Ellipse Canvas.Left="232.62" Canvas.Top="184.55" Width="36.26" Height="36.26" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1" Fill="#0000004D"/>
+                            <!-- L -->
+                            <!-- 1. L - WHITE -->
+                            <Ellipse Canvas.Left="181.87" Canvas.Top="119.95" Width="36.26" Height="36.26"
+         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeL"/>
+                                        <Binding Path="FilterSegments[0].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <!-- 2. R - RED -->
+                            <Ellipse Canvas.Left="222.12" Canvas.Top="140.84" Width="36.26" Height="36.26"
+         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeR"/>
+                                        <Binding Path="FilterSegments[1].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <!-- 3. G - GREEN -->
+                            <Ellipse Canvas.Left="232.62" Canvas.Top="184.55" Width="36.26" Height="36.26"
+         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeG"/>
+                                        <Binding Path="FilterSegments[2].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <!-- 4. B - BLUE -->
+                            <Ellipse Canvas.Left="204.12" Canvas.Top="219.98" Width="36.26" Height="36.26"
+         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeB"/>
+                                        <Binding Path="FilterSegments[3].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <!-- 5. S - YELLOW -->
+                            <Ellipse Canvas.Left="159.62" Canvas.Top="219.98" Width="36.26" Height="36.26"
+         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeS"/>
+                                        <Binding Path="FilterSegments[4].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <!-- 6. Ha - MAGENTA -->
+                            <Ellipse Canvas.Left="131.12" Canvas.Top="184.55" Width="36.26" Height="36.26"
+         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeHa"/>
+                                        <Binding Path="FilterSegments[5].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <!-- 7. O - CYAN -->
+                            <Ellipse Canvas.Left="141.62" Canvas.Top="140.84" Width="36.26" Height="36.26"
+         Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+                                        <Binding Path="IncludeO"/>
+                                        <Binding Path="FilterSegments[6].Color"/>
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+
 
                             <!-- Petits cercles internes -->
                             <Ellipse Canvas.Left="196.59" Canvas.Top="205.10" Width="13.66" Height="13.66" Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1"/>
