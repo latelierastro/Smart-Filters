@@ -194,81 +194,81 @@
                             <!-- Cercles extérieurs -->
                             <!-- L -->
                             <!-- 1. L - WHITE -->
-                            <Ellipse Canvas.Left="181.87" Canvas.Top="119.95" Width="36.26" Height="36.26"
+<Ellipse Canvas.Left="181.87" Canvas.Top="119.95" Width="36.26" Height="36.26"
          Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-                                <Ellipse.Fill>
-                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-                                        <Binding Path="IncludeL"/>
-                                        <Binding Path="FilterSegments[0].Color"/>
-                                    </MultiBinding>
-                                </Ellipse.Fill>
-                            </Ellipse>
+    <Ellipse.Fill>
+        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+            <Binding Path="IncludeL"/>
+            <Binding Path="FilterSegments[0].Color"/>
+        </MultiBinding>
+    </Ellipse.Fill>
+</Ellipse>
 
-                            <!-- 2. R - RED -->
-                            <Ellipse Canvas.Left="222.12" Canvas.Top="140.84" Width="36.26" Height="36.26"
+<!-- 2. R - RED -->
+<Ellipse Canvas.Left="222.12" Canvas.Top="140.84" Width="36.26" Height="36.26"
          Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-                                <Ellipse.Fill>
-                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-                                        <Binding Path="IncludeR"/>
-                                        <Binding Path="FilterSegments[1].Color"/>
-                                    </MultiBinding>
-                                </Ellipse.Fill>
-                            </Ellipse>
+    <Ellipse.Fill>
+        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+            <Binding Path="IncludeR"/>
+            <Binding Path="FilterSegments[1].Color"/>
+        </MultiBinding>
+    </Ellipse.Fill>
+</Ellipse>
 
-                            <!-- 3. G - GREEN -->
-                            <Ellipse Canvas.Left="232.62" Canvas.Top="184.55" Width="36.26" Height="36.26"
+<!-- 3. G - GREEN -->
+<Ellipse Canvas.Left="232.62" Canvas.Top="184.55" Width="36.26" Height="36.26"
          Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-                                <Ellipse.Fill>
-                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-                                        <Binding Path="IncludeG"/>
-                                        <Binding Path="FilterSegments[2].Color"/>
-                                    </MultiBinding>
-                                </Ellipse.Fill>
-                            </Ellipse>
+    <Ellipse.Fill>
+        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+            <Binding Path="IncludeG"/>
+            <Binding Path="FilterSegments[2].Color"/>
+        </MultiBinding>
+    </Ellipse.Fill>
+</Ellipse>
 
-                            <!-- 4. B - BLUE -->
-                            <Ellipse Canvas.Left="204.12" Canvas.Top="219.98" Width="36.26" Height="36.26"
+<!-- 4. B - BLUE -->
+<Ellipse Canvas.Left="204.12" Canvas.Top="219.98" Width="36.26" Height="36.26"
          Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-                                <Ellipse.Fill>
-                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-                                        <Binding Path="IncludeB"/>
-                                        <Binding Path="FilterSegments[3].Color"/>
-                                    </MultiBinding>
-                                </Ellipse.Fill>
-                            </Ellipse>
+    <Ellipse.Fill>
+        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+            <Binding Path="IncludeB"/>
+            <Binding Path="FilterSegments[3].Color"/>
+        </MultiBinding>
+    </Ellipse.Fill>
+</Ellipse>
 
-                            <!-- 5. S - YELLOW -->
-                            <Ellipse Canvas.Left="159.62" Canvas.Top="219.98" Width="36.26" Height="36.26"
+<!-- 5. S - YELLOW -->
+<Ellipse Canvas.Left="159.62" Canvas.Top="219.98" Width="36.26" Height="36.26"
          Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-                                <Ellipse.Fill>
-                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-                                        <Binding Path="IncludeS"/>
-                                        <Binding Path="FilterSegments[4].Color"/>
-                                    </MultiBinding>
-                                </Ellipse.Fill>
-                            </Ellipse>
+    <Ellipse.Fill>
+        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+            <Binding Path="IncludeS"/>
+            <Binding Path="FilterSegments[4].Color"/>
+        </MultiBinding>
+    </Ellipse.Fill>
+</Ellipse>
 
-                            <!-- 6. Ha - MAGENTA -->
-                            <Ellipse Canvas.Left="131.12" Canvas.Top="184.55" Width="36.26" Height="36.26"
+<!-- 6. Ha - MAGENTA -->
+<Ellipse Canvas.Left="131.12" Canvas.Top="184.55" Width="36.26" Height="36.26"
          Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-                                <Ellipse.Fill>
-                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-                                        <Binding Path="IncludeHa"/>
-                                        <Binding Path="FilterSegments[5].Color"/>
-                                    </MultiBinding>
-                                </Ellipse.Fill>
-                            </Ellipse>
+    <Ellipse.Fill>
+        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+            <Binding Path="IncludeHa"/>
+            <Binding Path="FilterSegments[5].Color"/>
+        </MultiBinding>
+    </Ellipse.Fill>
+</Ellipse>
 
-                            <!-- 7. O - CYAN -->
-                            <Ellipse Canvas.Left="141.62" Canvas.Top="140.84" Width="36.26" Height="36.26"
+<!-- 7. O - CYAN -->
+<Ellipse Canvas.Left="141.62" Canvas.Top="140.84" Width="36.26" Height="36.26"
          Stroke="{DynamicResource FilterWheelStrokeBrush}" StrokeThickness="1">
-                                <Ellipse.Fill>
-                                    <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
-                                        <Binding Path="IncludeO"/>
-                                        <Binding Path="FilterSegments[6].Color"/>
-                                    </MultiBinding>
-                                </Ellipse.Fill>
-                            </Ellipse>
+    <Ellipse.Fill>
+        <MultiBinding Converter="{StaticResource FilterActiveToColorConverter}">
+            <Binding Path="IncludeO"/>
+            <Binding Path="FilterSegments[6].Color"/>
+        </MultiBinding>
+    </Ellipse.Fill>
+</Ellipse>
 
 
 
@@ -324,7 +324,7 @@ Data="M249.26,248.41 L249.26,282.12 A3,3 0 0 1 246.26,285.12 L153.74,285.12 A3,3
 
 
                 <!-- Results -->
-                <TextBlock Text="Results:" FontWeight="Bold" Margin="0,10,0,5" />
+                <TextBlock Text="Results:" FontWeight="Bold" Margin="0,10,0,5" FontSize="16" />
                 <Border BorderBrush="Gray" BorderThickness="1" Padding="5" Margin="0,0,0,10">
                     <StackPanel>
                         <!-- Table with frame counts -->
@@ -345,24 +345,24 @@ Data="M249.26,248.41 L249.26,282.12 A3,3 0 0 1 246.26,285.12 L153.74,285.12 A3,3
                             </Grid.ColumnDefinitions>
 
                             <!-- Header -->
-                            <TextBlock Text="Filter" Grid.Row="0" Grid.Column="0" FontWeight="Bold" HorizontalAlignment="Center" />
-                            <TextBlock Text="L" Grid.Row="0" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Center" />
-                            <TextBlock Text="R" Grid.Row="0" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Center" />
-                            <TextBlock Text="G" Grid.Row="0" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Center" />
-                            <TextBlock Text="B" Grid.Row="0" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Center" />
-                            <TextBlock Text="Ha" Grid.Row="0" Grid.Column="5" FontWeight="Bold" HorizontalAlignment="Center" />
-                            <TextBlock Text="SII" Grid.Row="0" Grid.Column="6" FontWeight="Bold" HorizontalAlignment="Center" />
-                            <TextBlock Text="OIII" Grid.Row="0" Grid.Column="7" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <TextBlock Text="Filter" Grid.Row="0" Grid.Column="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="14" />
+                            <TextBlock Text="L" Grid.Row="0" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Center" FontSize="14" />
+                            <TextBlock Text="R" Grid.Row="0" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Center" FontSize="14" />
+                            <TextBlock Text="G" Grid.Row="0" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Center" FontSize="14" />
+                            <TextBlock Text="B" Grid.Row="0" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Center" FontSize="14" />
+                            <TextBlock Text="SII" Grid.Row="0" Grid.Column="5" FontWeight="Bold" HorizontalAlignment="Center" FontSize="14" />
+                            <TextBlock Text="Ha" Grid.Row="0" Grid.Column="6" FontWeight="Bold" HorizontalAlignment="Center" FontSize="14" />
+                            <TextBlock Text="OIII" Grid.Row="0" Grid.Column="7" FontWeight="Bold" HorizontalAlignment="Center" FontSize="14" />
 
                             <!-- Values -->
-                            <TextBlock Text="# Frames" Grid.Row="1" Grid.Column="0" FontStyle="Italic" HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding ResultL}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding ResultR}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding ResultG}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding ResultB}" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding ResultHa}" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding ResultS}" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding ResultO}" Grid.Row="1" Grid.Column="7" HorizontalAlignment="Center" />
+                            <TextBlock Text="# Frames" Grid.Row="1" Grid.Column="0" FontStyle="Italic" HorizontalAlignment="Center" FontSize="14" />
+                            <TextBlock Text="{Binding ResultL}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" FontSize="14"/>
+                            <TextBlock Text="{Binding ResultR}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" FontSize="14"/>
+                            <TextBlock Text="{Binding ResultG}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" FontSize="14"/>
+                            <TextBlock Text="{Binding ResultB}" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" FontSize="14"/>
+                            <TextBlock Text="{Binding ResultS}" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" FontSize="14"/>
+                            <TextBlock Text="{Binding ResultHa}" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center" FontSize="14"/>
+                            <TextBlock Text="{Binding ResultO}" Grid.Row="1" Grid.Column="7" HorizontalAlignment="Center" FontSize="14"/>
                         </Grid>
 
                         <!-- Session Summary -->

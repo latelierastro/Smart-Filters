@@ -83,6 +83,7 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
 
         // --- FILTER FLAGS + INPUT ---
         private bool _includeL; public bool IncludeL { get => _includeL; set { _includeL = value; OnPropertyChanged(); } }
+
         private bool _includeR; public bool IncludeR { get => _includeR; set { _includeR = value; OnPropertyChanged(); } }
         private bool _includeG; public bool IncludeG { get => _includeG; set { _includeG = value; OnPropertyChanged(); } }
         private bool _includeB; public bool IncludeB { get => _includeB; set { _includeB = value; OnPropertyChanged(); } }
@@ -94,6 +95,7 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         private int _hoursDoneL; public int HoursDoneL { get => _hoursDoneL; set { _hoursDoneL = value; OnPropertyChanged(); } }
         private int _minutesDoneL; public int MinutesDoneL { get => _minutesDoneL; set { _minutesDoneL = value; OnPropertyChanged(); } }
         private double _percentL; public double PercentL { get => _percentL; set { _percentL = value; OnPropertyChanged(); } }
+
 
         private double _exposureTimeR; public double ExposureTimeR { get => _exposureTimeR; set { _exposureTimeR = value; OnPropertyChanged(); } }
         private int _hoursDoneR; public int HoursDoneR { get => _hoursDoneR; set { _hoursDoneR = value; OnPropertyChanged(); } }
@@ -125,6 +127,7 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         private int _minutesDoneO; public int MinutesDoneO { get => _minutesDoneO; set { _minutesDoneO = value; OnPropertyChanged(); } }
         private double _percentO; public double PercentO { get => _percentO; set { _percentO = value; OnPropertyChanged(); } }
 
+       
         // --- RESULTS ---
         private int _resultL;
         public int ResultL { get => _resultL; set { _resultL = value; OnPropertyChanged(); } }
