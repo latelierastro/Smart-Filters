@@ -52,7 +52,7 @@ namespace PlanMyNight.PlanMyNightDrivers {
 
         public double Temperature => random.Next(-10, 20);
 
-        public async Task<bool> Connect(CancellationToken token) {
+        public bool Connect(CancellationToken token) {
             Connected = true;
 
             return Connected;
@@ -97,6 +97,10 @@ namespace PlanMyNight.PlanMyNightDrivers {
         }
 
         public string Action(string actionName, string actionParameters) {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> IDevice.Connect(CancellationToken token) {
             throw new NotImplementedException();
         }
 

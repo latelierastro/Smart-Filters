@@ -22,6 +22,14 @@ namespace PlanMyNight.PlanMyNightDockables {
     public class PlanMyNightDockable : DockableVM, ITelescopeConsumer {
         private INighttimeCalculator nighttimeCalculator;
         private ITelescopeMediator telescopeMediator;
+        public NighttimeData NighttimeData { get; private set; }
+        public TelescopeInfo TelescopeInfo { get; private set; }
+        public DeepSkyObject Target { get; private set; }
+
+
+        /// <summary>
+        /// CONSTRUCTEUR PRINCIPAL. CONFIGURE L’ICÔNE, LE TITRE, LES ÉVÉNEMENTS ET LE CALCUL INITIAL.
+        /// </summary>
 
         [ImportingConstructor]
         public PlanMyNightDockable(
@@ -57,6 +65,9 @@ namespace PlanMyNight.PlanMyNightDockables {
             };
         }
 
+        /// <summary>
+        /// MÉTHODE APPELÉE SI LE JOUR DE RÉFÉRENCE CHANGE (réactualise les données nocturnes).
+        /// </summary>
         private void NighttimeCalculator_OnReferenceDayChanged(object sender, EventArgs e) {
             NighttimeData = nighttimeCalculator.Calculate();
             RaisePropertyChanged(nameof(NighttimeData));
@@ -66,16 +77,18 @@ namespace PlanMyNight.PlanMyNightDockables {
             // On shutdown cleanup
             telescopeMediator.RemoveConsumer(this);
         }
-        public NighttimeData NighttimeData { get; private set; }
-        public TelescopeInfo TelescopeInfo { get; private set; }
-        public DeepSkyObject Target { get; private set; }
-
+        
+        /// <summary>
+        /// MÉTHODE AUTOMATIQUEMENT APPELÉE PAR N.I.N.A. POUR FOURNIR LES INFOS DU TÉLESCOPE.
+        /// </summary>
         public void UpdateDeviceInfo(TelescopeInfo deviceInfo) {
             // The IsVisible flag indicates if the dock window is active or hidden
             if (IsVisible) {
                 TelescopeInfo = deviceInfo;
+                // SI LE TÉLESCOPE EST CONNECTÉ ET EN SUIVI, ON MET À JOUR LA CIBLE
                 if (TelescopeInfo.Connected && TelescopeInfo.TrackingEnabled && NighttimeData != null) {
                     var showMoon = Target != null ? Target.Moon.DisplayMoon : false;
+                    // ON MET À JOUR LA CIBLE SI ELLE A CHANGÉ DE POSITION
                     if (Target == null || (Target?.Coordinates - deviceInfo.Coordinates)?.Distance.Degree > 1) {
                         Target = new DeepSkyObject("", deviceInfo.Coordinates, "", profileService.ActiveProfile.AstrometrySettings.Horizon);
                         Target.SetDateAndPosition(NighttimeCalculator.GetReferenceDate(DateTime.Now), profileService.ActiveProfile.AstrometrySettings.Latitude, profileService.ActiveProfile.AstrometrySettings.Longitude);
