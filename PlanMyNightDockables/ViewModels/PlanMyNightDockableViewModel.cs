@@ -1,4 +1,9 @@
-﻿using PlanMyNight.Calculations;
+﻿// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+using PlanMyNight.Calculations;
 using PlanMyNight.Models;
 using PlanMyNight.Services;
 using System;
@@ -257,6 +262,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
 
             Debug.WriteLine(result.Comment);
             OnPropertyChanged(nameof(AutofocusSummary));
+
+            UpdateFilterSegments();
 
         }
 
@@ -568,6 +575,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             PercentS = profile.TargetProportion.GetValueOrDefault("S");
             PercentHa = profile.TargetProportion.GetValueOrDefault("Ha");
             PercentO = profile.TargetProportion.GetValueOrDefault("O");
+
+            UpdateFilterSegments();
         }
 
 
@@ -598,18 +607,21 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
 
         // MET À JOUR LA LISTE DES SEGMENTS DE FILTRES POUR LA ROUE ET LA BARRE DE RÉPARTITION
         public void UpdateFilterSegments() {
-            FilterSegments.Clear(); // ON VIDE LA LISTE
+            FilterSegments.Clear();
 
-            byte opacity = 205; // OPACITÉ À 80 %
-                    
-            if (IncludeL) FilterSegments.Add(new FilterSegment { FilterName = "L", Color = CreateBrush(opacity, 255, 255, 255), Proportion = PercentL / 100, Label = $"L ({PercentL}%)" });
-            if (IncludeR) FilterSegments.Add(new FilterSegment { FilterName = "R", Color = CreateBrush(opacity, 255, 0, 0), Proportion = PercentR / 100, Label = $"R ({PercentR}%)" });
-            if (IncludeG) FilterSegments.Add(new FilterSegment { FilterName = "G", Color = CreateBrush(opacity, 0, 255, 0), Proportion = PercentG / 100, Label = $"G ({PercentG}%)" });
-            if (IncludeB) FilterSegments.Add(new FilterSegment { FilterName = "B", Color = CreateBrush(opacity, 0, 0, 255), Proportion = PercentB / 100, Label = $"B ({PercentB}%)" });
-            if (IncludeS) FilterSegments.Add(new FilterSegment { FilterName = "S", Color = CreateBrush(opacity, 255, 255, 0), Proportion = PercentS / 100, Label = $"S ({PercentS}%)" });
-            if (IncludeHa) FilterSegments.Add(new FilterSegment { FilterName = "Ha", Color = CreateBrush(opacity, 255, 0, 255), Proportion = PercentHa / 100, Label = $"Ha ({PercentHa}%)" });
-            if (IncludeO) FilterSegments.Add(new FilterSegment { FilterName = "O", Color = CreateBrush(opacity, 0, 255, 255), Proportion = PercentO / 100, Label = $"O ({PercentO}%)" });
+            byte opacity = 205;
+
+            FilterSegments.Add(new FilterSegment { FilterName = "L", Color = CreateBrush(opacity, 255, 255, 255), Proportion = IncludeL ? PercentL / 100.0 : 0, Label = $"L ({PercentL}%)" });
+            FilterSegments.Add(new FilterSegment { FilterName = "R", Color = CreateBrush(opacity, 255, 0, 0), Proportion = IncludeR ? PercentR / 100.0 : 0, Label = $"R ({PercentR}%)" });
+            FilterSegments.Add(new FilterSegment { FilterName = "G", Color = CreateBrush(opacity, 0, 255, 0), Proportion = IncludeG ? PercentG / 100.0 : 0, Label = $"G ({PercentG}%)" });
+            FilterSegments.Add(new FilterSegment { FilterName = "B", Color = CreateBrush(opacity, 0, 0, 255), Proportion = IncludeB ? PercentB / 100.0 : 0, Label = $"B ({PercentB}%)" });
+            FilterSegments.Add(new FilterSegment { FilterName = "S", Color = CreateBrush(opacity, 255, 255, 0), Proportion = IncludeS ? PercentS / 100.0 : 0, Label = $"S ({PercentS}%)" });
+            FilterSegments.Add(new FilterSegment { FilterName = "Ha", Color = CreateBrush(opacity, 255, 0, 255), Proportion = IncludeHa ? PercentHa / 100.0 : 0, Label = $"Ha ({PercentHa}%)" });
+            FilterSegments.Add(new FilterSegment { FilterName = "O", Color = CreateBrush(opacity, 0, 255, 255), Proportion = IncludeO ? PercentO / 100.0 : 0, Label = $"O ({PercentO}%)" });
+
+            
         }
+
 
     }
 

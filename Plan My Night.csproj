@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Resources\logoatelier.png" />
     <None Remove="Resources\logoatelier.webp" />
+    <None Remove="Resources\PLANMYNIGHTIMAGE.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NINA.Plugin" Version="3.0.0.2017-beta" />
@@ -23,6 +24,9 @@
     </Resource>
     <Resource Include="Resources\logoatelier.webp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\PLANMYNIGHTIMAGE.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <PropertyGroup />
