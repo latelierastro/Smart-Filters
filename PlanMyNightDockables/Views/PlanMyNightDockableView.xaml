@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:PlanMyNight.Converters"
+             xmlns:local="clr-namespace:PlanMyNight.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1000">
 
@@ -24,9 +25,56 @@
             <converters:ProportionalWidthConverter x:Key="ProportionalWidthConverter"/>
             <converters:FilterActiveToColorConverter x:Key="FilterActiveToColorConverter"/>
 
+            <!-- STYLE POUR UNE CHECKBOX MINIMALISTE -->
+            <Style x:Key="MiniCheckBoxStyle" TargetType="CheckBox">
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource FilterWheelStrokeBrush}"/>
+                <Setter Property="Width" Value="16"/>
+                <Setter Property="Height" Value="16"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="CheckBox">
+                            <Grid>
+                                <!-- Boîte carrée -->
+                                <Border 
+                        Width="16" Height="16"
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="1" 
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="2"
+                        />
+
+                                <!-- Coche stylisée -->
+                                <Path x:Name="CheckMark"
+                          Data="M0,4 L2,6 6,0"
+                          Stroke="{DynamicResource FilterWheelStrokeBrush}"
+                          StrokeThickness="2"
+                          SnapsToDevicePixels="True"
+                          Visibility="Collapsed"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
             <!-- COULEUR DYNAMIQUE UTILISÉE POUR LES TRACÉS DE LA ROUE DE FILTRES (ADAPTÉE AU THÈME N.I.N.A.) -->
             <SolidColorBrush x:Key="FilterWheelStrokeBrush" Color="{Binding Foreground.Color, ElementName=ReferenceTextBlock}" />
         </ResourceDictionary>
+
     </UserControl.Resources>
 
 
@@ -88,23 +136,23 @@
                         <!-- NOM DU FILTRE -->
                         <ColumnDefinition Width="60" />
                         <!-- TEMPS DE POSE -->
-                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="20" />
                         <!-- ESPACE -->
                         <ColumnDefinition Width="30" />
                         <!-- HEURES ACQUISES -->
-                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="20" />
                         <!-- TEXTE "h" -->
                         <ColumnDefinition Width="30" />
                         <!-- MINUTES ACQUISES -->
                         <ColumnDefinition Width="25" />
                         <!-- TEXTE "m" -->
-                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="20" />
                         <!-- POURCENTAGE À ACQUÉRIR -->
                         <ColumnDefinition Width="30" />
                         <!-- CHAMP % -->
-                        <ColumnDefinition Width="25" />
-                        <!-- UNITÉ % -->
                         <ColumnDefinition Width="30" />
+                        <!-- UNITÉ % -->
+                        <ColumnDefinition Width="50" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
@@ -130,16 +178,20 @@
 
 
                     <!-- EN-TÊTES DU TABLEAU DE SAISIE DES FILTRES -->
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="Filter" FontWeight="Bold" />
-                    <TextBlock Grid.Column="2" Grid.Row="0" Text="Exp (s)" FontWeight="Bold" TextAlignment="Center" />
-                    <TextBlock Grid.Column="4" Grid.Row="0" Text="Already acquired" HorizontalAlignment="Left" FontWeight="Bold" Width="100" Grid.ColumnSpan="5"/>
-                    <TextBlock Grid.Column="9" Grid.Row="0" Text="Final Objective" FontWeight="Bold" HorizontalAlignment="Left" Width="97" Grid.ColumnSpan="5" Margin="-20,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="Filter" FontWeight="Bold" VerticalAlignment="Top" />
+                    <TextBlock Grid.Column="2" Grid.Row="0" Text="Exp (s)" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Top" />
+                    <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="105" Grid.ColumnSpan="5" Margin="15,0,0,0" VerticalAlignment="Top"
+                     Text="Already acquired"/>
+                    <TextBlock Grid.Column="9" Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Left" Width="90" Grid.ColumnSpan="5" Margin="-20,0,0,0" VerticalAlignment="Top" TextAlignment="Center"
+                     Text="Final objective"/>
+                    <TextBlock Text="Flip" Grid.Row="0" Grid.Column="11" HorizontalAlignment="Center" VerticalAlignment="Top"
+           FontWeight="Bold" ToolTip="Select which filter(s) will be impacted by the meridian flip" />
 
                     <!-- UNE LIGNE PAR FILTRE ACTIF AVEC TOUS LES CHAMPS ASSOCIÉS -->
 
                     <!-- LUMINANCE (L) -->
                     <CheckBox Grid.Column="0" Grid.Row="1" IsChecked="{Binding IncludeL}" />
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="L" IsEnabled="{Binding IncludeL}" />
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="L" IsEnabled="{Binding IncludeL}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding ExposureTimeL}" IsEnabled="{Binding IncludeL}" />
                     <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding HoursDoneL}" IsEnabled="{Binding IncludeL}" />
                     <TextBlock Grid.Column="5" Grid.Row="1" Text=" h" IsEnabled="{Binding IncludeL}" />
@@ -147,10 +199,15 @@
                     <TextBlock Grid.Column="7" Grid.Row="1" Text=" m" IsEnabled="{Binding IncludeL}" />
                     <TextBox Grid.Column="9" Grid.Row="1" Text="{Binding PercentL}" IsEnabled="{Binding IncludeL}" />
                     <TextBlock Grid.Column="10" Grid.Row="1" Text="%" IsEnabled="{Binding IncludeL}" />
+                    <CheckBox Grid.Row="1" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
+                        Style="{StaticResource MiniCheckBoxStyle}"
+                    ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
+
+
 
                     <!-- ROUGE (R) -->
                     <CheckBox Grid.Column="0" Grid.Row="2" IsChecked="{Binding IncludeR}" />
-                    <TextBlock Grid.Column="1" Grid.Row="2" Text="R" IsEnabled="{Binding IncludeR}" />
+                    <TextBlock Grid.Column="1" Grid.Row="2" Text="R" IsEnabled="{Binding IncludeR}" VerticalAlignment="Center" TextAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding ExposureTimeR}" IsEnabled="{Binding IncludeR}" />
                     <TextBox Grid.Column="4" Grid.Row="2" Text="{Binding HoursDoneR}" IsEnabled="{Binding IncludeR}" />
                     <TextBlock Grid.Column="5" Grid.Row="2" Text=" h" IsEnabled="{Binding IncludeR}" />
@@ -158,10 +215,14 @@
                     <TextBlock Grid.Column="7" Grid.Row="2" Text=" m" IsEnabled="{Binding IncludeR}" />
                     <TextBox Grid.Column="9" Grid.Row="2" Text="{Binding PercentR}" IsEnabled="{Binding IncludeR}" />
                     <TextBlock Grid.Column="10" Grid.Row="2" Text="%" IsEnabled="{Binding IncludeR}" />
+                    <CheckBox Grid.Row="2" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
+                      Style="{StaticResource MiniCheckBoxStyle}"
+                      ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
+
 
                     <!-- VERT (G) -->
                     <CheckBox Grid.Column="0" Grid.Row="3" IsChecked="{Binding IncludeG}" />
-                    <TextBlock Grid.Column="1" Grid.Row="3" Text="G" IsEnabled="{Binding IncludeG}" />
+                    <TextBlock Grid.Column="1" Grid.Row="3" Text="G" IsEnabled="{Binding IncludeG}" TextAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,7" />
                     <TextBox Grid.Column="2" Grid.Row="3" Text="{Binding ExposureTimeG}" IsEnabled="{Binding IncludeG}" />
                     <TextBox Grid.Column="4" Grid.Row="3" Text="{Binding HoursDoneG}" IsEnabled="{Binding IncludeG}" />
                     <TextBlock Grid.Column="5" Grid.Row="3" Text=" h" IsEnabled="{Binding IncludeG}" />
@@ -169,10 +230,13 @@
                     <TextBlock Grid.Column="7" Grid.Row="3" Text=" m" IsEnabled="{Binding IncludeG}" />
                     <TextBox Grid.Column="9" Grid.Row="3" Text="{Binding PercentG}" IsEnabled="{Binding IncludeG}" />
                     <TextBlock Grid.Column="10" Grid.Row="3" Text="%" IsEnabled="{Binding IncludeG}" />
+                    <CheckBox Grid.Row="3" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
+                    Style="{StaticResource MiniCheckBoxStyle}"
+                    ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
                     <!-- BLEU (B) -->
                     <CheckBox Grid.Column="0" Grid.Row="4" IsChecked="{Binding IncludeB}" />
-                    <TextBlock Grid.Column="1" Grid.Row="4" Text="B" IsEnabled="{Binding IncludeB}" />
+                    <TextBlock Grid.Column="1" Grid.Row="4" Text="B" IsEnabled="{Binding IncludeB}" TextAlignment="Center" VerticalAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding ExposureTimeB}" IsEnabled="{Binding IncludeB}" />
                     <TextBox Grid.Column="4" Grid.Row="4" Text="{Binding HoursDoneB}" IsEnabled="{Binding IncludeB}" />
                     <TextBlock Grid.Column="5" Grid.Row="4" Text=" h" IsEnabled="{Binding IncludeB}" />
@@ -180,10 +244,13 @@
                     <TextBlock Grid.Column="7" Grid.Row="4" Text=" m" IsEnabled="{Binding IncludeB}" />
                     <TextBox Grid.Column="9" Grid.Row="4" Text="{Binding PercentB}" IsEnabled="{Binding IncludeB}" />
                     <TextBlock Grid.Column="10" Grid.Row="4" Text="%" IsEnabled="{Binding IncludeB}" />
+                    <CheckBox Grid.Row="4" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
+                    Style="{StaticResource MiniCheckBoxStyle}"
+                    ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
                     <!-- SULFURE (SII) -->
                     <CheckBox Grid.Column="0" Grid.Row="5" IsChecked="{Binding IncludeS}" />
-                    <TextBlock Grid.Column="1" Grid.Row="5" Text="SII" IsEnabled="{Binding IncludeS}" />
+                    <TextBlock Grid.Column="1" Grid.Row="5" Text="SII" IsEnabled="{Binding IncludeS}" TextAlignment="Center" VerticalAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="5" Text="{Binding ExposureTimeS}" IsEnabled="{Binding IncludeS}" />
                     <TextBox Grid.Column="4" Grid.Row="5" Text="{Binding HoursDoneS}" IsEnabled="{Binding IncludeS}" />
                     <TextBlock Grid.Column="5" Grid.Row="5" Text=" h" IsEnabled="{Binding IncludeS}" />
@@ -191,10 +258,13 @@
                     <TextBlock Grid.Column="7" Grid.Row="5" Text=" m" IsEnabled="{Binding IncludeS}" />
                     <TextBox Grid.Column="9" Grid.Row="5" Text="{Binding PercentS}" IsEnabled="{Binding IncludeS}" />
                     <TextBlock Grid.Column="10" Grid.Row="5" Text="%" IsEnabled="{Binding IncludeS}" />
+                    <CheckBox Grid.Row="5" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
+                      Style="{StaticResource MiniCheckBoxStyle}"
+                      ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
                     <!-- HYDROGÈNE ALPHA (HA) -->
                     <CheckBox Grid.Column="0" Grid.Row="6" IsChecked="{Binding IncludeHa}" />
-                    <TextBlock Grid.Column="1" Grid.Row="6" Text="Hα" IsEnabled="{Binding IncludeHa}" />
+                    <TextBlock Grid.Column="1" Grid.Row="6" Text="Hα" IsEnabled="{Binding IncludeHa}" VerticalAlignment="Bottom" TextAlignment="Center" Margin="0,0,0,7" />
                     <TextBox Grid.Column="2" Grid.Row="6" Text="{Binding ExposureTimeHa}" IsEnabled="{Binding IncludeHa}" />
                     <TextBox Grid.Column="4" Grid.Row="6" Text="{Binding HoursDoneHa}" IsEnabled="{Binding IncludeHa}" />
                     <TextBlock Grid.Column="5" Grid.Row="6" Text=" h" IsEnabled="{Binding IncludeHa}" />
@@ -202,10 +272,13 @@
                     <TextBlock Grid.Column="7" Grid.Row="6" Text=" m" IsEnabled="{Binding IncludeHa}" />
                     <TextBox Grid.Column="9" Grid.Row="6" Text="{Binding PercentHa}" IsEnabled="{Binding IncludeHa}" />
                     <TextBlock Grid.Column="10" Grid.Row="6" Text="%" IsEnabled="{Binding IncludeHa}" />
+                    <CheckBox Grid.Row="6" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
+                      Style="{StaticResource MiniCheckBoxStyle}"
+                      ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
                     <!-- OXYGÈNE III (OIII) -->
                     <CheckBox Grid.Column="0" Grid.Row="7" IsChecked="{Binding IncludeO}" />
-                    <TextBlock Grid.Column="1" Grid.Row="7" Text="OIII" IsEnabled="{Binding IncludeO}" />
+                    <TextBlock Grid.Column="1" Grid.Row="7" Text="OIII" IsEnabled="{Binding IncludeO}" VerticalAlignment="Center" TextAlignment="Center" />
                     <TextBox Grid.Column="2" Grid.Row="7" Text="{Binding ExposureTimeO}" IsEnabled="{Binding IncludeO}" />
                     <TextBox Grid.Column="4" Grid.Row="7" Text="{Binding HoursDoneO}" IsEnabled="{Binding IncludeO}" />
                     <TextBlock Grid.Column="5" Grid.Row="7" Text=" h" IsEnabled="{Binding IncludeO}" />
@@ -213,7 +286,9 @@
                     <TextBlock Grid.Column="7" Grid.Row="7" Text=" m" IsEnabled="{Binding IncludeO}" />
                     <TextBox Grid.Column="9" Grid.Row="7" Text="{Binding PercentO}" IsEnabled="{Binding IncludeO}" />
                     <TextBlock Grid.Column="10" Grid.Row="7" Text="%" IsEnabled="{Binding IncludeO}" />
-
+                    <CheckBox Grid.Row="7" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
+                      Style="{StaticResource MiniCheckBoxStyle}"
+                      ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
 
                     <!-- AFFICHAGE DE LA ROUE DES FILTRES -->
@@ -227,7 +302,7 @@
 
                             <!-- TRANSLATION POUR REPOSITIONNER LA ROUE AU CENTRE -->
                             <Canvas.RenderTransform>
-                                <TranslateTransform X="-80" Y="-40"/>
+                                <TranslateTransform X="-40" Y="-40"/>
                             </Canvas.RenderTransform>
 
                             <!-- CENTRE DE LA ROUE -->
@@ -333,16 +408,19 @@
                 <!-- RÉPARTITION VISUELLE DES FILTRES (BARRE COLORÉE HORIZONTALE) -->
                 <TextBlock Text="Visual Filter Distribution:" Margin="0,30,0,5" FontWeight="Bold" />
 
-                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="6" ClipToBounds="True" Margin="0,0,0,0">
+                <Border BorderBrush="Black"
+        BorderThickness="1"
+        CornerRadius="6"
+        Margin="0,0,0,0"
+        ClipToBounds="True">
+
                     <ItemsControl ItemsSource="{Binding FilterSegments}" Height="10">
-                        <!-- PANEL HORIZONTAL POUR AFFICHER CHAQUE SEGMENT DE COULEUR -->
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal" Height="20"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
 
-                        <!-- MODÈLE DE DONNÉE : CHAQUE SEGMENT A SA COULEUR ET SA LARGEUR PROPORTIONNELLE -->
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="{Binding Color}">
@@ -355,8 +433,10 @@
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
+
                     </ItemsControl>
                 </Border>
+
 
 
                 <!-- RÉSULTATS -->
@@ -430,7 +510,7 @@
                                 <TextBlock Text="{Binding ToleranceLostMinutes, StringFormat=Tolerance loss: {0:N0} min}" Margin="40,0,0,40"/>
                             </StackPanel>
                         </StackPanel>
-                        
+
                     </StackPanel>
                 </Border>
 
@@ -578,7 +658,7 @@
                          Margin="72,-152,0,0"
                          Fill="{DynamicResource FilterWheelStrokeBrush}" Opacity="0.5" RenderTransformOrigin="0.526,-3.831" />
                          -->
-                    
+
                 </Grid>
 
             </StackPanel>
