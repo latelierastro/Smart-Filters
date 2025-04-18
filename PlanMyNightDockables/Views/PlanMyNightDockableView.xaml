@@ -312,7 +312,7 @@
 
                             <!-- TRANSLATION POUR REPOSITIONNER LA ROUE AU CENTRE -->
                             <Canvas.RenderTransform>
-                                <TranslateTransform X="-40" Y="-40"/>
+                                <TranslateTransform X="-55" Y="-40"/>
                             </Canvas.RenderTransform>
 
                             <!-- CENTRE DE LA ROUE -->
