@@ -24,6 +24,8 @@
             <converters:StarWidthConverter x:Key="StarWidthConverter"/>
             <converters:ProportionalWidthConverter x:Key="ProportionalWidthConverter"/>
             <converters:FilterActiveToColorConverter x:Key="FilterActiveToColorConverter"/>
+            <converters:StringEqualityConverter x:Key="StringEqualityConverter" />
+
 
             <!-- STYLE POUR UNE CHECKBOX MINIMALISTE -->
             <Style x:Key="MiniCheckBoxStyle" TargetType="CheckBox">
@@ -199,9 +201,11 @@
                     <TextBlock Grid.Column="7" Grid.Row="1" Text=" m" IsEnabled="{Binding IncludeL}" />
                     <TextBox Grid.Column="9" Grid.Row="1" Text="{Binding PercentL}" IsEnabled="{Binding IncludeL}" />
                     <TextBlock Grid.Column="10" Grid.Row="1" Text="%" IsEnabled="{Binding IncludeL}" />
-                    <CheckBox Grid.Row="1" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
-                        Style="{StaticResource MiniCheckBoxStyle}"
+                    <CheckBox Grid.Row="1" Grid.Column="11"
+                    IsChecked="{Binding Path=DataContext.FlipImpactedFilter, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, Converter={StaticResource StringEqualityConverter}, ConverterParameter=L}"
+                    Style="{StaticResource MiniCheckBoxStyle}"
                     ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
+
 
 
 
@@ -215,9 +219,10 @@
                     <TextBlock Grid.Column="7" Grid.Row="2" Text=" m" IsEnabled="{Binding IncludeR}" />
                     <TextBox Grid.Column="9" Grid.Row="2" Text="{Binding PercentR}" IsEnabled="{Binding IncludeR}" />
                     <TextBlock Grid.Column="10" Grid.Row="2" Text="%" IsEnabled="{Binding IncludeR}" />
-                    <CheckBox Grid.Row="2" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
-                      Style="{StaticResource MiniCheckBoxStyle}"
-                      ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
+                    <CheckBox Grid.Row="2" Grid.Column="11"
+                    IsChecked="{Binding Path=DataContext.FlipImpactedFilter, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, Converter={StaticResource StringEqualityConverter}, ConverterParameter=R}"
+                    Style="{StaticResource MiniCheckBoxStyle}"
+                    ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
 
                     <!-- VERT (G) -->
@@ -230,7 +235,8 @@
                     <TextBlock Grid.Column="7" Grid.Row="3" Text=" m" IsEnabled="{Binding IncludeG}" />
                     <TextBox Grid.Column="9" Grid.Row="3" Text="{Binding PercentG}" IsEnabled="{Binding IncludeG}" />
                     <TextBlock Grid.Column="10" Grid.Row="3" Text="%" IsEnabled="{Binding IncludeG}" />
-                    <CheckBox Grid.Row="3" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
+                    <CheckBox Grid.Row="3" Grid.Column="11"
+                    IsChecked="{Binding Path=DataContext.FlipImpactedFilter, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, Converter={StaticResource StringEqualityConverter}, ConverterParameter=G}"
                     Style="{StaticResource MiniCheckBoxStyle}"
                     ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
@@ -244,7 +250,8 @@
                     <TextBlock Grid.Column="7" Grid.Row="4" Text=" m" IsEnabled="{Binding IncludeB}" />
                     <TextBox Grid.Column="9" Grid.Row="4" Text="{Binding PercentB}" IsEnabled="{Binding IncludeB}" />
                     <TextBlock Grid.Column="10" Grid.Row="4" Text="%" IsEnabled="{Binding IncludeB}" />
-                    <CheckBox Grid.Row="4" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
+                    <CheckBox Grid.Row="4" Grid.Column="11"
+                    IsChecked="{Binding Path=DataContext.FlipImpactedFilter, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, Converter={StaticResource StringEqualityConverter}, ConverterParameter=B}"
                     Style="{StaticResource MiniCheckBoxStyle}"
                     ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
@@ -258,9 +265,10 @@
                     <TextBlock Grid.Column="7" Grid.Row="5" Text=" m" IsEnabled="{Binding IncludeS}" />
                     <TextBox Grid.Column="9" Grid.Row="5" Text="{Binding PercentS}" IsEnabled="{Binding IncludeS}" />
                     <TextBlock Grid.Column="10" Grid.Row="5" Text="%" IsEnabled="{Binding IncludeS}" />
-                    <CheckBox Grid.Row="5" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
-                      Style="{StaticResource MiniCheckBoxStyle}"
-                      ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
+                    <CheckBox Grid.Row="5" Grid.Column="11"
+                    IsChecked="{Binding Path=DataContext.FlipImpactedFilter, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, Converter={StaticResource StringEqualityConverter}, ConverterParameter=S}"
+                    Style="{StaticResource MiniCheckBoxStyle}"
+                    ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
                     <!-- HYDROGÈNE ALPHA (HA) -->
                     <CheckBox Grid.Column="0" Grid.Row="6" IsChecked="{Binding IncludeHa}" />
@@ -272,9 +280,10 @@
                     <TextBlock Grid.Column="7" Grid.Row="6" Text=" m" IsEnabled="{Binding IncludeHa}" />
                     <TextBox Grid.Column="9" Grid.Row="6" Text="{Binding PercentHa}" IsEnabled="{Binding IncludeHa}" />
                     <TextBlock Grid.Column="10" Grid.Row="6" Text="%" IsEnabled="{Binding IncludeHa}" />
-                    <CheckBox Grid.Row="6" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
-                      Style="{StaticResource MiniCheckBoxStyle}"
-                      ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
+                    <CheckBox Grid.Row="6" Grid.Column="11"
+                    IsChecked="{Binding Path=DataContext.FlipImpactedFilter, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, Converter={StaticResource StringEqualityConverter}, ConverterParameter=H}"
+                    Style="{StaticResource MiniCheckBoxStyle}"
+                    ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
                     <!-- OXYGÈNE III (OIII) -->
                     <CheckBox Grid.Column="0" Grid.Row="7" IsChecked="{Binding IncludeO}" />
@@ -286,9 +295,10 @@
                     <TextBlock Grid.Column="7" Grid.Row="7" Text=" m" IsEnabled="{Binding IncludeO}" />
                     <TextBox Grid.Column="9" Grid.Row="7" Text="{Binding PercentO}" IsEnabled="{Binding IncludeO}" />
                     <TextBlock Grid.Column="10" Grid.Row="7" Text="%" IsEnabled="{Binding IncludeO}" />
-                    <CheckBox Grid.Row="7" Grid.Column="11" IsChecked="{Binding FlipImpactedL}"
-                      Style="{StaticResource MiniCheckBoxStyle}"
-                      ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
+                    <CheckBox Grid.Row="7" Grid.Column="11"
+                    IsChecked="{Binding Path=DataContext.FlipImpactedFilter, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, Converter={StaticResource StringEqualityConverter}, ConverterParameter=O}"
+                    Style="{StaticResource MiniCheckBoxStyle}"
+                    ToolTip="Check this box if the meridian flip is expected to occur during this filter." />
 
 
                     <!-- AFFICHAGE DE LA ROUE DES FILTRES -->
