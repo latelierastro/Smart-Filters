@@ -306,7 +306,7 @@ namespace PlanMyNight.Calculations {
                     "Red"
                 ));
             }
-            // Dithering enabled but no frequency
+            // 10. Dithering enabled but no frequency
             if (request.EnableDithering && request.DitheringFrequency <= 0) {
                 result.Warnings.Add(new WarningMessage(
                     "Dithering is enabled but no frequency is defined.",
@@ -314,9 +314,19 @@ namespace PlanMyNight.Calculations {
                 ));
             }
 
+            // 11. Flip impacted filter: inform the user and suggest verifying timings
+            if (request.FlipImpactedFilter != null && result.TimePlannedPerFilter.TryGetValue(request.FlipImpactedFilter, out double flipFilterTime)) {
+                double estimatedFlipLoss = request.FlipDuration;
+                result.Warnings.Add(new WarningMessage(
+                    $"Meridian flip is expected during filter {request.FlipImpactedFilter} ({estimatedFlipLoss} min loss already accounted for). Please verify that, with the new timings, the flip still occurs during this filter.",
+                    "Green"
+                ));
+            }
+
+
             double toleranceLostMinutes = request.TotalAvailableMinutes * (request.SafetyTolerance / 100.0);
 
-            // 10. Session Summary 
+            //  SESSION SUMMARY
             result.Summary = new SessionSummary {
                 TimePerFilter = result.TimePlannedPerFilter.ToDictionary(entry => entry.Key, entry => entry.Value),
                 TotalDithers = totalDithers,
@@ -325,6 +335,8 @@ namespace PlanMyNight.Calculations {
                 UnusedTime = result.UnusedMinutes,
                 ToleranceLostMinutes = toleranceLostMinutes
             };
+
+
 
             return result;
         }
