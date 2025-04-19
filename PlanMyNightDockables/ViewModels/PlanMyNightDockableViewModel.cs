@@ -90,52 +90,84 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         // =====================
         // FILTRES SÉLECTIONNÉS ET ENTRÉES UTILISATEUR
         // =====================
-        private bool _includeL; public bool IncludeL { get => _includeL; set { _includeL = value; OnPropertyChanged(); } }
-
-        private bool _includeR; public bool IncludeR { get => _includeR; set { _includeR = value; OnPropertyChanged(); } }
-        private bool _includeG; public bool IncludeG { get => _includeG; set { _includeG = value; OnPropertyChanged(); } }
-        private bool _includeB; public bool IncludeB { get => _includeB; set { _includeB = value; OnPropertyChanged(); } }
-        private bool _includeHa; public bool IncludeHa { get => _includeHa; set { _includeHa = value; OnPropertyChanged(); } }
-        private bool _includeS; public bool IncludeS { get => _includeS; set { _includeS = value; OnPropertyChanged(); } }
-        private bool _includeO; public bool IncludeO { get => _includeO; set { _includeO = value; OnPropertyChanged(); } }
+        private bool _includeL; public bool IncludeL { get => _includeL; set { _includeL = value; OnPropertyChanged(); UpdateRemainingPercent(); } }
+        private bool _includeR; public bool IncludeR { get => _includeR; set { _includeR = value; OnPropertyChanged(); UpdateRemainingPercent(); } }
+        private bool _includeG; public bool IncludeG { get => _includeG; set { _includeG = value; OnPropertyChanged(); UpdateRemainingPercent(); } }
+        private bool _includeB; public bool IncludeB { get => _includeB; set { _includeB = value; OnPropertyChanged(); UpdateRemainingPercent(); } }
+        private bool _includeHa; public bool IncludeHa { get => _includeHa; set { _includeHa = value; OnPropertyChanged(); UpdateRemainingPercent(); } }
+        private bool _includeS; public bool IncludeS { get => _includeS; set { _includeS = value; OnPropertyChanged(); UpdateRemainingPercent(); } }
+        private bool _includeO; public bool IncludeO { get => _includeO; set { _includeO = value; OnPropertyChanged(); UpdateRemainingPercent(); } }
 
         private double _exposureTimeL; public double ExposureTimeL { get => _exposureTimeL; set { _exposureTimeL = value; OnPropertyChanged(); } }
         private int _hoursDoneL; public int HoursDoneL { get => _hoursDoneL; set { _hoursDoneL = value; OnPropertyChanged(); } }
         private int _minutesDoneL; public int MinutesDoneL { get => _minutesDoneL; set { _minutesDoneL = value; OnPropertyChanged(); } }
-        private double _percentL; public double PercentL { get => _percentL; set { _percentL = value; OnPropertyChanged(); } }
-
+        private double _percentL; public double PercentL { get => _percentL; set { if (_percentL != value) { _percentL = value; OnPropertyChanged(); UpdateRemainingPercent(); } } }
+       
 
         private double _exposureTimeR; public double ExposureTimeR { get => _exposureTimeR; set { _exposureTimeR = value; OnPropertyChanged(); } }
         private int _hoursDoneR; public int HoursDoneR { get => _hoursDoneR; set { _hoursDoneR = value; OnPropertyChanged(); } }
         private int _minutesDoneR; public int MinutesDoneR { get => _minutesDoneR; set { _minutesDoneR = value; OnPropertyChanged(); } }
-        private double _percentR; public double PercentR { get => _percentR; set { _percentR = value; OnPropertyChanged(); } }
-
+        private double _percentR; public double PercentR { get => _percentR; set { if (_percentR != value) { _percentR = value; OnPropertyChanged(); UpdateRemainingPercent(); } } }
+        
         private double _exposureTimeG; public double ExposureTimeG { get => _exposureTimeG; set { _exposureTimeG = value; OnPropertyChanged(); } }
         private int _hoursDoneG; public int HoursDoneG { get => _hoursDoneG; set { _hoursDoneG = value; OnPropertyChanged(); } }
         private int _minutesDoneG; public int MinutesDoneG { get => _minutesDoneG; set { _minutesDoneG = value; OnPropertyChanged(); } }
-        private double _percentG; public double PercentG { get => _percentG; set { _percentG = value; OnPropertyChanged(); } }
-
+        private double _percentG; public double PercentG { get => _percentG; set { if (_percentG != value) { _percentG = value; OnPropertyChanged(); UpdateRemainingPercent(); } } }
+        
         private double _exposureTimeB; public double ExposureTimeB { get => _exposureTimeB; set { _exposureTimeB = value; OnPropertyChanged(); } }
         private int _hoursDoneB; public int HoursDoneB { get => _hoursDoneB; set { _hoursDoneB = value; OnPropertyChanged(); } }
         private int _minutesDoneB; public int MinutesDoneB { get => _minutesDoneB; set { _minutesDoneB = value; OnPropertyChanged(); } }
-        private double _percentB; public double PercentB { get => _percentB; set { _percentB = value; OnPropertyChanged(); } }
-
+        private double _percentB; public double PercentB { get => _percentB; set { if (_percentB != value) { _percentB = value; OnPropertyChanged(); UpdateRemainingPercent(); } } }
+        
         private double _exposureTimeHa; public double ExposureTimeHa { get => _exposureTimeHa; set { _exposureTimeHa = value; OnPropertyChanged(); } }
         private int _hoursDoneHa; public int HoursDoneHa { get => _hoursDoneHa; set { _hoursDoneHa = value; OnPropertyChanged(); } }
         private int _minutesDoneHa; public int MinutesDoneHa { get => _minutesDoneHa; set { _minutesDoneHa = value; OnPropertyChanged(); } }
-        private double _percentHa; public double PercentHa { get => _percentHa; set { _percentHa = value; OnPropertyChanged(); } }
-
+        private double _percentHa; public double PercentHa { get => _percentHa; set { if (_percentHa != value) { _percentHa = value; OnPropertyChanged(); UpdateRemainingPercent(); } } }
+       
         private double _exposureTimeS; public double ExposureTimeS { get => _exposureTimeS; set { _exposureTimeS = value; OnPropertyChanged(); } }
         private int _hoursDoneS; public int HoursDoneS { get => _hoursDoneS; set { _hoursDoneS = value; OnPropertyChanged(); } }
         private int _minutesDoneS; public int MinutesDoneS { get => _minutesDoneS; set { _minutesDoneS = value; OnPropertyChanged(); } }
-        private double _percentS; public double PercentS { get => _percentS; set { _percentS = value; OnPropertyChanged(); } }
-
+        private double _percentS; public double PercentS { get => _percentS; set { if (_percentS != value) { _percentS = value; OnPropertyChanged(); UpdateRemainingPercent(); } } }
+        
         private double _exposureTimeO; public double ExposureTimeO { get => _exposureTimeO; set { _exposureTimeO = value; OnPropertyChanged(); } }
         private int _hoursDoneO; public int HoursDoneO { get => _hoursDoneO; set { _hoursDoneO = value; OnPropertyChanged(); } }
         private int _minutesDoneO; public int MinutesDoneO { get => _minutesDoneO; set { _minutesDoneO = value; OnPropertyChanged(); } }
-        private double _percentO; public double PercentO { get => _percentO; set { _percentO = value; OnPropertyChanged(); } }
+        private double _percentO; public double PercentO { get => _percentO; set { if (_percentO != value) { _percentO = value; OnPropertyChanged(); UpdateRemainingPercent(); } } }
 
-        
+
+        // =========================
+        // AFFICHAGE DES % RESTANTS 
+        //==========================
+        private double _remainingPercent;
+        public double RemainingPercent {
+            get => _remainingPercent;
+            set {
+                if (_remainingPercent != value) {
+                    _remainingPercent = value;
+                    OnPropertyChanged(nameof(RemainingPercent));
+                }
+            }
+        }
+        // mise à jour de la case de % restants
+        private void UpdateRemainingPercent() {
+            try {
+                double sum = 0;
+                if (IncludeL) sum += PercentL;
+                if (IncludeR) sum += PercentR;
+                if (IncludeG) sum += PercentG;
+                if (IncludeB) sum += PercentB;
+                if (IncludeS) sum += PercentS;
+                if (IncludeHa) sum += PercentHa;
+                if (IncludeO) sum += PercentO;
+
+                RemainingPercent = Math.Round(100 - sum, 1);
+            } catch {
+                // En cas de crash au chargement initial, on affiche 100%
+                RemainingPercent = 100;
+            }
+        }
+
+
 
         // =====================
         // RÉSULTATS CALCULÉS (NOMBRE D'IMAGES À ACQUÉRIR)
@@ -165,7 +197,7 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         // =====================
         // SEGMENTS VISUELS DE LA ROUE À FILTRES
         // =====================
-        public ObservableCollection<FilterSegment> FilterSegments { get; set; }
+        public ObservableCollection<FilterSegment> FilterSegments { get; set; } // <-- Collection for binding
 
 
 
@@ -340,6 +372,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         }
 
 
+
+
         // =====================
         // GESTION DES PROFILS UTILISATEUR
         // =====================
@@ -376,6 +410,7 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         }
 
 
+        // Gestion des caractères invalides
         private static readonly char[] InvalidFileNameChars = Path.GetInvalidFileNameChars();
 
         private bool IsProfileNameValid(string name) {
@@ -577,6 +612,7 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             PercentO = profile.TargetProportion.GetValueOrDefault("O");
 
             UpdateFilterSegments();
+            UpdateRemainingPercent();
         }
 
 
@@ -597,8 +633,9 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
                 new FilterSegment { FilterName = "S", Color = CreateBrush(opacity, 255, 255, 0),   Proportion = PercentS },
                 new FilterSegment { FilterName = "Ha", Color = CreateBrush(opacity, 255, 0, 255),  Proportion = PercentHa },
                 new FilterSegment { FilterName = "O", Color = CreateBrush(opacity, 0, 255, 255),   Proportion = PercentO }
-            };
-                }
+            }; UpdateRemainingPercent();
+
+        }
 
 
 

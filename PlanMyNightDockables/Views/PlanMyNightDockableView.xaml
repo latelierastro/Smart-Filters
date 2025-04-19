@@ -104,11 +104,17 @@
             <Button Content="Calculate"
                 Width="100"
                 Height="30"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="0,300,50,0"
+                Margin="459,280,0,0"
                 Grid.ZIndex="10"
                 Click="OnCalculateClicked" />
+
+            <!-- CASE DU TOTAL DE % RESTANTS -->
+            <TextBox Text="{Binding RemainingPercent}" IsReadOnly="True" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,280,0,0" Grid.ZIndex="10"
+                    FontStyle="Italic" FontSize="12" TextAlignment="Center" VerticalContentAlignment="Center" />
+            <TextBlock Text="%" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="375,287,0,0" Grid.ZIndex="10" />
+            <TextBlock Text="Remaining" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="279,287,0,0" Grid.ZIndex="10" FontStyle="Italic" />
 
             <!-- PANNEAU DE GAUCHE : SAISIE DES TEMPS ET FILTRES -->
             <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,5,10,10">
@@ -153,7 +159,7 @@
                         <ColumnDefinition Width="30" />
                         <!-- CHAMP % -->
                         <ColumnDefinition Width="30" />
-                        
+
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
@@ -185,7 +191,7 @@
                      Text="Already acquired"/>
                     <TextBlock Grid.Column="9" Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Left" Width="90" Grid.ColumnSpan="5" Margin="-20,0,0,0" VerticalAlignment="Top" TextAlignment="Center"
                      Text="Final objective"/>
-                    
+
 
                     <!-- UNE LIGNE PAR FILTRE ACTIF AVEC TOUS LES CHAMPS ASSOCIÉS -->
 
@@ -199,7 +205,7 @@
                     <TextBlock Grid.Column="7" Grid.Row="1" Text=" m" IsEnabled="{Binding IncludeL}" />
                     <TextBox Grid.Column="9" Grid.Row="1" Text="{Binding PercentL}" IsEnabled="{Binding IncludeL}" />
                     <TextBlock Grid.Column="10" Grid.Row="1" Text="%" IsEnabled="{Binding IncludeL}" />
-                    
+
                     <!-- ROUGE (R) -->
                     <CheckBox Grid.Column="0" Grid.Row="2" IsChecked="{Binding IncludeR}" />
                     <TextBlock Grid.Column="1" Grid.Row="2" Text="R" IsEnabled="{Binding IncludeR}" VerticalAlignment="Center" TextAlignment="Center" />
@@ -210,7 +216,7 @@
                     <TextBlock Grid.Column="7" Grid.Row="2" Text=" m" IsEnabled="{Binding IncludeR}" />
                     <TextBox Grid.Column="9" Grid.Row="2" Text="{Binding PercentR}" IsEnabled="{Binding IncludeR}" />
                     <TextBlock Grid.Column="10" Grid.Row="2" Text="%" IsEnabled="{Binding IncludeR}" />
-                    
+
                     <!-- VERT (G) -->
                     <CheckBox Grid.Column="0" Grid.Row="3" IsChecked="{Binding IncludeG}" />
                     <TextBlock Grid.Column="1" Grid.Row="3" Text="G" IsEnabled="{Binding IncludeG}" TextAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,7" />
@@ -221,7 +227,7 @@
                     <TextBlock Grid.Column="7" Grid.Row="3" Text=" m" IsEnabled="{Binding IncludeG}" />
                     <TextBox Grid.Column="9" Grid.Row="3" Text="{Binding PercentG}" IsEnabled="{Binding IncludeG}" />
                     <TextBlock Grid.Column="10" Grid.Row="3" Text="%" IsEnabled="{Binding IncludeG}" />
-                    
+
                     <!-- BLEU (B) -->
                     <CheckBox Grid.Column="0" Grid.Row="4" IsChecked="{Binding IncludeB}" />
                     <TextBlock Grid.Column="1" Grid.Row="4" Text="B" IsEnabled="{Binding IncludeB}" TextAlignment="Center" VerticalAlignment="Center" />
@@ -232,7 +238,7 @@
                     <TextBlock Grid.Column="7" Grid.Row="4" Text=" m" IsEnabled="{Binding IncludeB}" />
                     <TextBox Grid.Column="9" Grid.Row="4" Text="{Binding PercentB}" IsEnabled="{Binding IncludeB}" />
                     <TextBlock Grid.Column="10" Grid.Row="4" Text="%" IsEnabled="{Binding IncludeB}" />
-                    
+
                     <!-- SULFURE (SII) -->
                     <CheckBox Grid.Column="0" Grid.Row="5" IsChecked="{Binding IncludeS}" />
                     <TextBlock Grid.Column="1" Grid.Row="5" Text="SII" IsEnabled="{Binding IncludeS}" TextAlignment="Center" VerticalAlignment="Center" />
@@ -243,7 +249,7 @@
                     <TextBlock Grid.Column="7" Grid.Row="5" Text=" m" IsEnabled="{Binding IncludeS}" />
                     <TextBox Grid.Column="9" Grid.Row="5" Text="{Binding PercentS}" IsEnabled="{Binding IncludeS}" />
                     <TextBlock Grid.Column="10" Grid.Row="5" Text="%" IsEnabled="{Binding IncludeS}" />
-                   
+
                     <!-- HYDROGÈNE ALPHA (HA) -->
                     <CheckBox Grid.Column="0" Grid.Row="6" IsChecked="{Binding IncludeHa}" />
                     <TextBlock Grid.Column="1" Grid.Row="6" Text="Hα" IsEnabled="{Binding IncludeHa}" VerticalAlignment="Bottom" TextAlignment="Center" Margin="0,0,0,7" />
@@ -254,7 +260,7 @@
                     <TextBlock Grid.Column="7" Grid.Row="6" Text=" m" IsEnabled="{Binding IncludeHa}" />
                     <TextBox Grid.Column="9" Grid.Row="6" Text="{Binding PercentHa}" IsEnabled="{Binding IncludeHa}" />
                     <TextBlock Grid.Column="10" Grid.Row="6" Text="%" IsEnabled="{Binding IncludeHa}" />
-                    
+
                     <!-- OXYGÈNE III (OIII) -->
                     <CheckBox Grid.Column="0" Grid.Row="7" IsChecked="{Binding IncludeO}" />
                     <TextBlock Grid.Column="1" Grid.Row="7" Text="OIII" IsEnabled="{Binding IncludeO}" VerticalAlignment="Center" TextAlignment="Center" />
@@ -265,7 +271,7 @@
                     <TextBlock Grid.Column="7" Grid.Row="7" Text=" m" IsEnabled="{Binding IncludeO}" />
                     <TextBox Grid.Column="9" Grid.Row="7" Text="{Binding PercentO}" IsEnabled="{Binding IncludeO}" />
                     <TextBlock Grid.Column="10" Grid.Row="7" Text="%" IsEnabled="{Binding IncludeO}" />
-                    
+
 
                     <!-- AFFICHAGE DE LA ROUE DES FILTRES -->
 
@@ -382,7 +388,7 @@
 
 
                 <!-- RÉPARTITION VISUELLE DES FILTRES (BARRE COLORÉE HORIZONTALE) -->
-                <TextBlock Text="Visual Filter Distribution:" Margin="0,30,0,5" FontWeight="Bold" />
+                <TextBlock Text="Visual Filter Distribution:" Margin="0,20,0,5" FontWeight="Bold" />
 
                 <Border BorderBrush="Black"
         BorderThickness="1"
