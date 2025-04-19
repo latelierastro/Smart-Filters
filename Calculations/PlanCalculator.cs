@@ -25,18 +25,36 @@ namespace PlanMyNight.Calculations {
             double safeTime = request.TotalAvailableMinutes * (1 - request.SafetyTolerance / 100.0);
             double timeAvailable = safeTime - flipLoss;
 
+            // 1. Calcule le total déjà acquis pour les filtres sélectionnés
+            double totalAlreadyAcquired = selectedFilters.Sum(f => request.AlreadyAcquiredPerFilter.GetValueOrDefault(f, 0));
+
+            // 2. Calcule le poids total des pourcentages assignés
             double totalWeight = selectedFilters.Sum(f => request.TargetProportion.GetValueOrDefault(f, 0));
             if (totalWeight == 0) totalWeight = 1;
 
-            foreach (var filter in selectedFilters) {
-                double targetShare = request.TargetProportion.GetValueOrDefault(filter, 0) / totalWeight;
-                double timeAllocated = timeAvailable * targetShare;
-                double alreadyAcquired = request.AlreadyAcquiredPerFilter.GetValueOrDefault(filter, 0);
-                double exposureSec = request.ExposurePerFilter.GetValueOrDefault(filter, 0);
+            // 3. Objectif global à atteindre = déjà acquis + ce qu'on peut faire ce soir
+            double finalTargetTotal = totalAlreadyAcquired + timeAvailable;
 
+            // 4. On calcule la cible finale par filtre (en tenant compte de ce qui a déjà été fait)
+            var targetTotalPerFilter = new Dictionary<string, double>();
+            foreach (var filter in selectedFilters) {
+                double proportion = request.TargetProportion.GetValueOrDefault(filter, 0) / totalWeight;
+                targetTotalPerFilter[filter] = finalTargetTotal * proportion;
+            }
+
+            foreach (var filter in selectedFilters) {
+                double alreadyAcquired = request.AlreadyAcquiredPerFilter.GetValueOrDefault(filter, 0);
+                double remainingTarget = targetTotalPerFilter[filter] - alreadyAcquired;
+                if (remainingTarget <= 0) {
+                    result.FramesToAcquire[filter] = 0;
+                    result.TimePlannedPerFilter[filter] = 0;
+                    continue;
+                }
+
+                double exposureSec = request.ExposurePerFilter.GetValueOrDefault(filter, 0);
                 if (exposureSec <= 0) {
                     result.FramesToAcquire[filter] = 0;
-                    result.TimePlannedPerFilter[filter] = alreadyAcquired;
+                    result.TimePlannedPerFilter[filter] = 0;
                     continue;
                 }
 
@@ -45,26 +63,22 @@ namespace PlanMyNight.Calculations {
 
                 bool isRGB = new[] { "L", "R", "G", "B" }.Contains(filter);
                 bool isSHO = new[] { "Ha", "S", "O" }.Contains(filter);
-
                 bool enableAF = (isRGB && request.EnableAutofocusRGB) || (isSHO && request.EnableAutofocusSHO);
                 double afDuration = isRGB ? request.AutofocusDurationRGB : request.AutofocusDurationSHO;
-                afDuration /= 60.0; // convert to minutes
+                afDuration /= 60.0;
 
                 int frames = 0;
                 double elapsed = 0;
                 double nextAF = request.AutofocusFrequency;
-                int nextDitherFrame = (int)request.DitheringFrequency;
                 int localDithers = 0;
-                bool afDone = false;
 
-                if (enableAF && afDuration > 0) {
+                if (enableAF && afDuration > 0 && remainingTarget > 0) {
                     elapsed += afDuration;
-                    afDone = true;
                     if (isRGB) afRGB++;
                     if (isSHO) afSHO++;
                 }
 
-                while (elapsed + timePerFrameMin <= timeAllocated) {
+                while (elapsed + timePerFrameMin <= remainingTarget) {
                     elapsed += timePerFrameMin;
                     frames++;
 
@@ -91,7 +105,7 @@ namespace PlanMyNight.Calculations {
             result.TotalDithers = totalDithers;
             result.TotalAutofocusRGB = afRGB;
             result.TotalAutofocusSHO = afSHO;
-            result.TotalLostMinutes = request.TotalAvailableMinutes * (request.SafetyTolerance / 100.0) + flipLoss;
+            result.TotalLostMinutes = request.TotalAvailableMinutes - safeTime + flipLoss;
             result.Comment = $"Time usage: {Math.Round(result.TotalUsedMinutes, 1)} / {Math.Round(request.TotalAvailableMinutes, 1)} min";
 
             double toleranceLostMinutes = request.TotalAvailableMinutes * (request.SafetyTolerance / 100.0);
@@ -104,8 +118,7 @@ namespace PlanMyNight.Calculations {
                 ToleranceLostMinutes = toleranceLostMinutes
             };
 
-            // ---------- WARNINGS ----------
-
+            // Warnings (inchangés)
             double sumPercent = request.TargetProportion
                 .Where(kvp => request.FiltersSelected.GetValueOrDefault(kvp.Key, false))
                 .Sum(kvp => kvp.Value);
