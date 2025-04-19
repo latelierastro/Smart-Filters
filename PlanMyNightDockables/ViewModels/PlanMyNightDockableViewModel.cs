@@ -135,22 +135,7 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         private int _minutesDoneO; public int MinutesDoneO { get => _minutesDoneO; set { _minutesDoneO = value; OnPropertyChanged(); } }
         private double _percentO; public double PercentO { get => _percentO; set { _percentO = value; OnPropertyChanged(); } }
 
-        //========================================
-        // SELECTION DU FILTRE POUR LE FLIP
-        //========================================
-        private string? _flipImpactedFilter;
-        public string? FlipImpactedFilter {
-            get => _flipImpactedFilter;
-            set {
-                if (_flipImpactedFilter != value) {
-                    _flipImpactedFilter = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-
-
+        
 
         // =====================
         // RÉSULTATS CALCULÉS (NOMBRE D'IMAGES À ACQUÉRIR)

@@ -37,8 +37,6 @@ namespace PlanMyNight.Calculations {
         public Dictionary<string, double> AlreadyAcquiredPerFilter { get; set; } = new();
         public Dictionary<string, double> TargetProportion { get; set; } = new();
 
-        // --- FILTRE IMPACTE PAR LE FLIP ---
-        public string? FlipImpactedFilter { get; set; }
-
+        
     }
 }
