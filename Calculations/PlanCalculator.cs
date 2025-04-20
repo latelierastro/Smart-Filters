@@ -59,7 +59,7 @@ namespace PlanMyNight.Calculations {
                 }
 
                 double pauseSec = request.PauseBetweenExposures;
-                double timePerFrameMin = (exposureSec + pauseSec) / 60.0;
+                double timePerFrameMin = exposureSec / 60.0;
 
                 bool isRGB = new[] { "L", "R", "G", "B" }.Contains(filter);
                 bool isSHO = new[] { "Ha", "S", "O" }.Contains(filter);
@@ -97,7 +97,9 @@ namespace PlanMyNight.Calculations {
 
                 totalDithers += localDithers;
                 result.FramesToAcquire[filter] = frames;
-                result.TimePlannedPerFilter[filter] = elapsed;
+                double acquisitionTimeOnly = frames * timePerFrameMin;
+                result.TimePlannedPerFilter[filter] = acquisitionTimeOnly;
+
             }
 
             result.TotalUsedMinutes = result.TimePlannedPerFilter.Values.Sum();
