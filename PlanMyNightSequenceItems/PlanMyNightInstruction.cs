@@ -24,12 +24,12 @@ namespace PlanMyNight.PlanMyNightTestCategory {
     ///
     /// If the item has some preconditions that should be validated, it shall also extend the IValidatable interface and add the validation logic accordingly.
     /// </summary>
-    [ExportMetadata("Name", "Plugin Template Instruction")]
-    [ExportMetadata("Description", "This item will just show a notification and is just there to show how the plugin system works")]
-    [ExportMetadata("Icon", "Plugin_Test_SVG")]
-    [ExportMetadata("Category", "Plan My Night")]
-    [Export(typeof(ISequenceItem))]
-    [JsonObject(MemberSerialization.OptIn)]
+    //[ExportMetadata("Name", "Plugin Template Instruction")]
+    //[ExportMetadata("Description", "This item will just show a notification and is just there to show how the plugin system works")]
+    //[ExportMetadata("Icon", "Plugin_Test_SVG")]
+    //[ExportMetadata("Category", "Plan My Night")]
+    //[Export(typeof(ISequenceItem))]
+    //[JsonObject(MemberSerialization.OptIn)]
     public class PlanMyNightInstruction : SequenceItem {
         /// <summary>
         /// The constructor marked with [ImportingConstructor] will be used to import and construct the object

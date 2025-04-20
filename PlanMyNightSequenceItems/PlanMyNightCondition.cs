@@ -20,12 +20,12 @@ namespace PlanMyNight.PlanMyNightTestCategory {
     ///
     /// If the item has some preconditions that should be validated, it shall also extend the IValidatable interface and add the validation logic accordingly.
     /// </summary>
-    [ExportMetadata("Name", "Plugin Template Condition")]
-    [ExportMetadata("Description", "This condition is true until a user flicks a combobox on the condition")]
-    [ExportMetadata("Icon", "Plugin_Test_SVG")]
-    [ExportMetadata("Category", "Plan My Night")]
-    [Export(typeof(ISequenceCondition))]
-    [JsonObject(MemberSerialization.OptIn)]
+   // [ExportMetadata("Name", "Plugin Template Condition")]
+   // [ExportMetadata("Description", "This condition is true until a user flicks a combobox on the condition")]
+   // [ExportMetadata("Icon", "Plugin_Test_SVG")]
+   // [ExportMetadata("Category", "Plan My Night")]
+   // [Export(typeof(ISequenceCondition))]
+   // [JsonObject(MemberSerialization.OptIn)]
     public class PlanMyNightCondition : SequenceCondition {
         /// <summary>
         /// The constructor marked with [ImportingConstructor] will be used to import and construct the object
