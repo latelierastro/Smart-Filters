@@ -25,17 +25,12 @@ namespace PlanMyNight.Calculations {
             double safeTime = request.TotalAvailableMinutes * (1 - request.SafetyTolerance / 100.0);
             double timeAvailable = safeTime - flipLoss;
 
-            // 1. Calcule le total déjà acquis pour les filtres sélectionnés
             double totalAlreadyAcquired = selectedFilters.Sum(f => request.AlreadyAcquiredPerFilter.GetValueOrDefault(f, 0));
-
-            // 2. Calcule le poids total des pourcentages assignés
             double totalWeight = selectedFilters.Sum(f => request.TargetProportion.GetValueOrDefault(f, 0));
             if (totalWeight == 0) totalWeight = 1;
 
-            // 3. Objectif global à atteindre = déjà acquis + ce qu'on peut faire ce soir
             double finalTargetTotal = totalAlreadyAcquired + timeAvailable;
 
-            // 4. On calcule la cible finale par filtre (en tenant compte de ce qui a déjà été fait)
             var targetTotalPerFilter = new Dictionary<string, double>();
             foreach (var filter in selectedFilters) {
                 double proportion = request.TargetProportion.GetValueOrDefault(filter, 0) / totalWeight;
@@ -59,7 +54,8 @@ namespace PlanMyNight.Calculations {
                 }
 
                 double pauseSec = request.PauseBetweenExposures;
-                double timePerFrameMin = exposureSec / 60.0;
+                double exposureMin = exposureSec / 60.0;
+                double pauseMin = pauseSec / 60.0;
 
                 bool isRGB = new[] { "L", "R", "G", "B" }.Contains(filter);
                 bool isSHO = new[] { "Ha", "S", "O" }.Contains(filter);
@@ -67,39 +63,57 @@ namespace PlanMyNight.Calculations {
                 double afDuration = isRGB ? request.AutofocusDurationRGB : request.AutofocusDurationSHO;
                 afDuration /= 60.0;
 
+                double ditherDuration = request.DitheringDuration / 60.0;
+
                 int frames = 0;
                 double elapsed = 0;
-                double nextAF = request.AutofocusFrequency;
+                double minutesSinceLastAF = 0;
+                int framesSinceLastDither = 0;
                 int localDithers = 0;
 
-                if (enableAF && afDuration > 0 && remainingTarget > 0) {
+                // Initial AF
+                if (enableAF && afDuration > 0) {
                     elapsed += afDuration;
+                    minutesSinceLastAF = 0;
                     if (isRGB) afRGB++;
                     if (isSHO) afSHO++;
                 }
 
-                while (elapsed + timePerFrameMin <= remainingTarget) {
-                    elapsed += timePerFrameMin;
-                    frames++;
+                while (true) {
+                    bool willNeedAF = enableAF && request.AutofocusFrequency > 0 && minutesSinceLastAF >= request.AutofocusFrequency;
+                    bool willNeedDither = request.EnableDithering && request.DitheringFrequency > 0 && framesSinceLastDither >= request.DitheringFrequency;
 
-                    if (request.EnableDithering && request.DitheringFrequency > 0 && frames % request.DitheringFrequency == 0) {
-                        elapsed += request.DitheringDuration / 60.0;
-                        localDithers++;
-                    }
+                    double blockCost = exposureMin + pauseMin;
+                    if (willNeedAF) blockCost += afDuration;
+                    if (willNeedDither) blockCost += ditherDuration;
 
-                    if (enableAF && request.AutofocusFrequency > 0 && elapsed >= nextAF) {
+                    if (elapsed + blockCost > remainingTarget) break;
+
+                    // Apply AF if needed
+                    if (willNeedAF) {
                         elapsed += afDuration;
-                        nextAF += request.AutofocusFrequency;
+                        minutesSinceLastAF = 0;
                         if (isRGB) afRGB++;
                         if (isSHO) afSHO++;
+                    }
+
+                    // Pose et pause
+                    elapsed += exposureMin + pauseMin;
+                    minutesSinceLastAF += exposureMin + pauseMin;
+                    framesSinceLastDither++;
+                    frames++;
+
+                    // Apply dither if needed
+                    if (willNeedDither) {
+                        elapsed += ditherDuration;
+                        framesSinceLastDither = 0;
+                        localDithers++;
                     }
                 }
 
                 totalDithers += localDithers;
                 result.FramesToAcquire[filter] = frames;
-                double acquisitionTimeOnly = frames * timePerFrameMin;
-                result.TimePlannedPerFilter[filter] = acquisitionTimeOnly;
-
+                result.TimePlannedPerFilter[filter] = elapsed;
             }
 
             result.TotalUsedMinutes = result.TimePlannedPerFilter.Values.Sum();
@@ -119,112 +133,6 @@ namespace PlanMyNight.Calculations {
                 UnusedTime = result.UnusedMinutes,
                 ToleranceLostMinutes = toleranceLostMinutes
             };
-
-            // Warnings (inchangés)
-            double sumPercent = request.TargetProportion
-                .Where(kvp => request.FiltersSelected.GetValueOrDefault(kvp.Key, false))
-                .Sum(kvp => kvp.Value);
-
-            if (sumPercent < 99.0 || sumPercent > 101.0) {
-                result.Warnings.Add(new WarningMessage(
-                    $"The total percentage of selected filters is {Math.Round(sumPercent, 1)}%. It should be 100%.",
-                    "Orange"
-                ));
-            }
-
-            if (result.UnusedMinutes > 1.0) {
-                double totalPercent = request.TargetProportion
-                    .Where(kvp => request.FiltersSelected.GetValueOrDefault(kvp.Key, false))
-                    .Sum(kvp => kvp.Value);
-
-                bool proportionsMatch = Math.Abs(totalPercent - 100.0) <= request.SafetyTolerance;
-
-                if (proportionsMatch) {
-                    result.Warnings.Add(new WarningMessage(
-                        $"🎯 Objectives reached. You still have {Math.Round(result.UnusedMinutes, 1)} minutes available. You could add extra frames on a selected filter.",
-                        "Green"
-                    ));
-                } else {
-                    result.Warnings.Add(new WarningMessage(
-                        $"There are {Math.Round(result.UnusedMinutes, 1)} unused minutes at the end of the session. Consider optimizing your plan.",
-                        "Yellow"
-                    ));
-                }
-            }
-
-            foreach (var filter in request.FiltersSelected.Where(f => f.Value).Select(f => f.Key)) {
-                if (result.FramesToAcquire.GetValueOrDefault(filter, 0) == 0) {
-                    result.Warnings.Add(new WarningMessage(
-                        $"Filter {filter} is selected but no exposure time can be allocated within the available session time.",
-                        "Red"
-                    ));
-                }
-            }
-
-            if (!request.FiltersSelected.Any(kvp => kvp.Value)) {
-                result.Warnings.Add(new WarningMessage(
-                    "No filter is selected. Please select at least one filter to plan exposures.",
-                    "Red"
-                ));
-            }
-
-            if (request.FiltersSelected.Any(kvp => kvp.Value)) {
-                bool allZeroExp = request.FiltersSelected
-                    .Where(kvp => kvp.Value)
-                    .All(kvp => request.ExposurePerFilter.GetValueOrDefault(kvp.Key, 0) <= 0);
-
-                if (allZeroExp) {
-                    result.Warnings.Add(new WarningMessage(
-                        "All exposure durations are set to 0. Please define at least one valid exposure time.",
-                        "Red"
-                    ));
-                }
-            }
-
-            foreach (var filter in selectedFilters) {
-                double exp = request.ExposurePerFilter.GetValueOrDefault(filter, 0);
-                if (exp <= 0) {
-                    result.Warnings.Add(new WarningMessage(
-                        $"Filter {filter} is selected but its exposure time is set to 0 s.",
-                        "Red"
-                    ));
-                }
-            }
-
-            foreach (var filter in selectedFilters) {
-                double exp = request.ExposurePerFilter.GetValueOrDefault(filter, 0);
-                if (exp > 0 && request.PauseBetweenExposures > exp) {
-                    result.Warnings.Add(new WarningMessage(
-                        $"Pause between frames is longer than the exposure time for filter {filter}.",
-                        "Red"
-                    ));
-                }
-            }
-
-            if (timeAvailable < 1) {
-                result.Warnings.Add(new WarningMessage(
-                    "The available session time is too short to plan any exposures.",
-                    "Red"
-                ));
-            }
-
-            bool hasSelectedFiltersWithZeroPercent = request.FiltersSelected
-                .Where(kvp => kvp.Value)
-                .Any(kvp => request.TargetProportion.GetValueOrDefault(kvp.Key, 0) == 0);
-
-            if (hasSelectedFiltersWithZeroPercent) {
-                result.Warnings.Add(new WarningMessage(
-                    "Selected filters have no percentage assigned. Please adjust the distribution.",
-                    "Red"
-                ));
-            }
-
-            if (request.EnableDithering && request.DitheringFrequency <= 0) {
-                result.Warnings.Add(new WarningMessage(
-                    "Dithering is enabled but no frequency is defined.",
-                    "Yellow"
-                ));
-            }
 
             return result;
         }
