@@ -134,6 +134,112 @@ namespace PlanMyNight.Calculations {
                 ToleranceLostMinutes = toleranceLostMinutes
             };
 
+            // Warnings (inchangés)
+            double sumPercent = request.TargetProportion
+                .Where(kvp => request.FiltersSelected.GetValueOrDefault(kvp.Key, false))
+                .Sum(kvp => kvp.Value);
+
+            if (sumPercent < 99.0 || sumPercent > 101.0) {
+                result.Warnings.Add(new WarningMessage(
+                    $"The total percentage of selected filters is {Math.Round(sumPercent, 1)}%. It should be 100%.",
+                    "Orange"
+                ));
+            }
+
+            if (result.UnusedMinutes > 1.0) {
+                double totalPercent = request.TargetProportion
+                    .Where(kvp => request.FiltersSelected.GetValueOrDefault(kvp.Key, false))
+                    .Sum(kvp => kvp.Value);
+
+                bool proportionsMatch = Math.Abs(totalPercent - 100.0) <= request.SafetyTolerance;
+
+                if (proportionsMatch) {
+                    result.Warnings.Add(new WarningMessage(
+                        $"🎯 Objectives reached. You still have {Math.Round(result.UnusedMinutes, 1)} minutes available. You could add extra frames on a selected filter.",
+                        "Green"
+                    ));
+                } else {
+                    result.Warnings.Add(new WarningMessage(
+                        $"There are {Math.Round(result.UnusedMinutes, 1)} unused minutes at the end of the session. Consider optimizing your plan.",
+                        "Yellow"
+                    ));
+                }
+            }
+
+            foreach (var filter in request.FiltersSelected.Where(f => f.Value).Select(f => f.Key)) {
+                if (result.FramesToAcquire.GetValueOrDefault(filter, 0) == 0) {
+                    result.Warnings.Add(new WarningMessage(
+                        $"Filter {filter} is selected but no exposure time can be allocated within the available session time.",
+                        "Red"
+                    ));
+                }
+            }
+
+            if (!request.FiltersSelected.Any(kvp => kvp.Value)) {
+                result.Warnings.Add(new WarningMessage(
+                    "No filter is selected. Please select at least one filter to plan exposures.",
+                    "Red"
+                ));
+            }
+
+            if (request.FiltersSelected.Any(kvp => kvp.Value)) {
+                bool allZeroExp = request.FiltersSelected
+                    .Where(kvp => kvp.Value)
+                    .All(kvp => request.ExposurePerFilter.GetValueOrDefault(kvp.Key, 0) <= 0);
+
+                if (allZeroExp) {
+                    result.Warnings.Add(new WarningMessage(
+                        "All exposure durations are set to 0. Please define at least one valid exposure time.",
+                        "Red"
+                    ));
+                }
+            }
+
+            foreach (var filter in selectedFilters) {
+                double exp = request.ExposurePerFilter.GetValueOrDefault(filter, 0);
+                if (exp <= 0) {
+                    result.Warnings.Add(new WarningMessage(
+                        $"Filter {filter} is selected but its exposure time is set to 0 s.",
+                        "Red"
+                    ));
+                }
+            }
+
+            foreach (var filter in selectedFilters) {
+                double exp = request.ExposurePerFilter.GetValueOrDefault(filter, 0);
+                if (exp > 0 && request.PauseBetweenExposures > exp) {
+                    result.Warnings.Add(new WarningMessage(
+                        $"Pause between frames is longer than the exposure time for filter {filter}.",
+                        "Red"
+                    ));
+                }
+            }
+
+            if (timeAvailable < 1) {
+                result.Warnings.Add(new WarningMessage(
+                    "The available session time is too short to plan any exposures.",
+                    "Red"
+                ));
+            }
+
+            bool hasSelectedFiltersWithZeroPercent = request.FiltersSelected
+                .Where(kvp => kvp.Value)
+                .Any(kvp => request.TargetProportion.GetValueOrDefault(kvp.Key, 0) == 0);
+
+            if (hasSelectedFiltersWithZeroPercent) {
+                result.Warnings.Add(new WarningMessage(
+                    "Selected filters have no percentage assigned. Please adjust the distribution.",
+                    "Red"
+                ));
+            }
+
+            if (request.EnableDithering && request.DitheringFrequency <= 0) {
+                result.Warnings.Add(new WarningMessage(
+                    "Dithering is enabled but no frequency is defined.",
+                    "Yellow"
+                ));
+            }
+
             return result;
         }
     }
