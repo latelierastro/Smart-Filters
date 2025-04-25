@@ -401,13 +401,31 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         // Chargement d’un profil sélectionné dans la liste déroulante
         public void OnLoadProfileClicked() {
             if (!string.IsNullOrEmpty(SelectedProfileName)) {
-                var loaded = ProfileStorage.Load(SelectedProfileName);
+                ExposureProfile? loaded = null;
+
+                // 1. Tenter de charger depuis les fichiers utilisateurs
+                loaded = ProfileStorage.Load(SelectedProfileName);
+
+                // 2. Si non trouvé, tenter via les presets par nom
+                if (loaded == null) {
+                    var preset = PresetFactory.GetDefaultPresets()
+                                              .FirstOrDefault(p => p.Name == SelectedProfileName);
+                    if (preset.Profile != null)
+                        loaded = preset.Profile;
+                }
+
+                // 3. Si on a un profil valide, on le charge
                 if (loaded != null) {
                     LoadFromProfile(loaded);
                     ToastRequested?.Invoke($"📂 Profile '{SelectedProfileName}' loaded.");
+                } else {
+                    ToastRequested?.Invoke($"❌ Could not load profile '{SelectedProfileName}'.");
                 }
             }
         }
+
+
+        // Presets
 
 
         // Gestion des caractères invalides
@@ -449,7 +467,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
             // 🔁 Rafraîchir la liste des profils
             var updatedList = ProfileStorage.List();
             if (!ProfileNames.SequenceEqual(updatedList))
-                ProfileNames = updatedList;
+                ProfileNames = ProfileStorage.ListAll();
+
 
             ToastRequested?.Invoke($"📂 Profile '{SelectedProfileName}' saved.");
         }
@@ -477,7 +496,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
                         ProfileStorage.Delete(SelectedProfileName);
 
                         // Refresh list
-                        ProfileNames = ProfileStorage.List();
+                        ProfileNames = ProfileStorage.ListAll(); // recharge tous les noms visibles
+
                         SelectedProfileName = ""; // Clear selection
                     }
                 }
@@ -619,7 +639,8 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
         // Constructeur : initialise la liste des noms de profils et la roue de filtres
         public PlanMyNightDockableViewModel() {
             // CHARGE LA LISTE DES PROFILS EXISTANTS AU DÉMARRAGE
-            ProfileNames = ProfileStorage.List();
+            ProfileNames = ProfileStorage.ListAll();
+
 
             byte opacity = 205; // OPACITÉ À 80 %
 

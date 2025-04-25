@@ -2,8 +2,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-
 using System.Collections.Generic;
+using System.Linq;
 using PlanMyNight.Models;
 
 namespace PlanMyNight.Services {
@@ -26,10 +26,19 @@ namespace PlanMyNight.Services {
         }
 
         /// <summary>
-        /// Get all available profile names.
+        /// Get all saved (user-created) profile names.
         /// </summary>
         public static List<string> List() {
             return ProfileManager.GetAvailableProfiles();
+        }
+
+        /// <summary>
+        /// Get a combined list of presets and saved profiles.
+        /// </summary>
+        public static List<string> ListAll() {
+            var presets = PresetFactory.GetDefaultPresets().Select(p => p.Name);
+            var saved = ProfileManager.GetAvailableProfiles();
+            return presets.Concat(saved).Distinct().ToList();
         }
 
         /// <summary>

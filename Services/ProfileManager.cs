@@ -69,5 +69,8 @@ namespace PlanMyNight.Services {
         private static string GetProfilePath(string name) {
             return Path.Combine(ProfileDirectory, name + ".json");
         }
+
+        /// Création Presets Repartition
+        
     }
 }
