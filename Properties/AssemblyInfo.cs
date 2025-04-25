@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 
 // [MANDATORY] The assembly versioning
 //Should be incremented for each new release build of a plugin
-[assembly: AssemblyVersion("1.0.0.1")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
 
 // [MANDATORY] The name of your plugin
 [assembly: AssemblyTitle("Plan My Night")]
@@ -30,7 +30,7 @@ using System.Runtime.InteropServices;
 // The url to the license
 [assembly: AssemblyMetadata("LicenseURL", "https://www.mozilla.org/en-US/MPL/2.0/")]
 // The repository where your pluggin is hosted
-[assembly: AssemblyMetadata("Repository", "https://github.com/latelierastro/Plan-My-Night/releases/tag/v1.0.0.0")]
+[assembly: AssemblyMetadata("Repository", "https://github.com/latelierastro/Plan-My-Night/releases/tag/PlanMyNightV1.0.1.0")]
 
 // The following attributes are optional for the official manifest meta data
 
@@ -45,9 +45,9 @@ using System.Runtime.InteropServices;
 //[Optional] The url to a featured logo that will be displayed in the plugin list next to the name
 [assembly: AssemblyMetadata("FeaturedImageURL", "https://github.com/latelierastro/Plan-My-Night/blob/master/PLANMYNIGHTIMAGE.png?raw=true\r\n")]
 //[Optional] A url to an example screenshot of your plugin in action
-[assembly: AssemblyMetadata("ScreenshotURL", "")]
+[assembly: AssemblyMetadata("ScreenshotURL", "https://raw.githubusercontent.com/latelierastro/Plan-My-Night/refs/heads/master/Capture%20d'%C3%A9cran%202025-04-25%20184827.png")]
 //[Optional] An additional url to an example example screenshot of your plugin in action
-[assembly: AssemblyMetadata("AltScreenshotURL", "")]
+[assembly: AssemblyMetadata("AltScreenshotURL", "https://github.com/latelierastro/Plan-My-Night/blob/master/Capture%20d'%C3%A9cran%202025-04-25%20184921.png?raw=true")]
 //[Optional] An in-depth description of your plugin
 [assembly: AssemblyMetadata("LongDescription", @"")]
 
