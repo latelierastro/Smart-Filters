@@ -122,15 +122,15 @@
                 <!-- SAISIE DE L'HEURE DE DÉBUT ET DE FIN -->
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <TextBlock Text="Start Time:" FontSize="16" VerticalAlignment="Center" Margin="0,0,5,0" />
-                    <TextBox Width="30" Text="{Binding StartHour}" HorizontalContentAlignment="Center" />
+                    <TextBox Width="30" Text="{Binding StartHour}" HorizontalContentAlignment="Center" ToolTip="Defines the start and end of your imaging session."/>
                     <TextBlock Text=" h" Margin="3,0" VerticalAlignment="Center" />
-                    <TextBox Width="30" Text="{Binding StartMinute}" Margin="5,0" HorizontalContentAlignment="Center"  />
+                    <TextBox Width="30" Text="{Binding StartMinute}" Margin="5,0" HorizontalContentAlignment="Center"  ToolTip="Defines the start and end of your imaging session."/>
                     <TextBlock Text=" min" Margin="3,0,10,0" VerticalAlignment="Center" />
 
                     <TextBlock Text="End Time:" FontSize="16" VerticalAlignment="Center" Margin="10,0,5,0" />
-                    <TextBox Width="30" Text="{Binding EndHour}" HorizontalContentAlignment="Center" />
+                    <TextBox Width="30" Text="{Binding EndHour}" HorizontalContentAlignment="Center" ToolTip="Defines the start and end of your imaging session."/>
                     <TextBlock Text=" h" Margin="3,0" VerticalAlignment="Center" />
-                    <TextBox Width="30" Text="{Binding EndMinute}" Margin="5,0" HorizontalContentAlignment="Center"  />
+                    <TextBox Width="30" Text="{Binding EndMinute}" Margin="5,0" HorizontalContentAlignment="Center" ToolTip="Defines the start and end of your imaging session." />
                     <TextBlock Text=" min" Margin="3,0" VerticalAlignment="Center" />
                 </StackPanel>
 
@@ -196,80 +196,80 @@
                     <!-- UNE LIGNE PAR FILTRE ACTIF AVEC TOUS LES CHAMPS ASSOCIÉS -->
 
                     <!-- LUMINANCE (L) -->
-                    <CheckBox Grid.Column="0" Grid.Row="1" IsChecked="{Binding IncludeL}" />
+                    <CheckBox Grid.Column="0" Grid.Row="1" IsChecked="{Binding IncludeL}" ToolTip="Enable or disable this filter for tonight's session" />
                     <TextBlock Grid.Column="1" Grid.Row="1" Text="L" IsEnabled="{Binding IncludeL}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
-                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding ExposureTimeL}" IsEnabled="{Binding IncludeL}" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding HoursDoneL}" IsEnabled="{Binding IncludeL}" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding ExposureTimeL}" IsEnabled="{Binding IncludeL}" VerticalContentAlignment="Center" ToolTip="Exposure time in seconds for each individual frame."/>
+                    <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding HoursDoneL}" IsEnabled="{Binding IncludeL}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter." />
                     <TextBlock Grid.Column="5" Grid.Row="1" Text=" h" IsEnabled="{Binding IncludeL}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="6" Grid.Row="1" Text="{Binding MinutesDoneL}" IsEnabled="{Binding IncludeL}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="6" Grid.Row="1" Text="{Binding MinutesDoneL}" IsEnabled="{Binding IncludeL}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="7" Grid.Row="1" Text=" m" IsEnabled="{Binding IncludeL}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="9" Grid.Row="1" Text="{Binding PercentL}" IsEnabled="{Binding IncludeL}" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="9" Grid.Row="1" Text="{Binding PercentL}" IsEnabled="{Binding IncludeL}" VerticalContentAlignment="Center" ToolTip="Target percentage of total session time for this filter."/>
                     <TextBlock Grid.Column="10" Grid.Row="1" Text="%" IsEnabled="{Binding IncludeL}" VerticalAlignment="Center" />
 
                     <!-- ROUGE (R) -->
-                    <CheckBox Grid.Column="0" Grid.Row="2" IsChecked="{Binding IncludeR}" />
+                    <CheckBox Grid.Column="0" Grid.Row="2" IsChecked="{Binding IncludeR}" ToolTip="Enable or disable this filter for tonight's session"/>
                     <TextBlock Grid.Column="1" Grid.Row="2" Text="R" IsEnabled="{Binding IncludeR}" VerticalAlignment="Center" TextAlignment="Center" />
-                    <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding ExposureTimeR}" IsEnabled="{Binding IncludeR}" VerticalContentAlignment="Center"/>
-                    <TextBox Grid.Column="4" Grid.Row="2" Text="{Binding HoursDoneR}" IsEnabled="{Binding IncludeR}" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding ExposureTimeR}" IsEnabled="{Binding IncludeR}" VerticalContentAlignment="Center" ToolTip="Exposure time in seconds for each individual frame."/>
+                    <TextBox Grid.Column="4" Grid.Row="2" Text="{Binding HoursDoneR}" IsEnabled="{Binding IncludeR}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter." />
                     <TextBlock Grid.Column="5" Grid.Row="2" Text=" h" IsEnabled="{Binding IncludeR}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="6" Grid.Row="2" Text="{Binding MinutesDoneR}" IsEnabled="{Binding IncludeR}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="6" Grid.Row="2" Text="{Binding MinutesDoneR}" IsEnabled="{Binding IncludeR}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="7" Grid.Row="2" Text=" m" IsEnabled="{Binding IncludeR}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="9" Grid.Row="2" Text="{Binding PercentR}" IsEnabled="{Binding IncludeR}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="9" Grid.Row="2" Text="{Binding PercentR}" IsEnabled="{Binding IncludeR}" VerticalContentAlignment="Center" ToolTip="Target percentage of total session time for this filter."/>
                     <TextBlock Grid.Column="10" Grid.Row="2" Text="%" IsEnabled="{Binding IncludeR}" VerticalAlignment="Center" />
 
                     <!-- VERT (G) -->
-                    <CheckBox Grid.Column="0" Grid.Row="3" IsChecked="{Binding IncludeG}" />
+                    <CheckBox Grid.Column="0" Grid.Row="3" IsChecked="{Binding IncludeG}" ToolTip="Enable or disable this filter for tonight's session"/>
                     <TextBlock Grid.Column="1" Grid.Row="3" Text="G" IsEnabled="{Binding IncludeG}" TextAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,7" />
-                    <TextBox Grid.Column="2" Grid.Row="3" Text="{Binding ExposureTimeG}" IsEnabled="{Binding IncludeG}" VerticalContentAlignment="Center"/>
-                    <TextBox Grid.Column="4" Grid.Row="3" Text="{Binding HoursDoneG}" IsEnabled="{Binding IncludeG}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="2" Grid.Row="3" Text="{Binding ExposureTimeG}" IsEnabled="{Binding IncludeG}" VerticalContentAlignment="Center" ToolTip="Exposure time in seconds for each individual frame."/>
+                    <TextBox Grid.Column="4" Grid.Row="3" Text="{Binding HoursDoneG}" IsEnabled="{Binding IncludeG}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="5" Grid.Row="3" Text=" h" IsEnabled="{Binding IncludeG}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="6" Grid.Row="3" Text="{Binding MinutesDoneG}" IsEnabled="{Binding IncludeG}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="6" Grid.Row="3" Text="{Binding MinutesDoneG}" IsEnabled="{Binding IncludeG}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="7" Grid.Row="3" Text=" m" IsEnabled="{Binding IncludeG}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="9" Grid.Row="3" Text="{Binding PercentG}" IsEnabled="{Binding IncludeG}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="9" Grid.Row="3" Text="{Binding PercentG}" IsEnabled="{Binding IncludeG}" VerticalContentAlignment="Center" ToolTip="Target percentage of total session time for this filter."/>
                     <TextBlock Grid.Column="10" Grid.Row="3" Text="%" IsEnabled="{Binding IncludeG}" VerticalAlignment="Center" />
 
                     <!-- BLEU (B) -->
-                    <CheckBox Grid.Column="0" Grid.Row="4" IsChecked="{Binding IncludeB}" />
+                    <CheckBox Grid.Column="0" Grid.Row="4" IsChecked="{Binding IncludeB}" ToolTip="Enable or disable this filter for tonight's session"/>
                     <TextBlock Grid.Column="1" Grid.Row="4" Text="B" IsEnabled="{Binding IncludeB}" TextAlignment="Center" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding ExposureTimeB}" IsEnabled="{Binding IncludeB}" VerticalContentAlignment="Center"/>
-                    <TextBox Grid.Column="4" Grid.Row="4" Text="{Binding HoursDoneB}" IsEnabled="{Binding IncludeB}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding ExposureTimeB}" IsEnabled="{Binding IncludeB}" VerticalContentAlignment="Center" ToolTip="Exposure time in seconds for each individual frame."/>
+                    <TextBox Grid.Column="4" Grid.Row="4" Text="{Binding HoursDoneB}" IsEnabled="{Binding IncludeB}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="5" Grid.Row="4" Text=" h" IsEnabled="{Binding IncludeB}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="6" Grid.Row="4" Text="{Binding MinutesDoneB}" IsEnabled="{Binding IncludeB}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="6" Grid.Row="4" Text="{Binding MinutesDoneB}" IsEnabled="{Binding IncludeB}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="7" Grid.Row="4" Text=" m" IsEnabled="{Binding IncludeB}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="9" Grid.Row="4" Text="{Binding PercentB}" IsEnabled="{Binding IncludeB}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="9" Grid.Row="4" Text="{Binding PercentB}" IsEnabled="{Binding IncludeB}" VerticalContentAlignment="Center" ToolTip="Target percentage of total session time for this filter."/>
                     <TextBlock Grid.Column="10" Grid.Row="4" Text="%" IsEnabled="{Binding IncludeB}" VerticalAlignment="Center" />
 
                     <!-- SULFURE (SII) -->
-                    <CheckBox Grid.Column="0" Grid.Row="5" IsChecked="{Binding IncludeS}" />
+                    <CheckBox Grid.Column="0" Grid.Row="5" IsChecked="{Binding IncludeS}" ToolTip="Enable or disable this filter for tonight's session"/>
                     <TextBlock Grid.Column="1" Grid.Row="5" Text="SII" IsEnabled="{Binding IncludeS}" TextAlignment="Center" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2" Grid.Row="5" Text="{Binding ExposureTimeS}" IsEnabled="{Binding IncludeS}" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="4" Grid.Row="5" Text="{Binding HoursDoneS}" IsEnabled="{Binding IncludeS}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="2" Grid.Row="5" Text="{Binding ExposureTimeS}" IsEnabled="{Binding IncludeS}" VerticalContentAlignment="Center" ToolTip="Exposure time in seconds for each individual frame."/>
+                    <TextBox Grid.Column="4" Grid.Row="5" Text="{Binding HoursDoneS}" IsEnabled="{Binding IncludeS}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="5" Grid.Row="5" Text=" h" IsEnabled="{Binding IncludeS}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="6" Grid.Row="5" Text="{Binding MinutesDoneS}" IsEnabled="{Binding IncludeS}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="6" Grid.Row="5" Text="{Binding MinutesDoneS}" IsEnabled="{Binding IncludeS}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="7" Grid.Row="5" Text=" m" IsEnabled="{Binding IncludeS}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="9" Grid.Row="5" Text="{Binding PercentS}" IsEnabled="{Binding IncludeS}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="9" Grid.Row="5" Text="{Binding PercentS}" IsEnabled="{Binding IncludeS}" VerticalContentAlignment="Center" ToolTip="Target percentage of total session time for this filter."/>
                     <TextBlock Grid.Column="10" Grid.Row="5" Text="%" IsEnabled="{Binding IncludeS}" VerticalAlignment="Center" />
 
                     <!-- HYDROGÈNE ALPHA (HA) -->
-                    <CheckBox Grid.Column="0" Grid.Row="6" IsChecked="{Binding IncludeHa}" />
+                    <CheckBox Grid.Column="0" Grid.Row="6" IsChecked="{Binding IncludeHa}" ToolTip="Enable or disable this filter for tonight's session"/>
                     <TextBlock Grid.Column="1" Grid.Row="6" Text="Hα" IsEnabled="{Binding IncludeHa}" VerticalAlignment="Bottom" TextAlignment="Center" Margin="0,0,0,7" />
-                    <TextBox Grid.Column="2" Grid.Row="6" Text="{Binding ExposureTimeHa}" IsEnabled="{Binding IncludeHa}" VerticalContentAlignment="Center"/>
-                    <TextBox Grid.Column="4" Grid.Row="6" Text="{Binding HoursDoneHa}" IsEnabled="{Binding IncludeHa}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="2" Grid.Row="6" Text="{Binding ExposureTimeHa}" IsEnabled="{Binding IncludeHa}" VerticalContentAlignment="Center" ToolTip="Exposure time in seconds for each individual frame."/>
+                    <TextBox Grid.Column="4" Grid.Row="6" Text="{Binding HoursDoneHa}" IsEnabled="{Binding IncludeHa}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="5" Grid.Row="6" Text=" h" IsEnabled="{Binding IncludeHa}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="6" Grid.Row="6" Text="{Binding MinutesDoneHa}" IsEnabled="{Binding IncludeHa}" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="6" Grid.Row="6" Text="{Binding MinutesDoneHa}" IsEnabled="{Binding IncludeHa}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter." />
                     <TextBlock Grid.Column="7" Grid.Row="6" Text=" m" IsEnabled="{Binding IncludeHa}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="9" Grid.Row="6" Text="{Binding PercentHa}" IsEnabled="{Binding IncludeHa}" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="9" Grid.Row="6" Text="{Binding PercentHa}" IsEnabled="{Binding IncludeHa}" VerticalContentAlignment="Center" ToolTip="Target percentage of total session time for this filter."/>
                     <TextBlock Grid.Column="10" Grid.Row="6" Text="%" IsEnabled="{Binding IncludeHa}" VerticalAlignment="Center" />
 
                     <!-- OXYGÈNE III (OIII) -->
-                    <CheckBox Grid.Column="0" Grid.Row="7" IsChecked="{Binding IncludeO}" />
+                    <CheckBox Grid.Column="0" Grid.Row="7" IsChecked="{Binding IncludeO}" ToolTip="Enable or disable this filter for tonight's session"/>
                     <TextBlock Grid.Column="1" Grid.Row="7" Text="OIII" IsEnabled="{Binding IncludeO}" VerticalAlignment="Center" TextAlignment="Center" />
-                    <TextBox Grid.Column="2" Grid.Row="7" Text="{Binding ExposureTimeO}" IsEnabled="{Binding IncludeO}" VerticalContentAlignment="Center"/>
-                    <TextBox Grid.Column="4" Grid.Row="7" Text="{Binding HoursDoneO}" IsEnabled="{Binding IncludeO}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="2" Grid.Row="7" Text="{Binding ExposureTimeO}" IsEnabled="{Binding IncludeO}" VerticalContentAlignment="Center" ToolTip="Exposure time in seconds for each individual frame."/>
+                    <TextBox Grid.Column="4" Grid.Row="7" Text="{Binding HoursDoneO}" IsEnabled="{Binding IncludeO}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="5" Grid.Row="7" Text=" h" IsEnabled="{Binding IncludeO}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="6" Grid.Row="7" Text="{Binding MinutesDoneO}" IsEnabled="{Binding IncludeO}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="6" Grid.Row="7" Text="{Binding MinutesDoneO}" IsEnabled="{Binding IncludeO}" VerticalContentAlignment="Center" ToolTip="Time already acquired for this filter from past sessions.If you want the proportion to apply only to tonight, set 'Already acquired' to 0 for each filter."/>
                     <TextBlock Grid.Column="7" Grid.Row="7" Text=" m" IsEnabled="{Binding IncludeO}" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="9" Grid.Row="7" Text="{Binding PercentO}" IsEnabled="{Binding IncludeO}" VerticalContentAlignment="Center"/>
+                    <TextBox Grid.Column="9" Grid.Row="7" Text="{Binding PercentO}" IsEnabled="{Binding IncludeO}" VerticalContentAlignment="Center" ToolTip="Target percentage of total session time for this filter."/>
                     <TextBlock Grid.Column="10" Grid.Row="7" Text="%" IsEnabled="{Binding IncludeO}" VerticalAlignment="Center" />
 
 
@@ -536,56 +536,56 @@
                 <!-- MARGE DE TOLÉRANCE -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
                     <TextBlock Text="TOLERANCE :" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                    <TextBox Width="40" Text="{Binding TolerancePercent}" VerticalContentAlignment="Center"/>
+                    <TextBox Width="40" Text="{Binding TolerancePercent}" VerticalContentAlignment="Center" ToolTip="Safety margin to account for unforeseen events or delays during the night." />
                     <TextBlock Text="%" Margin="5,0,0,0" />
                 </StackPanel>
 
                 <!-- FRÉQUENCE DE L’AUTOFOCUS (EN MINUTES) -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
                     <TextBlock Width="120" Text="AF Frequency : Every " Margin="0,0,0,0" />
-                    <TextBox Width="30" Text="{Binding AutofocusFrequency}" VerticalContentAlignment="Center"/>
+                    <TextBox Width="30" Text="{Binding AutofocusFrequency}" VerticalContentAlignment="Center" ToolTip="Interval in minutes between two autofocuses (per filter)." />
                     <TextBlock Text="m" Margin="5,0,0,0" />
                 </StackPanel>
 
                 <!-- DURÉE AUTOFOCUS RGB -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
-                    <CheckBox IsChecked="{Binding EnableAutofocusRGB}" Width="65" Margin="0,0,5,0" />
+                    <CheckBox IsChecked="{Binding EnableAutofocusRGB}" Width="65" Margin="0,0,5,0" ToolTip="Select if you want to include autofocus for each RGB filter, at the start and periodically during session."/>
                     <TextBlock Text="AF Duration L/RGB" Width="120" VerticalAlignment="Center" IsEnabled="{Binding EnableAutofocusRGB}" />
-                    <TextBox Width="30" Margin="0,0,5,0" Text="{Binding AutofocusDurationRGB}" IsEnabled="{Binding EnableAutofocusRGB}" VerticalContentAlignment="Center"/>
+                    <TextBox Width="30" Margin="0,0,5,0" Text="{Binding AutofocusDurationRGB}" IsEnabled="{Binding EnableAutofocusRGB}" VerticalContentAlignment="Center" ToolTip="Estimated time required for each autofocus operation when using LRGB filters." />
                     <TextBlock Text="s" Width="10" VerticalAlignment="Center" IsEnabled="{Binding EnableAutofocusRGB}" />
                 </StackPanel>
 
                 <!-- DURÉE AUTOFOCUS SHO -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
-                    <CheckBox IsChecked="{Binding EnableAutofocusSHO}" Width="65" Margin="0,0,5,0"/>
+                    <CheckBox IsChecked="{Binding EnableAutofocusSHO}" Width="65" Margin="0,0,5,0" ToolTip="Select if you want to include autofocus for each narrowband filter (Ha, S, O), at the start and periodically during session."/>
                     <TextBlock Text="AF Duration SHO" Width="120" VerticalAlignment="Center" IsEnabled="{Binding EnableAutofocusSHO}" />
-                    <TextBox Width="30" Margin="0,0,5,0" Text="{Binding AutofocusDurationSHO}" IsEnabled="{Binding EnableAutofocusSHO}" VerticalContentAlignment="Center"/>
+                    <TextBox Width="30" Margin="0,0,5,0" Text="{Binding AutofocusDurationSHO}" IsEnabled="{Binding EnableAutofocusSHO}" VerticalContentAlignment="Center" ToolTip="Estimated time required for each autofocus operation when using narrowband filters (Ha, SII, OIII)." />
                     <TextBlock Text="s" Width="10" VerticalAlignment="Center" IsEnabled="{Binding EnableAutofocusSHO}" />
                 </StackPanel>
 
                 <!-- DURÉE DU MERIDIAN FLIP -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
-                    <CheckBox IsChecked="{Binding EnableMeridianFlip}" Width="65" Margin="0,0,5,0"/>
+                    <CheckBox IsChecked="{Binding EnableMeridianFlip}" Width="65" Margin="0,0,5,0" ToolTip="Select if you want to include a meridian flip during the session. The estimated duration should cover slewing, settling, and autofocus after the flip if enabled."/>
                     <TextBlock Text="Meridian Flip Duration" Width="120" VerticalAlignment="Center" IsEnabled="{Binding EnableMeridianFlip}" />
-                    <TextBox Width="30" Margin="0,0,5,0" Text="{Binding MeridianFlipDuration}" IsEnabled="{Binding EnableMeridianFlip}" VerticalContentAlignment="Center"/>
+                    <TextBox Width="30" Margin="0,0,5,0" Text="{Binding MeridianFlipDuration}" IsEnabled="{Binding EnableMeridianFlip}" VerticalContentAlignment="Center" ToolTip="Estimated time needed for the meridian flip, including slewing, settling, and autofocus if planned after the flip."/>
                     <TextBlock Text="m" Width="10" VerticalAlignment="Center" IsEnabled="{Binding EnableMeridianFlip}" />
                 </StackPanel>
 
                 <!-- DITHERING (FRÉQUENCE ET DURÉE) -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
-                    <CheckBox IsChecked="{Binding EnableDithering}" Width="65" Margin="0,0,10,0"/>
+                    <CheckBox IsChecked="{Binding EnableDithering}" Width="65" Margin="0,0,10,0" ToolTip="Select if you want to apply dithering every N frames."/>
                     <TextBlock Text="Dithering every" Margin="0,0,5,0" IsEnabled="{Binding EnableDithering}" />
-                    <TextBox Width="20" Text="{Binding DitheringFrequency}" IsEnabled="{Binding EnableDithering}" VerticalContentAlignment="Center"/>
+                    <TextBox Width="20" Text="{Binding DitheringFrequency}" IsEnabled="{Binding EnableDithering}" VerticalContentAlignment="Center" ToolTip="A dithering operation will be triggered every X frames."/>
                     <TextBlock Text="frames" Margin="5,0" IsEnabled="{Binding EnableDithering}" />
-                    <TextBox Width="30" Text="{Binding DitheringDuration}" Margin="5,0,5,0" IsEnabled="{Binding EnableDithering}" VerticalContentAlignment="Center"/>
+                    <TextBox Width="30" Text="{Binding DitheringDuration}" Margin="5,0,5,0" IsEnabled="{Binding EnableDithering}" VerticalContentAlignment="Center" ToolTip="Dither duration"/>
                     <TextBlock Text="s" IsEnabled="{Binding EnableDithering}" />
                 </StackPanel>
 
                 <!-- PAUSE ENTRE CHAQUE IMAGE -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
-                    <CheckBox IsChecked="{Binding EnablePauseBetweenFrames}" Width="65" Margin="0,0,10,0"/>
+                    <CheckBox IsChecked="{Binding EnablePauseBetweenFrames}" Width="65" Margin="0,0,10,0" ToolTip="Select to account for a short pause between exposures, for example to allow image download if your system requires it."/>
                     <TextBlock Text="Pause between frames" Margin="0,0,7,0" IsEnabled="{Binding EnablePauseBetweenFrames}" />
-                    <TextBox Width="30" Text="{Binding PauseBetweenFrames}" IsEnabled="{Binding EnablePauseBetweenFrames}" VerticalContentAlignment="Center" />
+                    <TextBox Width="30" Text="{Binding PauseBetweenFrames}" IsEnabled="{Binding EnablePauseBetweenFrames}" VerticalContentAlignment="Center" ToolTip="Delay (in seconds) between each exposure." />
                     <TextBlock Text="s" Margin="5,0" IsEnabled="{Binding EnablePauseBetweenFrames}" />
                 </StackPanel>
 
@@ -607,9 +607,9 @@
                     <!-- BOUTONS POUR CHARGER, SAUVEGARDER, SUPPRIMER LE PROFIL -->
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="Load" Width="80" Margin="0,0,10,0" Click="OnLoadProfileClicked"/>
-                            <Button Content="Save" Width="80" Click="OnSaveProfileClicked"/>
-                            <Button Content="Delete" Width="80" Margin="10,0,0,0" Click="OnDeleteProfileClicked"/>
+                            <Button Content="Load" Width="80" Margin="0,0,10,0" Click="OnLoadProfileClicked" ToolTip="Load a previously saved profile." />
+                            <Button Content="Save" Width="80" Click="OnSaveProfileClicked" ToolTip="Save current settings as a reusable profile." />
+                            <Button Content="Delete" Width="80" Margin="10,0,0,0" Click="OnDeleteProfileClicked" ToolTip="Delete a previously saved profile"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
