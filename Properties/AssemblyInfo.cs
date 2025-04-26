@@ -43,11 +43,11 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("ChangelogURL", "https://github.com/latelierastro/Plan-My-Night/blob/master/CHANGELOG.md")]
 
 //[Optional] The url to a featured logo that will be displayed in the plugin list next to the name
-[assembly: AssemblyMetadata("FeaturedImageURL", "https://github.com/latelierastro/Plan-My-Night/blob/master/SmartFiltersIMAGE.png?raw=true\r\n")]
+[assembly: AssemblyMetadata("FeaturedImageURL", "https://github.com/latelierastro/Smart-Filters/blob/main/SMARTFILTERS_PLUGIN_IMAGE.png?raw=true\r\n")]
 //[Optional] A url to an example screenshot of your plugin in action
-[assembly: AssemblyMetadata("ScreenshotURL", "https://raw.githubusercontent.com/latelierastro/Plan-My-Night/refs/heads/master/Capture%20d'%C3%A9cran%202025-04-25%20184827.png")]
+[assembly: AssemblyMetadata("ScreenshotURL", "https://github.com/latelierastro/Smart-Filters/blob/main/Capture%20d'%C3%A9cran%202025-04-25%20184827.png?raw=true")]
 //[Optional] An additional url to an example example screenshot of your plugin in action
-[assembly: AssemblyMetadata("AltScreenshotURL", "https://github.com/latelierastro/Plan-My-Night/blob/master/Capture%20d'%C3%A9cran%202025-04-25%20184921.png?raw=true")]
+[assembly: AssemblyMetadata("AltScreenshotURL", "https://github.com/latelierastro/Smart-Filters/blob/main/Capture%20d'%C3%A9cran%202025-04-25%20184921.png?raw=true")]
 //[Optional] An in-depth description of your plugin
 [assembly: AssemblyMetadata("LongDescription", @"")]
 
