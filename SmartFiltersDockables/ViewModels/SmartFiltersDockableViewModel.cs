@@ -3,9 +3,9 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-using PlanMyNight.Calculations;
-using PlanMyNight.Models;
-using PlanMyNight.Services;
+using SmartFilters.Calculations;
+using SmartFilters.Models;
+using SmartFilters.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,8 +22,8 @@ using System.Windows.Media;
 
 
 
-namespace PlanMyNight.PlanMyNightDockables.ViewModels {
-    public class PlanMyNightDockableViewModel : INotifyPropertyChanged {
+namespace SmartFilters.SmartFiltersDockables.ViewModels {
+    public class SmartFiltersDockableViewModel : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -637,7 +637,7 @@ namespace PlanMyNight.PlanMyNightDockables.ViewModels {
 
 
         // Constructeur : initialise la liste des noms de profils et la roue de filtres
-        public PlanMyNightDockableViewModel() {
+        public SmartFiltersDockableViewModel() {
             // CHARGE LA LISTE DES PROFILS EXISTANTS AU DÉMARRAGE
             ProfileNames = ProfileStorage.ListAll();
 

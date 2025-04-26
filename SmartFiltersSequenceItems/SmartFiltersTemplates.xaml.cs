@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PlanMyNight.PlanMyNightTestCategory {
+namespace SmartFilters.SmartFiltersTestCategory {
     [Export(typeof(ResourceDictionary))]
     public partial class PluginItemTemplate : ResourceDictionary {
         public PluginItemTemplate() {

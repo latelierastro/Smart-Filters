@@ -1,24 +1,24 @@
 ﻿<ResourceDictionary
-    x:Class="PlanMyNight.Options"
+    x:Class="SmartFilters.Options"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <DataTemplate x:Key="Plan My Night_Options">
+    <DataTemplate x:Key="Smart Filters_Options">
         <StackPanel Orientation="Vertical">
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Welcome to Plan My Night" FontSize="30" FontWeight="Bold" />
+                <TextBlock Text="Welcome to Smart Filters" FontSize="30" FontWeight="Bold" />
             </StackPanel>
 
             <GroupBox Header="Description" Margin="0,20,0,0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Height="auto">
                     <StackPanel Margin="5">
 
-                        <!-- Why Plan My Night -->
+                        <!-- Why Smart Filters -->
                         <StackPanel Margin="0,10,0,0">
-                            <TextBlock Text="Why Plan My Night?" FontSize="24" FontWeight="Bold" />
+                            <TextBlock Text="Why Smart Filters?" FontSize="24" FontWeight="Bold" />
                             <TextBlock Text="We all face the same dilemma: making the most out of our imaging nights, especially when the weather isn’t always on our side." Margin="0,5,0,0" />
-                            <TextBlock Text="Plan My Night was born from this idea: optimize each imaging session to reach the desired distribution between the different filters (L, R, G, B, Ha, OIII, SII), while taking real-world constraints into account." Margin="0,5,0,0" />
+                            <TextBlock Text="Smart Filters was born from this idea: optimize each imaging session to reach the desired distribution between the different filters (L, R, G, B, Ha, OIII, SII), while taking real-world constraints into account." Margin="0,5,0,0" />
                             <TextBlock Text="The problem with classic approaches:" FontWeight="Bold" Margin="0,10,0,0" />
                             <TextBlock Text="The usual method is to assume, for example, that you have 8 hours of imaging time and simply loop through a sequence that cycles several filters, hoping the time will naturally balance itself." Margin="0,5,0,0" />
                             <TextBlock Text="But this comes with several drawbacks:" Margin="0,5,0,0" />
@@ -33,8 +33,8 @@
                             <TextBlock Text="• autofocus routines," Margin="20,2,0,0" />
                             <TextBlock Text="• dithering (which depends on the number of exposures you haven’t calculated yet…)," Margin="20,2,0,0" />
                             <TextBlock Text="• and still stay within your available time window?" Margin="20,2,0,0" />
-                            <TextBlock Text="The solution: Plan My Night" FontWeight="Bold" Margin="0,10,0,0" />
-                            <TextBlock Text="Plan My Night handles the complexity for you." />
+                            <TextBlock Text="The solution: Smart Filters" FontWeight="Bold" Margin="0,10,0,0" />
+                            <TextBlock Text="Smart Filters handles the complexity for you." />
                             <TextBlock Text="It takes all of these parameters into account and generates an optimized sequence plan according to your target distribution." Margin="0,5,0,0" />
                             <TextBlock Text="Less guesswork , More efficiency" />
                         </StackPanel>
@@ -49,7 +49,7 @@
                             <TextBlock Text="→ If you're planning just for tonight, set 'Already Acquired' to zero for all filters." Margin="40,2,0,0" />
                             <TextBlock Text="5. In the Settings panel, adjust options like autofocus intervals, dithering, meridian flip time, and pause between frames." Margin="20,2,0,0" />
                             <TextBlock Text="6. Set a tolerance percentage to reserve a small buffer of unused time at the end of the night." Margin="20,2,0,0" />
-                            <TextBlock Text="Click 'Calculate' and let Plan My Night do the work." Margin="0,10,0,0" />
+                            <TextBlock Text="Click 'Calculate' and let Smart Filters do the work." Margin="0,10,0,0" />
                             <TextBlock Text="You’ll get a full breakdown of exposures to include in your sequence — optimized to meet your goals." />
                         </StackPanel>
 

@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace PlanMyNight.Converters {
+namespace SmartFilters.Converters {
     /// <summary>
     /// CONVERTISSEUR MULTI-VALEURS QUI RENVOIE UNE COULEUR UNIQUEMENT SI LE FILTRE EST ACTIF.
     /// VALEUR [0] : BOOLÉEN (FILTRE ACTIF OU NON)  VALEUR [1] : PINCEAU (COULEUR À UTILISER SI ACTIF)

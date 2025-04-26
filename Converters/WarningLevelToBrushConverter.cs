@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace PlanMyNight.Converters {
+namespace SmartFilters.Converters {
     /// <summary>
     /// CONVERTISSEUR QUI TRANSFORME UN NIVEAU D’ALERTE (EX. : "Red", "Orange") EN COULEUR VISUELLE.
     /// UTILISÉ POUR AFFICHER LES MESSAGES DE WARNINGS AVEC UN CODE COULEUR.

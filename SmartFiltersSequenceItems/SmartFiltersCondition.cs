@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlanMyNight.PlanMyNightTestCategory {
+namespace SmartFilters.SmartFiltersTestCategory {
     /// <summary>
     /// This Class shows the basic principle on how to add a new Sequence Trigger to the N.I.N.A. sequencer via the plugin interface
     /// For ease of use this class inherits the abstract SequenceTrigger which already handles most of the running logic, like logging, exception handling etc.
@@ -23,10 +23,10 @@ namespace PlanMyNight.PlanMyNightTestCategory {
    // [ExportMetadata("Name", "Plugin Template Condition")]
    // [ExportMetadata("Description", "This condition is true until a user flicks a combobox on the condition")]
    // [ExportMetadata("Icon", "Plugin_Test_SVG")]
-   // [ExportMetadata("Category", "Plan My Night")]
+   // [ExportMetadata("Category", "Smart Filters")]
    // [Export(typeof(ISequenceCondition))]
    // [JsonObject(MemberSerialization.OptIn)]
-    public class PlanMyNightCondition : SequenceCondition {
+    public class SmartFiltersCondition : SequenceCondition {
         /// <summary>
         /// The constructor marked with [ImportingConstructor] will be used to import and construct the object
         /// General device interfaces can be added to the constructor parameters and will be automatically injected on instantiation by the plugin loader
@@ -58,7 +58,7 @@ namespace PlanMyNight.PlanMyNightTestCategory {
         ///     - IList<IDateTimeProvider>
         /// </remarks>
         [ImportingConstructor]
-        public PlanMyNightCondition() {
+        public SmartFiltersCondition() {
             IsTruthy = true;
         }
 
@@ -84,7 +84,7 @@ namespace PlanMyNight.PlanMyNightTestCategory {
         }
 
         public override object Clone() {
-            return new PlanMyNightCondition() {
+            return new SmartFiltersCondition() {
                 Icon = Icon,
                 Name = Name,
                 Category = Category,
@@ -97,7 +97,7 @@ namespace PlanMyNight.PlanMyNightTestCategory {
         /// </summary>
         /// <returns></returns>
         public override string ToString() {
-            return $"Category: {Category}, Item: {nameof(PlanMyNightCondition)}, IsTruthy: {IsTruthy}";
+            return $"Category: {Category}, Item: {nameof(SmartFiltersCondition)}, IsTruthy: {IsTruthy}";
         }
     }
 }

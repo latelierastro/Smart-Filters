@@ -7,17 +7,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlanMyNight.PlanMyNightDrivers {
+namespace SmartFilters.SmartFiltersDrivers {
     /// <summary>
     /// This Class shows the basic principle on how to add a new Device driver to N.I.N.A. via the plugin interface
     /// The DeviceProvider will return an instance of this class as a sample weather device
     /// For this example the weather data will generate random numbers
     /// </summary>
-    public class PlanMyNightWeatherDriver : BaseINPC, IWeatherData {
-        public PlanMyNightWeatherDriver(string uniqueId, string deviceId) {
+    public class SmartFiltersWeatherDriver : BaseINPC, IWeatherData {
+        public SmartFiltersWeatherDriver(string uniqueId, string deviceId) {
             Id = uniqueId;
             serialNumber = deviceId;
-            Name = $"PlanMyNight Weather Data ({deviceId})";
+            Name = $"SmartFilters Weather Data ({deviceId})";
             DriverInfo = $"Serial {deviceId}";
             random = new Random();
         }
@@ -28,7 +28,7 @@ namespace PlanMyNight.PlanMyNightDrivers {
 
         public string DisplayName => Name;
 
-        public string Category => "PlanMyNight Weather Driver";
+        public string Category => "SmartFilters Weather Driver";
 
         public string Description => "My custom weather driver from a plugin";
 

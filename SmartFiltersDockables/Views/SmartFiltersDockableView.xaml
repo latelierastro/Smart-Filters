@@ -1,11 +1,11 @@
 ﻿<!-- DÉCLARATION DU CONTRÔLE UTILISATEUR PRINCIPAL -->
-<UserControl x:Class="PlanMyNight.PlanMyNightDockables.Views.PlanMyNightDockableView"
+<UserControl x:Class="SmartFilters.SmartFiltersDockables.Views.SmartFiltersDockableView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:converters="clr-namespace:PlanMyNight.Converters"
-             xmlns:local="clr-namespace:PlanMyNight.Converters"
+             xmlns:converters="clr-namespace:SmartFilters.Converters"
+             xmlns:local="clr-namespace:SmartFilters.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1000">
 
@@ -15,7 +15,7 @@
 
             <!-- INCLUSION D'UN DICTIONNAIRE DE RESSOURCES XAML PERSONNALISÉ -->
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/PlanMyNight;component/PlanMyNightDockables/PlanMyNightDockableTemplates.xaml" />
+                <ResourceDictionary Source="/SmartFilters;component/SmartFiltersDockables/SmartFiltersDockableTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- CONVERTISSEURS PERSONNALISÉS POUR LA LOGIQUE D'AFFICHAGE -->
@@ -635,7 +635,7 @@
 
                     <!-- 🌌 LOGO GALAXIE (OPTIONNEL, COMMENTÉ POUR L’INSTANT) -->
                     <!--
-                        <Path Data="{StaticResource PlanMyNight_GalaxySVG}"
+                        <Path Data="{StaticResource SmartFilters_GalaxySVG}"
                          Stretch="Uniform" Width="50" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left"
                          Margin="72,-152,0,0"
                          Fill="{DynamicResource FilterWheelStrokeBrush}" Opacity="0.5" RenderTransformOrigin="0.526,-3.831" />

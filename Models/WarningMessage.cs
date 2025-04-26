@@ -3,7 +3,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-namespace PlanMyNight.Models {
+namespace SmartFilters.Models {
     /// <summary>
     /// REPRÉSENTE UN MESSAGE D’AVERTISSEMENT À AFFICHER DANS L’INTERFACE UTILISATEUR.
     /// UTILISÉ POUR SIGNALER DES INCOHÉRENCES OU INFORMATIONS IMPORTANTES APRÈS LE CALCUL.

@@ -7,7 +7,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace PlanMyNight.Converters {
+namespace SmartFilters.Converters {
     /// <summary>
     /// CONVERTISSEUR QUI CALCULE UNE LARGEUR PROPORTIONNELLE À PARTIR D’UNE VALEUR ENTRE 0 ET 1 ET DE LA LARGEUR TOTALE DISPONIBLE.
     /// </summary>

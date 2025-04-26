@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace PlanMyNight.Converters {
+namespace SmartFilters.Converters {
     public class SegmentCornerRadiusConverter : IMultiValueConverter {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
             var item = values[0];

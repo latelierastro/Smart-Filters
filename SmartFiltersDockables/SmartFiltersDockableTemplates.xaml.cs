@@ -11,10 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PlanMyNight.PlanMyNightDockables {
+namespace SmartFilters.SmartFiltersDockables {
     [Export(typeof(ResourceDictionary))]
-    public partial class PlanMyNightDockableTemplates : ResourceDictionary {
-        public PlanMyNightDockableTemplates() {
+    public partial class SmartFiltersDockableTemplates : ResourceDictionary {
+        public SmartFiltersDockableTemplates() {
             InitializeComponent();
         }
     }

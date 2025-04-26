@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace PlanMyNight.Models {
+namespace SmartFilters.Models {
     /// <summary>
     /// CONTIENT LE RÉSUMÉ D'UNE SESSION DE PLANIFICATION APRÈS CALCUL.
     /// PERMET DE FOURNIR UN BILAN GLOBAL POUR AFFICHAGE ET ANALYSE.

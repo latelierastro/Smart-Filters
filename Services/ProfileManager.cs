@@ -7,16 +7,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using PlanMyNight.Models;
+using SmartFilters.Models;
 
-namespace PlanMyNight.Services {
+namespace SmartFilters.Services {
     /// <summary>
     /// Provides functionality to save, load, list and delete exposure planning profiles.
     /// </summary>
     public static class ProfileManager {
         private static readonly string ProfileDirectory = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "PlanMyNight", "Profiles");
+            "SmartFilters", "Profiles");
 
         static ProfileManager() {
             // Ensure the profile directory exists

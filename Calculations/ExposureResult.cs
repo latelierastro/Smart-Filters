@@ -3,10 +3,10 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-using PlanMyNight.Models;
+using SmartFilters.Models;
 using System.Collections.Generic;
 
-namespace PlanMyNight.Calculations {
+namespace SmartFilters.Calculations {
     /// <summary>
     /// Résultat du calcul de répartition des temps d’exposition par filtre.
     /// </summary>

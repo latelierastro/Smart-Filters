@@ -4,9 +4,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using PlanMyNight.Models;
+using SmartFilters.Models;
 
-namespace PlanMyNight.Services {
+namespace SmartFilters.Services {
     /// <summary>
     /// Static wrapper for profile access and management.
     /// </summary>

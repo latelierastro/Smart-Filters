@@ -9,7 +9,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace PlanMyNight.Converters {
+namespace SmartFilters.Converters {
     /// <summary>
     /// CONVERTISSEUR QUI AFFICHE UN ÉLÉMENT UNIQUEMENT SI LA LISTE CONTIENT AU MOINS UN ÉLÉMENT.
     /// </summary>

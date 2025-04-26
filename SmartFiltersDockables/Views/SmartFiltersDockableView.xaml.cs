@@ -3,27 +3,27 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-using PlanMyNight.PlanMyNightDockables.ViewModels;
+using SmartFilters.SmartFiltersDockables.ViewModels;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace PlanMyNight.PlanMyNightDockables.Views {
+namespace SmartFilters.SmartFiltersDockables.Views {
 
     /// <summary>
-    /// CLASSE PRINCIPALE DE LA VUE UTILISATEUR POUR LE DOCKABLE PLANMYNIGHT
+    /// CLASSE PRINCIPALE DE LA VUE UTILISATEUR POUR LE DOCKABLE SmartFilters
     /// </summary>
-    public partial class PlanMyNightDockableView : UserControl {
+    public partial class SmartFiltersDockableView : UserControl {
 
         /// <summary>
         /// CONSTRUCTEUR : INITIALISE LA VUE, LE DATACONTEXT ET LES ÉVÉNEMENTS
         /// </summary>
-        public PlanMyNightDockableView() {
+        public SmartFiltersDockableView() {
             InitializeComponent();
             this.Loaded += OnLoaded;
 
-            var vm = new PlanMyNightDockableViewModel();
+            var vm = new SmartFiltersDockableViewModel();
             this.DataContext = vm;
 
             // ÉVÉNEMENT POUR AFFICHER UN MESSAGE TEMPORAIRE (TOAST)
@@ -47,7 +47,7 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
         /// LANCE LE CALCUL DE PLANIFICATION ET MET À JOUR LA ROUE DES FILTRES
         /// </summary>
         private void OnCalculateClicked(object sender, RoutedEventArgs e) {
-            if (DataContext is PlanMyNightDockableViewModel vm) {
+            if (DataContext is SmartFiltersDockableViewModel vm) {
                 vm.CalculateResults();
                 vm.UpdateFilterSegments();
             }
@@ -57,7 +57,7 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
         /// CHARGEMENT D’UN PROFIL ENREGISTRÉ
         /// </summary>
         private void OnLoadProfileClicked(object sender, RoutedEventArgs e) {
-            if (DataContext is PlanMyNightDockableViewModel vm) {
+            if (DataContext is SmartFiltersDockableViewModel vm) {
                 vm.OnLoadProfileClicked();
             }
         }
@@ -66,7 +66,7 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
         /// SAUVEGARDE DU PROFIL ACTUEL
         /// </summary>
         private void OnSaveProfileClicked(object sender, RoutedEventArgs e) {
-            if (DataContext is PlanMyNightDockableViewModel vm) {
+            if (DataContext is SmartFiltersDockableViewModel vm) {
                 vm.OnSaveProfileClicked();
             }
         }
@@ -75,7 +75,7 @@ namespace PlanMyNight.PlanMyNightDockables.Views {
         /// SUPPRESSION D’UN PROFIL
         /// </summary>
         private void OnDeleteProfileClicked(object sender, RoutedEventArgs e) {
-            if (DataContext is PlanMyNightDockableViewModel vm) {
+            if (DataContext is SmartFiltersDockableViewModel vm) {
                 vm.OnDeleteProfileClicked();
             }
         }

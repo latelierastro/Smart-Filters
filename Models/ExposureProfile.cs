@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PlanMyNight.Models {
+namespace SmartFilters.Models {
     /// <summary>
     /// REPRÉSENTE UN PROFIL D’EXPOSITION ENREGISTRÉ CONTENANT TOUS LES RÉGLAGES DÉFINIS PAR L’UTILISATEUR.
     /// CE PROFIL PEUT ÊTRE SAUVEGARDÉ ET RECHARGÉ POUR FACILITER LA PLANIFICATION DE SESSIONS D’ASTROPHOTOGRAPHIE.

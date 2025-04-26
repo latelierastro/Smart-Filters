@@ -6,7 +6,7 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace PlanMyNight.Models {
+namespace SmartFilters.Models {
     public class TakeSubframeExposureBlock {
         [JsonPropertyName("$type")]
         public string Type => "NINA.Sequencer.SequenceItem.Imaging.TakeSubframeExposure, NINA.Sequencer";

@@ -1,8 +1,8 @@
-﻿using PlanMyNight.Models;
+﻿using SmartFilters.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PlanMyNight.Services {
+namespace SmartFilters.Services {
     /// <summary>
     /// Factory to create default exposure presets.
     /// </summary>

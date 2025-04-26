@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace PlanMyNight.Calculations {
+namespace SmartFilters.Calculations {
     /// <summary>
     /// Données saisies par l'utilisateur pour planifier les temps d'exposition.
     /// </summary>

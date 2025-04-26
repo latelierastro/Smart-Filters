@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlanMyNight.PlanMyNightTestCategory {
+namespace SmartFilters.SmartFiltersTestCategory {
     /// <summary>
     /// This Class shows the basic principle on how to add a new Sequence Trigger to the N.I.N.A. sequencer via the plugin interface
     /// For ease of use this class inherits the abstract SequenceTrigger which already handles most of the running logic, like logging, exception handling etc.
@@ -27,10 +27,10 @@ namespace PlanMyNight.PlanMyNightTestCategory {
     //[ExportMetadata("Name", "Plugin Template Trigger")]
     //[ExportMetadata("Description", "This trigger will show a notification when a random generated number is even on evaluation")]
     //[ExportMetadata("Icon", "Plugin_Test_SVG")]
-    //[ExportMetadata("Category", "Plan My Night")]
+    //[ExportMetadata("Category", "Smart Filters")]
     //[Export(typeof(ISequenceTrigger))]
     //[JsonObject(MemberSerialization.OptIn)]
-    public class PlanMyNightTrigger : SequenceTrigger {
+    public class SmartFiltersTrigger : SequenceTrigger {
         /// <summary>
         /// The constructor marked with [ImportingConstructor] will be used to import and construct the object
         /// General device interfaces can be added to the constructor parameters and will be automatically injected on instantiation by the plugin loader
@@ -62,11 +62,11 @@ namespace PlanMyNight.PlanMyNightTestCategory {
         ///     - IList<IDateTimeProvider>
         /// </remarks>
         [ImportingConstructor]
-        public PlanMyNightTrigger() {
+        public SmartFiltersTrigger() {
         }
 
         public override object Clone() {
-            return new PlanMyNightTrigger() {
+            return new SmartFiltersTrigger() {
                 Icon = Icon,
                 Name = Name,
                 Category = Category,
@@ -107,7 +107,7 @@ namespace PlanMyNight.PlanMyNightTestCategory {
         /// </summary>
         /// <returns></returns>
         public override string ToString() {
-            return $"Category: {Category}, Item: {nameof(PlanMyNightTrigger)}";
+            return $"Category: {Category}, Item: {nameof(SmartFiltersTrigger)}";
         }
     }
 }

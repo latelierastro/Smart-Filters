@@ -6,9 +6,9 @@ using Accord.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PlanMyNight.Models;
+using SmartFilters.Models;
 
-namespace PlanMyNight.Calculations {
+namespace SmartFilters.Calculations {
     /// <summary>
     /// Main computation class for the exposure planning plugin.
     /// </summary>

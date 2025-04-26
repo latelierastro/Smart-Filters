@@ -2,7 +2,7 @@
 using NINA.Core.Model;
 using NINA.Core.Utility.Notification;
 using NINA.Sequencer.SequenceItem;
-using PlanMyNight.Properties;
+using SmartFilters.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PlanMyNight.PlanMyNightTestCategory {
+namespace SmartFilters.SmartFiltersTestCategory {
     /// <summary>
     /// This Class shows the basic principle on how to add a new Sequence Instruction to the N.I.N.A. sequencer via the plugin interface
     /// For ease of use this class inherits the abstract SequenceItem which already handles most of the running logic, like logging, exception handling etc.
@@ -27,10 +27,10 @@ namespace PlanMyNight.PlanMyNightTestCategory {
     //[ExportMetadata("Name", "Plugin Template Instruction")]
     //[ExportMetadata("Description", "This item will just show a notification and is just there to show how the plugin system works")]
     //[ExportMetadata("Icon", "Plugin_Test_SVG")]
-    //[ExportMetadata("Category", "Plan My Night")]
+    //[ExportMetadata("Category", "Smart Filters")]
     //[Export(typeof(ISequenceItem))]
     //[JsonObject(MemberSerialization.OptIn)]
-    public class PlanMyNightInstruction : SequenceItem {
+    public class SmartFiltersInstruction : SequenceItem {
         /// <summary>
         /// The constructor marked with [ImportingConstructor] will be used to import and construct the object
         /// General device interfaces can be added to the constructor parameters and will be automatically injected on instantiation by the plugin loader
@@ -62,10 +62,10 @@ namespace PlanMyNight.PlanMyNightTestCategory {
         ///     - IList<IDateTimeProvider>
         /// </remarks>
         [ImportingConstructor]
-        public PlanMyNightInstruction() {
+        public SmartFiltersInstruction() {
             Text = Settings.Default.DefaultNotificationMessage;
         }
-        public PlanMyNightInstruction(PlanMyNightInstruction copyMe) : this() {
+        public SmartFiltersInstruction(SmartFiltersInstruction copyMe) : this() {
             CopyMetaData(copyMe);
         }
 
@@ -96,7 +96,7 @@ namespace PlanMyNight.PlanMyNightTestCategory {
         /// </summary>
         /// <returns></returns>
         public override object Clone() {
-            return new PlanMyNightInstruction(this);
+            return new SmartFiltersInstruction(this);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace PlanMyNight.PlanMyNightTestCategory {
         /// </summary>
         /// <returns></returns>
         public override string ToString() {
-            return $"Category: {Category}, Item: {nameof(PlanMyNightInstruction)}, Text: {Text}";
+            return $"Category: {Category}, Item: {nameof(SmartFiltersInstruction)}, Text: {Text}";
         }
     }
 }

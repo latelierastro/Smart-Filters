@@ -18,13 +18,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PlanMyNight.PlanMyNightDockables {
+namespace SmartFilters.SmartFiltersDockables {
     /// <summary>
     /// This Class shows the basic principle on how to add a new panel to N.I.N.A. Imaging tab via the plugin interface
     /// In this example an altitude chart is added to the imaging tab that shows the altitude chart based on the position of the telescope    
     /// </summary>
     [Export(typeof(IDockableVM))]
-    public class PlanMyNightDockable : DockableVM, ITelescopeConsumer {
+    public class SmartFiltersDockable : DockableVM, ITelescopeConsumer {
         private INighttimeCalculator nighttimeCalculator;
         private ITelescopeMediator telescopeMediator;
         public NighttimeData NighttimeData { get; private set; }
@@ -37,21 +37,21 @@ namespace PlanMyNight.PlanMyNightDockables {
         /// </summary>
 
         [ImportingConstructor]
-        public PlanMyNightDockable(
+        public SmartFiltersDockable(
             IProfileService profileService,
             ITelescopeMediator telescopeMediator,
             INighttimeCalculator nighttimeCalculator) : base(profileService) {
 
             // This will reference the resource dictionary to import the SVG graphic and assign it as the icon for the header bar
             var dict = new ResourceDictionary();
-            dict.Source = new Uri("PlanMyNight;component/PlanMyNightDockables/PlanMyNightDockableTemplates.xaml", UriKind.RelativeOrAbsolute);
-            ImageGeometry = (System.Windows.Media.GeometryGroup)dict["PlanMyNight_WheelIconSVG"];
+            dict.Source = new Uri("SmartFilters;component/SmartFiltersDockables/SmartFiltersDockableTemplates.xaml", UriKind.RelativeOrAbsolute);
+            ImageGeometry = (System.Windows.Media.GeometryGroup)dict["SmartFilters_WheelIconSVG"];
             ImageGeometry.Freeze();
 
             this.nighttimeCalculator = nighttimeCalculator;
             this.telescopeMediator = telescopeMediator;
             telescopeMediator.RegisterConsumer(this);
-            Title = "Plan My Night";
+            Title = "Smart Filters";
             Target = null;
 
             // Some asynchronous initialization

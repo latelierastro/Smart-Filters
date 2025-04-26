@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
-    x:Class="PlanMyNight.PlanMyNightTestCategory.PluginItemTemplate"
+    x:Class="SmartFilters.SmartFiltersTestCategory.PluginItemTemplate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:PlanMyNight.PlanMyNightTestCategory"
+    xmlns:local="clr-namespace:SmartFilters.SmartFiltersTestCategory"
     xmlns:mini="clr-namespace:NINA.View.Sequencer.MiniSequencer;assembly=NINA.Sequencer"
     xmlns:nina="clr-namespace:NINA.View.Sequencer;assembly=NINA.Sequencer">
     <!--  This geometrygroup defines a custom SVG to be used with the plugin instruction  -->
@@ -15,7 +15,7 @@
 
     <!--  The definition of the plugin test instruction style  -->
     <!--  The DataType has to be defined as the instruction in context  -->
-    <DataTemplate DataType="{x:Type local:PlanMyNightInstruction}">
+    <DataTemplate DataType="{x:Type local:SmartFiltersInstruction}">
         <nina:SequenceBlockView>
             <nina:SequenceBlockView.SequenceItemContent>
                 <StackPanel Orientation="Horizontal">
@@ -32,7 +32,7 @@
 
     <!--  The definition of the test instruction plugin style in the mini format on the imaging tab  -->
     <!--  The Key has to be defined as the fully qualified instruction name and the "_Mini" postfix  -->
-    <DataTemplate x:Key="PlanMyNight.PlanMyNightTestCategory.PlanMyNightInstruction_Mini">
+    <DataTemplate x:Key="SmartFilters.SmartFiltersTestCategory.SmartFiltersInstruction_Mini">
         <mini:MiniSequenceItem>
             <mini:MiniSequenceItem.SequenceItemContent>
                 <StackPanel Orientation="Horizontal">
@@ -49,7 +49,7 @@
 
     <!--  The definition of the plugin test condition style  -->
     <!--  The DataType has to be defined as the instruction in context  -->
-    <DataTemplate DataType="{x:Type local:PlanMyNightCondition}">
+    <DataTemplate DataType="{x:Type local:SmartFiltersCondition}">
         <nina:SequenceBlockView>
             <nina:SequenceBlockView.SequenceItemContent>
                 <StackPanel Orientation="Horizontal">
@@ -67,7 +67,7 @@
 
     <!--  The definition of the test condition plugin style in the mini format on the imaging tab  -->
     <!--  The Key has to be defined as the fully qualified instruction name and the "_Mini" postfix  -->
-    <DataTemplate x:Key="PlanMyNight.PlanMyNightTestCategory.PlanMyNightCondition_Mini">
+    <DataTemplate x:Key="SmartFilters.SmartFiltersTestCategory.SmartFiltersCondition_Mini">
         <mini:MiniSequenceItem>
             <mini:MiniSequenceItem.SequenceItemContent>
                 <StackPanel Orientation="Horizontal">
