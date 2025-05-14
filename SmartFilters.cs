@@ -1,7 +1,6 @@
-﻿// This Source Code Form is subject to the terms of the Mozilla Public
+// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
 
 using NINA.Core.Model;
 using NINA.Core.Utility;
@@ -17,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,63 +46,32 @@ namespace SmartFilters {
                 CoreUtil.SaveSettings(Settings.Default);
             }
 
-            // This helper class can be used to store plugin settings that are dependent on the current profile
             this.pluginSettings = new PluginOptionsAccessor(profileService, Guid.Parse(this.Identifier));
             this.profileService = profileService;
-            // React on a changed profile
+
             profileService.ProfileChanged += ProfileService_ProfileChanged;
 
-            // Hook into image saving for adding FITS keywords or image file patterns
             this.imageSaveMediator = imageSaveMediator;
 
-            // Run these handlers when an image is being saved
-            this.imageSaveMediator.BeforeImageSaved += ImageSaveMediator_BeforeImageSaved;
+            // ❌ Removed: injection of test FITS keywords
+            // this.imageSaveMediator.BeforeImageSaved += ImageSaveMediator_BeforeImageSaved;
+
             this.imageSaveMediator.BeforeFinalizeImageSaved += ImageSaveMediator_BeforeFinalizeImageSaved;
 
-            // Register a new image file pattern for the Options > Imaging > File Patterns area
             options.AddImagePattern(exampleImagePattern);
         }
 
         public override Task Teardown() {
-            // Make sure to unregister an event when the object is no longer in use. Otherwise garbage collection will be prevented.
             profileService.ProfileChanged -= ProfileService_ProfileChanged;
-            imageSaveMediator.BeforeImageSaved -= ImageSaveMediator_BeforeImageSaved;
+            // ❌ Removed: no need to unsubscribe from a non-used event
+            // imageSaveMediator.BeforeImageSaved -= ImageSaveMediator_BeforeImageSaved;
             imageSaveMediator.BeforeFinalizeImageSaved -= ImageSaveMediator_BeforeFinalizeImageSaved;
 
             return base.Teardown();
         }
 
         private void ProfileService_ProfileChanged(object sender, EventArgs e) {
-            // Rase the event that this profile specific value has been changed due to the profile switch
             RaisePropertyChanged(nameof(ProfileSpecificNotificationMessage));
-        }
-
-        private Task ImageSaveMediator_BeforeImageSaved(object sender, BeforeImageSavedEventArgs e) {
-            // Insert the example FITS keyword of a specific data type into the image metadata object prior to the file being saved
-            // FITS keywords have a maximum of 8 characters. Comments are options. Comments that are too long will be truncated.
-
-            string exampleKeywordComment = "This is a {0} keyword";
-
-            // string
-            string exampleStringKeywordName = "STRKEYWD";
-            string exampleStringKeywordValue = "Example";
-            e.Image.MetaData.GenericHeaders.Add(new StringMetaDataHeader(exampleStringKeywordName, exampleStringKeywordValue, string.Format(exampleKeywordComment, "string")));
-
-            // integer
-            string exampleIntKeywordName = "INTKEYWD";
-            int exampleIntKeywordValue = 5;
-            e.Image.MetaData.GenericHeaders.Add(new IntMetaDataHeader(exampleIntKeywordName, exampleIntKeywordValue, string.Format(exampleKeywordComment, "integer")));
-
-            // double
-            string exampleDoubleKeywordName = "DBLKEYWD";
-            double exampleDoubleKeywordValue = 1.3d;
-            e.Image.MetaData.GenericHeaders.Add(new DoubleMetaDataHeader(exampleDoubleKeywordName, exampleDoubleKeywordValue, string.Format(exampleKeywordComment, "double")));
-
-            // Classes also exist for other data types:
-            // BoolMetaDataHeader()
-            // DateTimeMetaDataHeader()
-
-            return Task.CompletedTask;
         }
 
         private Task ImageSaveMediator_BeforeFinalizeImageSaved(object sender, BeforeFinalizeImageSavedEventArgs e) {
