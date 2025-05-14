@@ -6,8 +6,12 @@ using System.Runtime.InteropServices;
 
 // [MANDATORY] The assembly versioning
 //Should be incremented for each new release build of a plugin
-[assembly: AssemblyVersion("1.0.0.1")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyVersion("1.0.0.3")]
+[assembly: AssemblyFileVersion("1.0.0.3")]
+[assembly: AssemblyMetadata("UpdateNotes",
+"🚨 Bug fix: Removed FITS keywords (STRKEYWD, INTKEYWD, DBLKEYWD).\n" +
+"Please uninstall and reinstall Smart Filters to fully apply the fix.")]
+
 
 // [MANDATORY] The name of your plugin
 [assembly: AssemblyTitle("Smart Filters")]
